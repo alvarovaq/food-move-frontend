@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="button_add" *ngIf="isSmall">
+        <button mat-fab color="primary" (click)="addRecipe()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <div class="header">
+        <p class="subtitle">Recetas</p>
+        <mat-form-field appearance="standard" class="input_search">
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter()" placeholder="Ej. Juan" #input autocomplete="off" [(ngModel)]="search">
+        </mat-form-field>
+        <button mat-raised-button color="primary" *ngIf="!isSmall" (click)="addRecipe()">Agregar Receta</button>
+    </div>
+    <mat-divider></mat-divider>
+    <div style="margin-top: 20px;">
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+                <th mat-header-cell *matHeaderCellDef>{{getTitleColumn(column)}}</th>
+                <td mat-cell *matCellDef="let element">{{element[column]}}</td>
+            </ng-container>
+        
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div class="btn_table">
+                        <button mat-icon-button (click)="resetTable()">
+                            <mat-icon>autorenew</mat-icon>
+                        </button>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let element; let i = index" style="text-align: right;">
+                    <div class="buttons_user">
+                        <a class="pointer" style="color: #CCC" matTooltip="Info Receta" (click)="openInfoRecipe(element)">
+                            <mat-icon>info</mat-icon>
+                        </a>
+                        <a class="pointer" style="color: #1F516F" matTooltip="Editar Receta" (click)="editRecipe(element)">
+                            <mat-icon>edit</mat-icon>
+                        </a>
+                        <a class="pointer" style="color: #E15639" matTooltip="Eliminar Receta" (click)="deleteRecipe(element)">
+                            <mat-icon>delete</mat-icon>
+                        </a>
+                    </div>
+                </td>
+            </ng-container>
+        
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="5" *ngIf="listRecipes.length > 0">No se ha encontrada nada con ese resultado</td>
+                <td class="mat-cell" colspan="5" *ngIf="listRecipes.length == 0">No existe ninguna receta</td>
+            </tr>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsTotal"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsTotal;" class="rows"></tr>
+        </table>
+    </div>
+</div>

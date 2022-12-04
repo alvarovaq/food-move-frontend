@@ -1,0 +1,13 @@
+mat-toolbar {
+    border-radius: 0 0 3px 3px;
+}
+
+@media(max-width: 959px) {
+    mat-toolbar {
+        border-radius: 0;
+    }
+
+    .title {
+        margin-left: 20px;
+    }
+}

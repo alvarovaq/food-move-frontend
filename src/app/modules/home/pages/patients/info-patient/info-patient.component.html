@@ -1,0 +1,15 @@
+<div class="panel">
+    <h1>{{patient.name + ' ' + patient.surname}}</h1>
+    <div class="field_panel">
+        <mat-icon class="icon_field">email</mat-icon>
+        <p class="text_field">{{patient.email}}</p>
+    </div>
+    <div class="field_panel" *ngIf="patient.phone">
+        <mat-icon class="icon_field">phone</mat-icon>
+        <p class="text_field">{{patient.phone}}</p>
+    </div>
+    <div class="field_panel" *ngIf="patient.birth">
+        <mat-icon class="icon_field">cake</mat-icon>
+        <p class="text_field">{{(patient.birth | date: 'dd/MM/YYYY')}}</p>
+    </div>
+</div>

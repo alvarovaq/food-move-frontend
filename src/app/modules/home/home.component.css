@@ -1,0 +1,24 @@
+mat-sidenav-container, mat-sidenav-content, mad-sidenav {
+    height: 100%;
+}
+
+mat-sidenav {
+    width: 250px;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+}
+
+.loading {
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    margin-top: 75px;
+    margin-bottom: 50px;
+    padding: 20px;
+}

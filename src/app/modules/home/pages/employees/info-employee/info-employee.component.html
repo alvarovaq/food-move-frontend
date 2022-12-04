@@ -1,0 +1,15 @@
+<div class="panel">
+    <h1>{{employee.name + ' ' + employee.surname}}</h1>
+    <div class="field_panel">
+        <mat-icon class="icon_field">email</mat-icon>
+        <p class="text_field">{{employee.email}}</p>
+    </div>
+    <div class="field_panel" *ngIf="employee.phone">
+        <mat-icon class="icon_field">phone</mat-icon>
+        <p class="text_field">{{employee.phone}}</p>
+    </div>
+    <div class="field_panel" *ngIf="employee.admin">
+        <mat-icon class="icon_field">assignment_ind</mat-icon>
+        <p class="text_field">Administrador</p>
+    </div>
+</div>

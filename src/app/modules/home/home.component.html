@@ -1,0 +1,14 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+        <app-sidenav (sidenavClose)="sidenav.close()"></app-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="navbar">
+            <mat-progress-bar mode="query" color="primary" *ngIf="loaderService.isLoading | async"></mat-progress-bar>
+            <app-navbar (sidenavToggle)="sidenav.toggle()"></app-navbar>
+        </div>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>

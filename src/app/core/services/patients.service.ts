@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { API_ENDPOINT } from 'src/app/shared/constants';
+import { API_ENDPOINT } from '@shared/constants';
 import { Patient } from '../models/patient';
 import { PatientRequest } from '../models/patient-request';
 import { PatientPipe } from '../pipes/patient.pipe';

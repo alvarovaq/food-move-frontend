@@ -1,17 +1,17 @@
 import { Component, OnInit, Type } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Recipe } from 'src/app/core/models/recipe';
-import { LoaderService } from 'src/app/core/services/loader.service';
-import { RecipesService } from 'src/app/core/services/recipes.service';
-import { RoutingService } from 'src/app/core/services/routing.service';
-import { SnackerService } from 'src/app/core/services/snacker.service';
+import { Recipe } from '@core/models/recipe';
+import { LoaderService } from '@core/services/loader.service';
+import { RecipesService } from '@core/services/recipes.service';
+import { RouterService } from '@core/services/router.service';
+import { SnackerService } from '@core/services/snacker.service';
 import { finalize, max } from 'rxjs/operators';
-import { TypeFood } from 'src/app/core/enums/type-food';
-import { SubtypeFood } from 'src/app/core/enums/subtype-food';
-import { Ingredient } from 'src/app/core/models/ingredient';
-import { IngredientRequest } from 'src/app/core/models/ingredient-request';
-import { RecipeRequest } from 'src/app/core/models/recipe-request';
+import { TypeFood } from '@core/enums/type-food';
+import { SubtypeFood } from '@core/enums/subtype-food';
+import { Ingredient } from '@core/models/ingredient';
+import { IngredientRequest } from '@core/models/ingredient-request';
+import { RecipeRequest } from '@core/models/recipe-request';
 
 interface Link {
   id: number;
@@ -50,7 +50,7 @@ export class AddRecipeComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly recipesService: RecipesService,
     private readonly fb: FormBuilder,
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService
   ) {}
@@ -112,7 +112,7 @@ export class AddRecipeComponent implements OnInit {
   }
 
   exit(): void {
-    this.routingService.goToRecipes();
+    this.routerService.goToRecipes();
   }
 
   addLink(url: string): void {

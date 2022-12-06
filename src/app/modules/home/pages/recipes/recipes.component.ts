@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Recipe } from 'src/app/core/models/recipe';
-import { LoaderService } from 'src/app/core/services/loader.service';
-import { RecipesService } from 'src/app/core/services/recipes.service';
-import { RoutingService } from 'src/app/core/services/routing.service';
+import { Recipe } from '@core/models/recipe';
+import { LoaderService } from '@core/services/loader.service';
+import { RecipesService } from '@core/services/recipes.service';
+import { RouterService } from '@core/services/router.service';
 import { finalize } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoRecipeComponent } from './info-recipe/info-recipe.component';
-import { DialogService } from 'src/app/core/services/dialog.service';
-import { SnackerService } from 'src/app/core/services/snacker.service';
+import { DialogService } from '@core/services/dialog.service';
+import { SnackerService } from '@core/services/snacker.service';
 
 @Component({
   selector: 'app-recipes',
@@ -31,7 +31,7 @@ export class RecipesComponent implements OnInit {
     private readonly dialog: MatDialog,
     private readonly recipesService: RecipesService,
     private readonly dialogService: DialogService,
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService
   ) {}
@@ -129,11 +129,11 @@ export class RecipesComponent implements OnInit {
   }
 
   addRecipe (): void {
-    this.routingService.goToAddRecipe();
+    this.routerService.goToAddRecipe();
   }
 
   editRecipe (recipe: Recipe): void {
-    this.routingService.goToEditRecipe(recipe._id);
+    this.routerService.goToEditRecipe(recipe._id);
   }
 
   deleteRecipe (recipe: Recipe): void {

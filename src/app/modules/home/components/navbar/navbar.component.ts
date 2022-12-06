@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { RoutingService } from 'src/app/core/services/routing.service';
+import { AuthService } from '@core/services/auth.service';
+import { RouterService } from '@core/services/router.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
 
   constructor(
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly authService: AuthService
   ) { }
@@ -40,19 +40,19 @@ export class NavbarComponent implements OnInit {
   }
 
   goToPatients (): void {
-    this.routingService.goToHome();
+    this.routerService.goToHome();
   }
 
   goToEmployees (): void {
-    this.routingService.goToEmployees();
+    this.routerService.goToEmployees();
   }
 
   goToRecipes (): void {
-    this.routingService.goToRecipes();
+    this.routerService.goToRecipes();
   }
 
   goToRoutines (): void {
-    this.routingService.goToRoutines();
+    this.routerService.goToRoutines();
   }
 
   onToggleSidenav () {

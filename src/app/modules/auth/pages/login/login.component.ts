@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { AuthRequest } from 'src/app/core/models/auth-request';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { EmployeesService } from 'src/app/core/services/employees.service';
-import { RoutingService } from 'src/app/core/services/routing.service';
-import { SnackerService } from 'src/app/core/services/snacker.service';
+import { AuthRequest } from '@core/models/auth-request';
+import { AuthService } from '@core/services/auth.service';
+import { EmployeesService } from '@core/services/employees.service';
+import { RouterService } from '@core/services/router.service';
+import { SnackerService } from '@core/services/snacker.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly snacker: SnackerService,
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly employeesService: EmployeesService
   ) {}
 

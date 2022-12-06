@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Routine } from 'src/app/core/models/routine';
-import { LoaderService } from 'src/app/core/services/loader.service';
-import { RoutinesService } from 'src/app/core/services/routines.service';
-import { RoutingService } from 'src/app/core/services/routing.service';
+import { Routine } from '@core/models/routine';
+import { LoaderService } from '@core/services/loader.service';
+import { RoutinesService } from '@core/services/routines.service';
+import { RouterService } from '@core/services/router.service';
 import { finalize } from 'rxjs/operators';
-import { SnackerService } from 'src/app/core/services/snacker.service';
-import { RoutineRequest } from 'src/app/core/models/routine-request';
+import { SnackerService } from '@core/services/snacker.service';
+import { RoutineRequest } from '@core/models/routine-request';
 
 interface Link {
   id: number;
@@ -38,7 +38,7 @@ export class AddRoutineComponent implements OnInit {
     private readonly routinesService: RoutinesService,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService,
-    private readonly routingService: RoutingService
+    private readonly routerService: RouterService
   ) {}
 
   ngOnInit(): void {
@@ -92,7 +92,7 @@ export class AddRoutineComponent implements OnInit {
   }
 
   exit(): void {
-    this.routingService.goToRoutines();
+    this.routerService.goToRoutines();
   }
 
   addLink(url: string): void {

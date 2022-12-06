@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_ENDPOINT } from 'src/app/shared/constants';
+import { API_ENDPOINT } from '@shared/constants';
 import { Recipe } from '../models/recipe';
 import { RecipeRequest } from '../models/recipe-request';
 

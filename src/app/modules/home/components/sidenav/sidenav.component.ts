@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { RoutingService } from 'src/app/core/services/routing.service';
+import { AuthService } from '@core/services/auth.service';
+import { RouterService } from '@core/services/router.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -12,7 +12,7 @@ export class SidenavComponent implements OnInit {
   @Output() sidenavClose = new EventEmitter();
 
   constructor(
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly authService: AuthService
   ) { }
 
@@ -33,22 +33,22 @@ export class SidenavComponent implements OnInit {
   }
 
   goToPatients (): void {
-    this.routingService.goToHome();
+    this.routerService.goToHome();
     this.onSidenavClose();
   }
 
   goToEmployees (): void {
-    this.routingService.goToEmployees();
+    this.routerService.goToEmployees();
     this.onSidenavClose();
   }
 
   goToRecipes (): void {
-    this.routingService.goToRecipes();
+    this.routerService.goToRecipes();
     this.onSidenavClose();
   }
 
   goToRoutines (): void {
-    this.routingService.goToRoutines();
+    this.routerService.goToRoutines();
     this.onSidenavClose();
   }
 

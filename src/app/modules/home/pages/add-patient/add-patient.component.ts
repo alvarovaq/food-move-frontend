@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PatientRequest } from 'src/app/core/models/patient-request';
-import { LoaderService } from 'src/app/core/services/loader.service';
-import { PatientsService } from 'src/app/core/services/patients.service';
-import { RoutingService } from 'src/app/core/services/routing.service';
-import { SnackerService } from 'src/app/core/services/snacker.service';
+import { PatientRequest } from '@core/models/patient-request';
+import { LoaderService } from '@core/services/loader.service';
+import { PatientsService } from '@core/services/patients.service';
+import { RouterService } from '@core/services/router.service';
+import { SnackerService } from '@core/services/snacker.service';
 import { finalize } from 'rxjs/operators';
-import { dateValidator } from 'src/app/core/validators/date.validator';
+import { dateValidator } from '@core/validators/date.validator';
 import { ActivatedRoute } from '@angular/router';
-import { Patient } from 'src/app/core/models/patient';
+import { Patient } from '@core/models/patient';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -35,7 +35,7 @@ export class AddPatientComponent implements OnInit {
     private readonly datePipe: DatePipe,
     private readonly fb: FormBuilder,
     private readonly patientsService: PatientsService,
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService
   ) {}
@@ -103,7 +103,7 @@ export class AddPatientComponent implements OnInit {
   }
 
   exit(): void {
-    this.routingService.goToHome();
+    this.routerService.goToHome();
   }
 
   addPatient (): void {

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Employee } from 'src/app/core/models/employee';
-import { EmployeesService } from 'src/app/core/services/employees.service';
-import { LoaderService } from 'src/app/core/services/loader.service';
+import { Employee } from '@core/models/employee';
+import { EmployeesService } from '@core/services/employees.service';
+import { LoaderService } from '@core/services/loader.service';
 import { finalize } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { RoutingService } from 'src/app/core/services/routing.service';
-import { DialogService } from 'src/app/core/services/dialog.service';
-import { SnackerService } from 'src/app/core/services/snacker.service';
+import { RouterService } from '@core/services/router.service';
+import { DialogService } from '@core/services/dialog.service';
+import { SnackerService } from '@core/services/snacker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoEmployeeComponent } from './info-employee/info-employee.component';
 
@@ -31,7 +31,7 @@ export class EmployeesComponent implements OnInit {
     private readonly breakpointObserver: BreakpointObserver,
     private readonly employeesService: EmployeesService,
     private readonly loaderService: LoaderService,
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly dialogService: DialogService,
     private readonly snackerService: SnackerService
   ) {}
@@ -129,7 +129,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   addEmployee(): void {
-    this.routingService.goToAddEmployee();
+    this.routerService.goToAddEmployee();
   }
 
   deleteEmployee(employee: Employee): void {
@@ -156,7 +156,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   editEmployee(employee: Employee): void {
-    this.routingService.goToEditEmployee(employee._id);
+    this.routerService.goToEditEmployee(employee._id);
   }
 
   openInfoEmployee(employee: Employee): void {

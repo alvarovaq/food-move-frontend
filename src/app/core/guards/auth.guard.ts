@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanLoad } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { RoutingService } from '../services/routing.service';
+import { RouterService } from '../services/router.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { RoutingService } from '../services/routing.service';
 export class AuthGuard implements CanLoad {
 
   constructor (
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly authService: AuthService
   ) {}
 
@@ -19,7 +19,7 @@ export class AuthGuard implements CanLoad {
       this.authService.setSession();
       return true;
     } else {
-      await this.routingService.goToLogin();
+      await this.routerService.goToLogin();
       return false;
     }
   }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_ENDPOINT } from 'src/app/shared/constants';
+import { API_ENDPOINT } from '@shared/constants';
 import { Employee } from '../models/employee';
 import { EmployeeRequest } from '../models/employee-request';
 

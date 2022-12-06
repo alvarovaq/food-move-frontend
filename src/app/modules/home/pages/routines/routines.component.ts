@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Routine } from 'src/app/core/models/routine';
-import { LoaderService } from 'src/app/core/services/loader.service';
-import { RoutinesService } from 'src/app/core/services/routines.service';
+import { Routine } from '@core/models/routine';
+import { LoaderService } from '@core/services/loader.service';
+import { RoutinesService } from '@core/services/routines.service';
 import { finalize  } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { RoutingService } from 'src/app/core/services/routing.service';
-import { DialogService } from 'src/app/core/services/dialog.service';
-import { SnackerService } from 'src/app/core/services/snacker.service';
+import { RouterService } from '@core/services/router.service';
+import { DialogService } from '@core/services/dialog.service';
+import { SnackerService } from '@core/services/snacker.service';
 import { InfoRoutineComponent } from './info-routine/info-routine.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -33,7 +33,7 @@ export class RoutinesComponent implements OnInit {
     private readonly routinesService: RoutinesService,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService,
-    private readonly routingService: RoutingService
+    private readonly routerService: RouterService
   ) {}
 
   ngOnInit(): void {
@@ -109,11 +109,11 @@ export class RoutinesComponent implements OnInit {
   }
 
   addRoutine(): void {
-    this.routingService.goToAddRoutine();
+    this.routerService.goToAddRoutine();
   }
 
   editRoutine(routine: Routine) {
-    this.routingService.goToEditRoutine(routine._id);
+    this.routerService.goToEditRoutine(routine._id);
   }
 
   deleteRoutine(routine: Routine) {

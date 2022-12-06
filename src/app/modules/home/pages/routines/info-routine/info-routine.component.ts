@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Routine } from 'src/app/core/models/routine';
+import { Routine } from '@core/models/routine';
 
 @Component({
   selector: 'app-info-routine',

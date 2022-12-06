@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthResponse } from '../models/auth-response';
 import { Observable } from 'rxjs';
-import { API_ENDPOINT } from 'src/app/shared/constants';
-import { RoutingService } from './routing.service';
+import { API_ENDPOINT } from '@shared/constants';
+import { RouterService } from './router.service';
 import { EmployeesService } from './employees.service';
 import { AuthRequest } from '../models/auth-request';
 import { finalize } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class AuthService {
 
     constructor (
         private readonly http: HttpClient,
-        private readonly routingService: RoutingService,
+        private readonly routerService: RouterService,
         private readonly employeesService: EmployeesService
     ) {}
 
@@ -42,7 +42,7 @@ export class AuthService {
     login (authResponse: AuthResponse): void {
         this.setToken(authResponse.token);
         this.setEmail(authResponse.user.email);
-        this.routingService.goToHome();
+        this.routerService.goToHome();
         this.setSession();
     }
 
@@ -50,7 +50,7 @@ export class AuthService {
         localStorage.removeItem('token');
         localStorage.removeItem('email');
         sessionStorage.removeItem('rol');
-        this.routingService.goToLogin();
+        this.routerService.goToLogin();
     }
 
     isLogin (): boolean {

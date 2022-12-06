@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Employee } from 'src/app/core/models/employee';
-import { EmployeesService } from 'src/app/core/services/employees.service';
-import { LoaderService } from 'src/app/core/services/loader.service';
-import { RoutingService } from 'src/app/core/services/routing.service';
+import { Employee } from '@core/models/employee';
+import { EmployeesService } from '@core/services/employees.service';
+import { LoaderService } from '@core/services/loader.service';
+import { RouterService } from '@core/services/router.service';
 import { finalize } from 'rxjs/operators';
-import { SnackerService } from 'src/app/core/services/snacker.service';
-import { EmployeeRequest } from 'src/app/core/models/employee-request';
+import { SnackerService } from '@core/services/snacker.service';
+import { EmployeeRequest } from '@core/models/employee-request';
 
 @Component({
   selector: 'app-add-employee',
@@ -32,7 +32,7 @@ export class AddEmployeeComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly employeesService: EmployeesService,
     private readonly loaderService: LoaderService,
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly snackerService: SnackerService
   ) {}
 
@@ -97,7 +97,7 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   exit(): void {
-    this.routingService.goToEmployees();
+    this.routerService.goToEmployees();
   }
 
   addEmployee (): void {

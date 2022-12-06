@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Patient } from 'src/app/core/models/patient';
-import { PatientsService } from 'src/app/core/services/patients.service';
+import { Patient } from '@core/models/patient';
+import { PatientsService } from '@core/services/patients.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { RoutingService } from 'src/app/core/services/routing.service';
-import { LoaderService } from 'src/app/core/services/loader.service';
+import { RouterService } from '@core/services/router.service';
+import { LoaderService } from '@core/services/loader.service';
 import { finalize } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { SnackerService } from 'src/app/core/services/snacker.service';
-import { DialogService } from 'src/app/core/services/dialog.service';
+import { SnackerService } from '@core/services/snacker.service';
+import { DialogService } from '@core/services/dialog.service';
 import { InfoPatientComponent } from './info-patient/info-patient.component';
 
 @Component({
@@ -29,7 +29,7 @@ export class PatientsComponent implements OnInit {
   constructor(
     private readonly patientsService: PatientsService,
     private readonly breakpointObserver: BreakpointObserver,
-    private readonly routingService: RoutingService,
+    private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService,
     private readonly dialogService: DialogService,
@@ -129,7 +129,7 @@ export class PatientsComponent implements OnInit {
   }
 
   addPatient (): void {
-    this.routingService.goToAddPatient();
+    this.routerService.goToAddPatient();
   }
 
   deletePatient (patient: Patient): void {
@@ -156,7 +156,7 @@ export class PatientsComponent implements OnInit {
   }
 
   editPatient (patient: Patient): void {
-    this.routingService.goToEditPatient(patient._id);
+    this.routerService.goToEditPatient(patient._id);
   }
 
   openInfoPatient (patient: Patient) {

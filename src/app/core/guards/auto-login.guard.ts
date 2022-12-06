@@ -17,7 +17,7 @@ export class AutoLoginGuard implements CanLoad {
     const isLogin = this.authService.isLogin();
     if (isLogin) {
       this.authService.setSession();
-      await this.routerService.goToHome();
+      await this.routerService.goToPatients();
       return false;
     } else {
       return true;

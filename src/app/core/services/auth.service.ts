@@ -42,7 +42,7 @@ export class AuthService {
     login (authResponse: AuthResponse): void {
         this.setToken(authResponse.token);
         this.setEmail(authResponse.user.email);
-        this.routerService.goToHome();
+        this.routerService.goToPatients();
         this.setSession();
     }
 

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthComponent } from './auth.component';
-import { MaterialModule } from '@shared/material.module';
+import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import { SnackerService } from '@core/services/snacker.service';
@@ -18,7 +18,7 @@ import { SnackerService } from '@core/services/snacker.service';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    MaterialModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule
   ],

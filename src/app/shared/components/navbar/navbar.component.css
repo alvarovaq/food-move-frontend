@@ -1,0 +1,19 @@
+mat-toolbar {
+    border-radius: 0 0 3px 3px;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+}
+
+@media(max-width: 959px) {
+    mat-toolbar {
+        border-radius: 0;
+    }
+
+    .title {
+        margin-left: 20px;
+    }
+}

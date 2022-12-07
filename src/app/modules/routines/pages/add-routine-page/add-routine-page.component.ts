@@ -9,11 +9,6 @@ import { finalize } from 'rxjs/operators';
 import { SnackerService } from '@core/services/snacker.service';
 import { RoutineRequest } from '@core/models/routine-request';
 
-interface Link {
-  id: number;
-  url: string;
-}
-
 @Component({
   selector: 'app-add-routine-page',
   templateUrl: './add-routine-page.component.html',
@@ -25,7 +20,7 @@ export class AddRoutinePageComponent implements OnInit {
   edit: boolean = false;
   routine: Routine | null = null;
 
-  links: Link[] = [];
+  links: Array<{id: number, url: string}> = [];
 
   buttonClear = {
     title: false,

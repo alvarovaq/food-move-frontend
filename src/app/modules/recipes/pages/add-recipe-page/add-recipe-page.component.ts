@@ -12,16 +12,6 @@ import { SubtypeFood } from '@core/enums/subtype-food';
 import { IngredientRequest } from '@core/models/ingredient-request';
 import { RecipeRequest } from '@core/models/recipe-request';
 
-interface Link {
-  id: number;
-  url: string;
-}
-
-interface IngredientList {
-  id: number;
-  ingredient: IngredientRequest;
-}
-
 @Component({
   selector: 'app-add-recipe-page',
   templateUrl: './add-recipe-page.component.html',
@@ -33,12 +23,13 @@ export class AddRecipePageComponent implements OnInit {
   edit: boolean = false;
   recipe: Recipe | null = null;
 
+  links: Array<{id: number, url: string}> = [];
+  ingredients: Array<{id: number, ingredient: IngredientRequest}> = [];
+
   availableTypeFood = [TypeFood.Desayuno, TypeFood.Comida, TypeFood.Cena];
   availableSubtypeFood = [SubtypeFood.Primero, SubtypeFood.Segundo, SubtypeFood.Postre];
   typeFood = TypeFood.Comida;
   subtypeFood = SubtypeFood.Primero;
-  links: Link[] = [];
-  ingredients: IngredientList[] = [];
   
   buttonClear = {
     title: false,

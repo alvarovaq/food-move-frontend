@@ -22,17 +22,3 @@ body {
 .error-color-snackbar {
     background-color: #F44336;
 }
-
-mat-sidenav-container, mat-sidenav-content, mad-sidenav {
-    height: 100%;
-}
-
-mat-sidenav {
-    width: 250px;
-}
-
-main {
-    margin-top: 75px;
-    margin-bottom: 50px;
-    padding: 20px;
-}

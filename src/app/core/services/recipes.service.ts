@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT } from '@shared/constants';
-import { Recipe } from '../models/recipe';
-import { RecipeRequest } from '../models/recipe-request';
+import { RecipeModel } from '../models/recipe.model';
+import { RecipeRequestModel } from '../models/recipe-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,24 +14,24 @@ export class RecipesService {
     private readonly http: HttpClient
   ) {}
 
-  getRecipes (): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${API_ENDPOINT}/recipes/findAll`);
+  getRecipes (): Observable<RecipeModel[]> {
+    return this.http.get<RecipeModel[]>(`${API_ENDPOINT}/recipes/findAll`);
   }
 
-  getRecipe (id: string): Observable<Recipe> {
-    return this.http.get<Recipe>(`${API_ENDPOINT}/recipes/findOne/${id}`);
+  getRecipe (id: string): Observable<RecipeModel> {
+    return this.http.get<RecipeModel>(`${API_ENDPOINT}/recipes/findOne/${id}`);
   }
 
-  createRecipe (recipe: RecipeRequest): Observable<Recipe> {
-    return this.http.post<Recipe>(`${API_ENDPOINT}/recipes/create`, recipe);
+  createRecipe (recipe: RecipeRequestModel): Observable<RecipeModel> {
+    return this.http.post<RecipeModel>(`${API_ENDPOINT}/recipes/create`, recipe);
   } 
 
-  updateRecipe (id: string, recipe: RecipeRequest): Observable<Recipe> {
-    return this.http.patch<Recipe>(`${API_ENDPOINT}/recipes/update/${id}`, recipe);
+  updateRecipe (id: string, recipe: RecipeRequestModel): Observable<RecipeModel> {
+    return this.http.patch<RecipeModel>(`${API_ENDPOINT}/recipes/update/${id}`, recipe);
   }
 
-  removeRecipe (id: string): Observable<Recipe> {
-    return this.http.delete<Recipe>(`${API_ENDPOINT}/recipes/remove/${id}`);
+  removeRecipe (id: string): Observable<RecipeModel> {
+    return this.http.delete<RecipeModel>(`${API_ENDPOINT}/recipes/remove/${id}`);
   }  
 
 }

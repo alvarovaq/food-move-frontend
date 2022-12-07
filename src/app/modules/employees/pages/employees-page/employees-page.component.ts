@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Employee } from '@core/models/employee';
+import { EmployeeModel } from '@core/models/employee.model';
 import { EmployeesService } from '@core/services/employees.service';
 import { LoaderService } from '@core/services/loader.service';
 import { finalize } from 'rxjs/operators';
@@ -18,7 +18,7 @@ import { InfoEmployeeComponent } from '@modules/employees/components/info-employ
 })
 export class EmployeesPageComponent implements OnInit {
 
-  listEmployees: Employee[] = [];
+  listEmployees: EmployeeModel[] = [];
   isSmall: boolean = false;
   search: string = '';
 
@@ -132,7 +132,7 @@ export class EmployeesPageComponent implements OnInit {
     this.routerService.goToAddEmployee();
   }
 
-  deleteEmployee(employee: Employee): void {
+  deleteEmployee(employee: EmployeeModel): void {
     this.dialogService.openConfirmDialog('Eliminar personal', 'Seguro que quieres eliminar a ' + employee.name + ' ' + employee.surname + '?')
     .subscribe(res => {
       if (res) {
@@ -155,11 +155,11 @@ export class EmployeesPageComponent implements OnInit {
     });
   }
 
-  editEmployee(employee: Employee): void {
+  editEmployee(employee: EmployeeModel): void {
     this.routerService.goToEditEmployee(employee._id);
   }
 
-  openInfoEmployee(employee: Employee): void {
+  openInfoEmployee(employee: EmployeeModel): void {
     const dialogRef = this.dialog.open(InfoEmployeeComponent, {
       width: '350px',
       data: employee

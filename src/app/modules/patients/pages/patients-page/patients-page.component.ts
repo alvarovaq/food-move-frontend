@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Patient } from '@core/models/patient';
+import { PatientModel } from '@core/models/patient.model';
 import { PatientsService } from '@core/services/patients.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { RouterService } from '@core/services/router.service';
@@ -18,7 +18,7 @@ import { InfoPatientComponent } from '@modules/patients/components/info-patient/
 })
 export class PatientsPageComponent implements OnInit {
 
-  listPatients: Patient[] = [];
+  listPatients: PatientModel[] = [];
   isSmall: boolean = false;
   search: string = '';
 
@@ -132,7 +132,7 @@ export class PatientsPageComponent implements OnInit {
     this.routerService.goToAddPatient();
   }
 
-  deletePatient (patient: Patient): void {
+  deletePatient (patient: PatientModel): void {
     this.dialogService.openConfirmDialog('Eliminar paciente', 'Seguro que quieres eliminar a ' + patient.name + ' ' + patient.surname + '?')
     .subscribe(res => {
       if (res) {
@@ -155,11 +155,11 @@ export class PatientsPageComponent implements OnInit {
     });
   }
 
-  editPatient (patient: Patient): void {
+  editPatient (patient: PatientModel): void {
     this.routerService.goToEditPatient(patient._id);
   }
 
-  openInfoPatient (patient: Patient) {
+  openInfoPatient (patient: PatientModel) {
     const dialogRef = this.dialog.open(InfoPatientComponent, {
       width: '350px',
       data: patient

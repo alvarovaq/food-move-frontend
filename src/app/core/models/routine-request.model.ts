@@ -1,5 +1,4 @@
-export interface Routine {
-    _id: string;
+export interface RoutineRequestModel {
     title: string;
     description: string;
     links: string[];

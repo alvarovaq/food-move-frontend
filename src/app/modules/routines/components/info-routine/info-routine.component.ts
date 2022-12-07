@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Routine } from '@core/models/routine';
+import { RoutineModel } from '@core/models/routine.model';
 
 @Component({
   selector: 'app-info-routine',
@@ -11,7 +11,7 @@ export class InfoRoutineComponent implements OnInit {
 
   constructor(
     private readonly dialogRef: MatDialogRef<InfoRoutineComponent>,
-    @Inject(MAT_DIALOG_DATA) public readonly routine: Routine
+    @Inject(MAT_DIALOG_DATA) public readonly routine: RoutineModel
   ) {}
 
   ngOnInit(): void {

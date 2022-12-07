@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { AuthRequest } from '@core/models/auth-request';
+import { AuthRequestModel } from '@core/models/auth-request.model';
 import { AuthService } from '@core/services/auth.service';
 import { EmployeesService } from '@core/services/employees.service';
 import { RouterService } from '@core/services/router.service';
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
   login (): void {
     this.loading = true;
-    const user: AuthRequest = this.getAuthRequest();
+    const user: AuthRequestModel = this.getAuthRequest();
     this.authService.getNewToken(user)
     .pipe(finalize(() => (this.loading = false)))
     .subscribe(
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  private getAuthRequest (): AuthRequest {
+  private getAuthRequest (): AuthRequestModel {
     return {
       email: this.email,
       password: this.password

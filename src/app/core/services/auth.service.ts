@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthResponse } from '../models/auth-response';
+import { AuthResponseModel } from '../models/auth-response.model';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT } from '@shared/constants';
 import { RouterService } from './router.service';
 import { EmployeesService } from './employees.service';
-import { AuthRequest } from '../models/auth-request';
+import { AuthRequestModel } from '../models/auth-request.model';
 import { finalize } from 'rxjs/operators';
-import { Employee } from '../models/employee';
+import { EmployeeModel } from '../models/employee.model';
 
 @Injectable({
     providedIn: 'root'
@@ -20,8 +20,8 @@ export class AuthService {
         private readonly employeesService: EmployeesService
     ) {}
 
-    getNewToken (user: AuthRequest): Observable<AuthResponse> {
-        return this.http.post<AuthResponse>(`${API_ENDPOINT}/auth/login`, user);
+    getNewToken (user: AuthRequestModel): Observable<AuthResponseModel> {
+        return this.http.post<AuthResponseModel>(`${API_ENDPOINT}/auth/login`, user);
     }
 
     setSession (): void {
@@ -39,7 +39,7 @@ export class AuthService {
         }
     }
 
-    login (authResponse: AuthResponse): void {
+    login (authResponse: AuthResponseModel): void {
         this.setToken(authResponse.token);
         this.setEmail(authResponse.user.email);
         this.routerService.goToPatients();

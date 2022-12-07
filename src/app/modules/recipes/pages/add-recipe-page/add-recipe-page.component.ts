@@ -1,7 +1,7 @@
 import { Component, OnInit, Type } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Recipe } from '@core/models/recipe';
+import { RecipeModel } from '@core/models/recipe.model';
 import { LoaderService } from '@core/services/loader.service';
 import { RecipesService } from '@core/services/recipes.service';
 import { RouterService } from '@core/services/router.service';
@@ -9,8 +9,8 @@ import { SnackerService } from '@core/services/snacker.service';
 import { finalize, max } from 'rxjs/operators';
 import { TypeFood } from '@core/enums/type-food';
 import { SubtypeFood } from '@core/enums/subtype-food';
-import { IngredientRequest } from '@core/models/ingredient-request';
-import { RecipeRequest } from '@core/models/recipe-request';
+import { IngredientRequestModel } from '@core/models/ingredient-request.model';
+import { RecipeRequestModel } from '@core/models/recipe-request.model';
 
 @Component({
   selector: 'app-add-recipe-page',
@@ -21,10 +21,10 @@ export class AddRecipePageComponent implements OnInit {
 
   form!: FormGroup;
   edit: boolean = false;
-  recipe: Recipe | null = null;
+  recipe: RecipeModel | null = null;
 
   links: Array<{id: number, url: string}> = [];
-  ingredients: Array<{id: number, ingredient: IngredientRequest}> = [];
+  ingredients: Array<{id: number, ingredient: IngredientRequestModel}> = [];
 
   availableTypeFood = [TypeFood.Desayuno, TypeFood.Comida, TypeFood.Cena];
   availableSubtypeFood = [SubtypeFood.Primero, SubtypeFood.Segundo, SubtypeFood.Postre];
@@ -186,7 +186,7 @@ export class AddRecipePageComponent implements OnInit {
     );
   }
 
-  getRecipeRequest (): RecipeRequest {
+  getRecipeRequest (): RecipeRequestModel {
     return {
       title: this.title,
       description: this.description,

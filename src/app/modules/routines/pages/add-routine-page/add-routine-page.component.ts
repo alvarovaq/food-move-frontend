@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Routine } from '@core/models/routine';
+import { RoutineModel } from '@core/models/routine.model';
 import { LoaderService } from '@core/services/loader.service';
 import { RoutinesService } from '@core/services/routines.service';
 import { RouterService } from '@core/services/router.service';
 import { finalize } from 'rxjs/operators';
 import { SnackerService } from '@core/services/snacker.service';
-import { RoutineRequest } from '@core/models/routine-request';
+import { RoutineRequestModel } from '@core/models/routine-request.model';
 
 @Component({
   selector: 'app-add-routine-page',
@@ -18,7 +18,7 @@ export class AddRoutinePageComponent implements OnInit {
 
   form!: FormGroup;
   edit: boolean = false;
-  routine: Routine | null = null;
+  routine: RoutineModel | null = null;
 
   links: Array<{id: number, url: string}> = [];
 
@@ -140,7 +140,7 @@ export class AddRoutinePageComponent implements OnInit {
     );
   }
 
-  getRoutineRequest (): RoutineRequest {
+  getRoutineRequest (): RoutineRequestModel {
     return {
       title: this.title,
       description: this.description,

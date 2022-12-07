@@ -1,4 +1,4 @@
-export interface EmployeeRequest {
+export interface EmployeeRequestModel {
     name: string;
     surname: string;
     email: string;

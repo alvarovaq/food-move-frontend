@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PatientRequest } from '@core/models/patient-request';
+import { PatientRequestModel } from '@core/models/patient-request.model';
 import { LoaderService } from '@core/services/loader.service';
 import { PatientsService } from '@core/services/patients.service';
 import { RouterService } from '@core/services/router.service';
@@ -8,7 +8,7 @@ import { SnackerService } from '@core/services/snacker.service';
 import { finalize } from 'rxjs/operators';
 import { dateValidator } from '@core/validators/date.validator';
 import { ActivatedRoute } from '@angular/router';
-import { Patient } from '@core/models/patient';
+import { PatientModel } from '@core/models/patient.model';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -20,7 +20,7 @@ export class AddPatientPageComponent implements OnInit {
 
   form!: FormGroup;
   edit: boolean = false;
-  patient: Patient | null = null;
+  patient: PatientModel | null = null;
   
   buttonClear = {
     name: false,
@@ -144,7 +144,7 @@ export class AddPatientPageComponent implements OnInit {
     );
   }
 
-  private getPatientRequest (): PatientRequest {
+  private getPatientRequest (): PatientRequestModel {
     return {
       name: this.name,
       surname: this.surname,

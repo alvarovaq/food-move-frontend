@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Employee } from '@core/models/employee';
+import { EmployeeModel } from '@core/models/employee.model';
 import { EmployeesService } from '@core/services/employees.service';
 import { LoaderService } from '@core/services/loader.service';
 import { RouterService } from '@core/services/router.service';
 import { finalize } from 'rxjs/operators';
 import { SnackerService } from '@core/services/snacker.service';
-import { EmployeeRequest } from '@core/models/employee-request';
+import { EmployeeRequestModel } from '@core/models/employee-request.model';
 
 @Component({
   selector: 'app-add-employee-page',
@@ -18,7 +18,7 @@ export class AddEmployeePageComponent implements OnInit {
 
   form!: FormGroup;
   edit: boolean = false;
-  employee: Employee | null = null;
+  employee: EmployeeModel | null = null;
   
   buttonClear = {
     name: false,
@@ -138,7 +138,7 @@ export class AddEmployeePageComponent implements OnInit {
     );
   }
 
-  private getEmployeeRequest (): EmployeeRequest {
+  private getEmployeeRequest (): EmployeeRequestModel {
     return {
       name: this.name,
       surname: this.surname,

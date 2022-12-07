@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Patient } from '@core/models/patient';
+import { PatientModel } from '@core/models/patient.model';
 
 @Component({
   selector: 'app-info-patient',
@@ -11,7 +11,7 @@ export class InfoPatientComponent implements OnInit {
 
   constructor(
     private readonly dialogRef: MatDialogRef<InfoPatientComponent>,
-    @Inject(MAT_DIALOG_DATA) public readonly patient: Patient
+    @Inject(MAT_DIALOG_DATA) public readonly patient: PatientModel
   ) { }
 
   ngOnInit(): void {

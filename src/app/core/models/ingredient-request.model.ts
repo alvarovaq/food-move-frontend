@@ -1,5 +1,4 @@
-export interface Ingredient {
-    _id: string;
+export interface IngredientRequestModel {
     name: string;
     quantity: number;
     unit: string;

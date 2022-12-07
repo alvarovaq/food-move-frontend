@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Routine } from '@core/models/routine';
+import { RoutineModel } from '@core/models/routine.model';
 import { LoaderService } from '@core/services/loader.service';
 import { RoutinesService } from '@core/services/routines.service';
 import { finalize  } from 'rxjs/operators';
@@ -18,7 +18,7 @@ import { InfoRoutineComponent } from '@modules/routines/components/info-routine/
 })
 export class RoutinesPageComponent implements OnInit {
 
-  listRoutines: Routine[] = [];
+  listRoutines: RoutineModel[] = [];
   isSmall: boolean = false;
   search: string = '';
 
@@ -112,11 +112,11 @@ export class RoutinesPageComponent implements OnInit {
     this.routerService.goToAddRoutine();
   }
 
-  editRoutine(routine: Routine) {
+  editRoutine(routine: RoutineModel) {
     this.routerService.goToEditRoutine(routine._id);
   }
 
-  deleteRoutine(routine: Routine) {
+  deleteRoutine(routine: RoutineModel) {
     this.dialogService.openConfirmDialog('Eliminar rutina', 'Seguro que quieres eliminar ' + routine.title + '?')
     .subscribe(res => {
       if (res) {
@@ -139,7 +139,7 @@ export class RoutinesPageComponent implements OnInit {
     });
   }
 
-  openInfoRoutine(routine: Routine) {
+  openInfoRoutine(routine: RoutineModel) {
     const dialogRef = this.dialog.open(InfoRoutineComponent, {
       width: '350px',
       data: routine

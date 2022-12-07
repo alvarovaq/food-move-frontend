@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT } from '@shared/constants';
-import { Routine } from '../models/routine';
-import { RoutineRequest } from '../models/routine-request';
+import { RoutineModel } from '../models/routine.model';
+import { RoutineRequestModel } from '../models/routine-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,24 +14,24 @@ export class RoutinesService {
     private readonly http: HttpClient
   ) { }
 
-  getRoutines (): Observable<Routine[]> {
-    return this.http.get<Routine[]>(`${API_ENDPOINT}/routines/findAll`);
+  getRoutines (): Observable<RoutineModel[]> {
+    return this.http.get<RoutineModel[]>(`${API_ENDPOINT}/routines/findAll`);
   }
 
-  getRoutine (id: string): Observable<Routine> {
-    return this.http.get<Routine>(`${API_ENDPOINT}/routines/findOne/${id}`);
+  getRoutine (id: string): Observable<RoutineModel> {
+    return this.http.get<RoutineModel>(`${API_ENDPOINT}/routines/findOne/${id}`);
   }
 
-  createRoutine (routine: RoutineRequest): Observable<Routine> {
-    return this.http.post<Routine>(`${API_ENDPOINT}/routines/create`, routine);
+  createRoutine (routine: RoutineRequestModel): Observable<RoutineModel> {
+    return this.http.post<RoutineModel>(`${API_ENDPOINT}/routines/create`, routine);
   } 
 
-  updateRoutine (id: string, routine: RoutineRequest): Observable<Routine> {
-    return this.http.patch<Routine>(`${API_ENDPOINT}/routines/update/${id}`, routine);
+  updateRoutine (id: string, routine: RoutineRequestModel): Observable<RoutineModel> {
+    return this.http.patch<RoutineModel>(`${API_ENDPOINT}/routines/update/${id}`, routine);
   }
 
-  removeRoutine (id: string): Observable<Routine> {
-    return this.http.delete<Routine>(`${API_ENDPOINT}/routines/remove/${id}`);
+  removeRoutine (id: string): Observable<RoutineModel> {
+    return this.http.delete<RoutineModel>(`${API_ENDPOINT}/routines/remove/${id}`);
   }  
 
 }

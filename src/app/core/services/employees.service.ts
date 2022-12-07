@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT } from '@shared/constants';
-import { Employee } from '../models/employee';
-import { EmployeeRequest } from '../models/employee-request';
+import { EmployeeModel } from '../models/employee.model';
+import { EmployeeRequestModel } from '../models/employee-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,28 +14,28 @@ export class EmployeesService {
     private readonly http: HttpClient
   ) { }
 
-  getEmployeeByEmail (email: string): Observable<Employee> {
-    return this.http.post<Employee>(`${API_ENDPOINT}/employees/findFirst`, {email});
+  getEmployeeByEmail (email: string): Observable<EmployeeModel> {
+    return this.http.post<EmployeeModel>(`${API_ENDPOINT}/employees/findFirst`, {email});
   }
 
-  getEmployees (): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${API_ENDPOINT}/employees/findAll`);
+  getEmployees (): Observable<EmployeeModel[]> {
+    return this.http.get<EmployeeModel[]>(`${API_ENDPOINT}/employees/findAll`);
   }
 
-  getEmployee (id: string): Observable<Employee> {
-    return this.http.get<Employee>(`${API_ENDPOINT}/employees/findOne/${id}`);
+  getEmployee (id: string): Observable<EmployeeModel> {
+    return this.http.get<EmployeeModel>(`${API_ENDPOINT}/employees/findOne/${id}`);
   }
 
-  createEmployee (employee: EmployeeRequest): Observable<Employee> {
-    return this.http.post<Employee>(`${API_ENDPOINT}/employees/create`, employee);
+  createEmployee (employee: EmployeeRequestModel): Observable<EmployeeModel> {
+    return this.http.post<EmployeeModel>(`${API_ENDPOINT}/employees/create`, employee);
   }
 
-  updateEmployee (id: string, employee: EmployeeRequest): Observable<Employee> {
-    return this.http.patch<Employee>(`${API_ENDPOINT}/employees/update/${id}`, employee);
+  updateEmployee (id: string, employee: EmployeeRequestModel): Observable<EmployeeModel> {
+    return this.http.patch<EmployeeModel>(`${API_ENDPOINT}/employees/update/${id}`, employee);
   }
 
-  removeEmployee (id: string): Observable<Employee> {
-    return this.http.delete<Employee>(`${API_ENDPOINT}/employees/remove/${id}`);
+  removeEmployee (id: string): Observable<EmployeeModel> {
+    return this.http.delete<EmployeeModel>(`${API_ENDPOINT}/employees/remove/${id}`);
   }
 
 }

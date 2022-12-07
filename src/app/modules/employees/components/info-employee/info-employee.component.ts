@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Employee } from '@core/models/employee';
+import { EmployeeModel } from '@core/models/employee.model';
 
 @Component({
   selector: 'app-info-employee',
@@ -11,7 +11,7 @@ export class InfoEmployeeComponent implements OnInit {
 
   constructor(
     private readonly dialogRef: MatDialogRef<InfoEmployeeComponent>,
-    @Inject(MAT_DIALOG_DATA) public readonly employee: Employee
+    @Inject(MAT_DIALOG_DATA) public readonly employee: EmployeeModel
   ) {}
 
   ngOnInit(): void {

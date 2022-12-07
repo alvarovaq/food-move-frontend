@@ -1,4 +1,4 @@
-export interface PatientRequest {
+export interface PatientRequestModel {
     name: string;
     surname: string;
     email: string;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Recipe } from '@core/models/recipe';
+import { RecipeModel } from '@core/models/recipe.model';
 import { LoaderService } from '@core/services/loader.service';
 import { RecipesService } from '@core/services/recipes.service';
 import { RouterService } from '@core/services/router.service';
@@ -18,7 +18,7 @@ import { InfoRecipeComponent } from '@modules/recipes/components/info-recipe/inf
 })
 export class RecipesPageComponent implements OnInit {
 
-  listRecipes: Recipe[] = [];
+  listRecipes: RecipeModel[] = [];
   isSmall: boolean = false;
   search: string = '';
 
@@ -132,11 +132,11 @@ export class RecipesPageComponent implements OnInit {
     this.routerService.goToAddRecipe();
   }
 
-  editRecipe (recipe: Recipe): void {
+  editRecipe (recipe: RecipeModel): void {
     this.routerService.goToEditRecipe(recipe._id);
   }
 
-  deleteRecipe (recipe: Recipe): void {
+  deleteRecipe (recipe: RecipeModel): void {
     this.dialogService.openConfirmDialog('Eliminar receta', 'Seguro que quieres eliminar ' + recipe.title + '?')
     .subscribe(res => {
       if (res) {
@@ -159,7 +159,7 @@ export class RecipesPageComponent implements OnInit {
     });
   }
 
-  openInfoRecipe (recipe: Recipe): void {
+  openInfoRecipe (recipe: RecipeModel): void {
     const dialogRef = this.dialog.open(InfoRecipeComponent, {
       width: '350px',
       data: recipe

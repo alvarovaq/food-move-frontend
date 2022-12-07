@@ -1,12 +1,12 @@
 import { SubtypeFood } from "../enums/subtype-food";
 import { TypeFood } from "../enums/type-food";
-import { IngredientRequest } from "./ingredient-request";
+import { IngredientRequestModel } from "./ingredient-request.model";
 
-export interface RecipeRequest {
+export interface RecipeRequestModel {
     title: string;
     description: string;
     type: TypeFood;
     subtype: SubtypeFood;
     links: string[];
-    ingredients: IngredientRequest[];
+    ingredients: IngredientRequestModel[];
 }

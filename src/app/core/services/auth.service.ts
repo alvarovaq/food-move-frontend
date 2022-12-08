@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthResponseModel } from '../models/auth-response.model';
 import { Observable } from 'rxjs';
-import { API_ENDPOINT } from '@shared/constants';
 import { RouterService } from './router.service';
 import { EmployeesService } from './employees.service';
 import { AuthRequestModel } from '../models/auth-request.model';
-import { finalize } from 'rxjs/operators';
-import { EmployeeModel } from '../models/employee.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +19,7 @@ export class AuthService {
     ) {}
 
     getNewToken (user: AuthRequestModel): Observable<AuthResponseModel> {
-        return this.http.post<AuthResponseModel>(`${API_ENDPOINT}/auth/login`, user);
+        return this.http.post<AuthResponseModel>(`${environment.api}/auth/login`, user);
     }
 
     setSession (): void {

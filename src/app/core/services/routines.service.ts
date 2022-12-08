@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_ENDPOINT } from '@shared/constants';
 import { RoutineModel } from '../models/routine.model';
 import { RoutineRequestModel } from '../models/routine-request.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,23 +15,23 @@ export class RoutinesService {
   ) { }
 
   getRoutines (): Observable<RoutineModel[]> {
-    return this.http.get<RoutineModel[]>(`${API_ENDPOINT}/routines/findAll`);
+    return this.http.get<RoutineModel[]>(`${environment.api}/routines/findAll`);
   }
 
   getRoutine (id: string): Observable<RoutineModel> {
-    return this.http.get<RoutineModel>(`${API_ENDPOINT}/routines/findOne/${id}`);
+    return this.http.get<RoutineModel>(`${environment.api}/routines/findOne/${id}`);
   }
 
   createRoutine (routine: RoutineRequestModel): Observable<RoutineModel> {
-    return this.http.post<RoutineModel>(`${API_ENDPOINT}/routines/create`, routine);
+    return this.http.post<RoutineModel>(`${environment.api}/routines/create`, routine);
   } 
 
   updateRoutine (id: string, routine: RoutineRequestModel): Observable<RoutineModel> {
-    return this.http.patch<RoutineModel>(`${API_ENDPOINT}/routines/update/${id}`, routine);
+    return this.http.patch<RoutineModel>(`${environment.api}/routines/update/${id}`, routine);
   }
 
   removeRoutine (id: string): Observable<RoutineModel> {
-    return this.http.delete<RoutineModel>(`${API_ENDPOINT}/routines/remove/${id}`);
+    return this.http.delete<RoutineModel>(`${environment.api}/routines/remove/${id}`);
   }  
 
 }

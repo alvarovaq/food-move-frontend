@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { API_ENDPOINT } from '@shared/constants';
 import { PatientModel } from '../models/patient.model';
 import { PatientRequestModel } from '../models/patient-request.model';
 import { PatientPipe } from '../pipes/patient.pipe';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class PatientsService {
   ) {}
 
   getPatients (): Observable<PatientModel[]> {
-    return this.http.get<PatientModel[]>(`${API_ENDPOINT}/patients/findAll`).pipe(
+    return this.http.get<PatientModel[]>(`${environment.api}/patients/findAll`).pipe(
       map((data) => {
         return data.map((patient) => {
           return this.patientPipe.transform(patient);
@@ -27,7 +27,7 @@ export class PatientsService {
   }
 
   getPatient (id: string): Observable<PatientModel> {
-    return this.http.get<PatientModel>(`${API_ENDPOINT}/patients/findOne/${id}`).pipe(
+    return this.http.get<PatientModel>(`${environment.api}/patients/findOne/${id}`).pipe(
       map((patient) => {
         return this.patientPipe.transform(patient);
       })
@@ -35,7 +35,7 @@ export class PatientsService {
   }
 
   createPatient (patient: PatientRequestModel): Observable<PatientModel> {
-    return this.http.post<PatientModel>(`${API_ENDPOINT}/patients/create`, patient).pipe(
+    return this.http.post<PatientModel>(`${environment.api}/patients/create`, patient).pipe(
       map((patient) => {
         return this.patientPipe.transform(patient);
       })
@@ -43,7 +43,7 @@ export class PatientsService {
   }
 
   updatePatient (id: string, patient: PatientRequestModel): Observable<PatientModel> {
-    return this.http.patch<PatientModel>(`${API_ENDPOINT}/patients/update/${id}`, patient).pipe(
+    return this.http.patch<PatientModel>(`${environment.api}/patients/update/${id}`, patient).pipe(
       map((patient) => {
         return this.patientPipe.transform(patient);
       })
@@ -51,7 +51,7 @@ export class PatientsService {
   }
 
   removePatient (id: string): Observable<PatientModel> {
-    return this.http.delete<PatientModel>(`${API_ENDPOINT}/patients/remove/${id}`).pipe(
+    return this.http.delete<PatientModel>(`${environment.api}/patients/remove/${id}`).pipe(
       map((patient) => {
         return this.patientPipe.transform(patient);
       })

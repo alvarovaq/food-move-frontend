@@ -5,7 +5,7 @@ import { RoutineModel } from '@core/models/routine.model';
 @Component({
   selector: 'app-info-routine',
   templateUrl: './info-routine.component.html',
-  styleUrls: ['./info-routine.component.css', '../../../../shared/styles/info-dialog.css']
+  styleUrls: ['./info-routine.component.css', '../../../../global/styles/info-dialog.css']
 })
 export class InfoRoutineComponent implements OnInit {
 

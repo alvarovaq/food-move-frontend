@@ -15,7 +15,7 @@ import { RecipeRequestModel } from '@core/models/recipe-request.model';
 @Component({
   selector: 'app-add-recipe-page',
   templateUrl: './add-recipe-page.component.html',
-  styleUrls: ['./add-recipe-page.component.css', '../../../../shared/styles/form.css']
+  styleUrls: ['./add-recipe-page.component.css', '../../../../global/styles/form.css']
 })
 export class AddRecipePageComponent implements OnInit {
 

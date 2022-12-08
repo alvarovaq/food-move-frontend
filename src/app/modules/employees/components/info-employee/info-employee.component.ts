@@ -5,7 +5,7 @@ import { EmployeeModel } from '@core/models/employee.model';
 @Component({
   selector: 'app-info-employee',
   templateUrl: './info-employee.component.html',
-  styleUrls: ['./info-employee.component.css', '../../../../shared/styles/info-dialog.css']
+  styleUrls: ['./info-employee.component.css', '../../../../global/styles/info-dialog.css']
 })
 export class InfoEmployeeComponent implements OnInit {
 

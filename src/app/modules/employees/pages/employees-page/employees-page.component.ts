@@ -14,7 +14,7 @@ import { InfoEmployeeComponent } from '@modules/employees/components/info-employ
 @Component({
   selector: 'app-employees-page',
   templateUrl: './employees-page.component.html',
-  styleUrls: ['./employees-page.component.css', '../../../../shared/styles/crud.css']
+  styleUrls: ['./employees-page.component.css', '../../../../global/styles/crud.css']
 })
 export class EmployeesPageComponent implements OnInit {
 

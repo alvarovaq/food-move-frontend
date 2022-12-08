@@ -12,7 +12,7 @@ import { EmployeeRequestModel } from '@core/models/employee-request.model';
 @Component({
   selector: 'app-add-employee-page',
   templateUrl: './add-employee-page.component.html',
-  styleUrls: ['./add-employee-page.component.css', '../../../../shared/styles/form.css']
+  styleUrls: ['./add-employee-page.component.css', '../../../../global/styles/form.css']
 })
 export class AddEmployeePageComponent implements OnInit {
 

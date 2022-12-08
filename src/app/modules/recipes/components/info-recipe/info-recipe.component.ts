@@ -5,7 +5,7 @@ import { RecipeModel } from '@core/models/recipe.model';
 @Component({
   selector: 'app-info-recipe',
   templateUrl: './info-recipe.component.html',
-  styleUrls: ['./info-recipe.component.css', '../../../../shared/styles/info-dialog.css']
+  styleUrls: ['./info-recipe.component.css', '../../../../global/styles/info-dialog.css']
 })
 export class InfoRecipeComponent implements OnInit {
 

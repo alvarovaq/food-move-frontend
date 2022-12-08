@@ -14,7 +14,7 @@ import { InfoPatientComponent } from '@modules/patients/components/info-patient/
 @Component({
   selector: 'app-patients-page',
   templateUrl: './patients-page.component.html',
-  styleUrls: ['./patients-page.component.css', '../../../../shared/styles/crud.css']
+  styleUrls: ['./patients-page.component.css', '../../../../global/styles/crud.css']
 })
 export class PatientsPageComponent implements OnInit {
 

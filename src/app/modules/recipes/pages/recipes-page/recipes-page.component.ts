@@ -14,7 +14,7 @@ import { InfoRecipeComponent } from '@modules/recipes/components/info-recipe/inf
 @Component({
   selector: 'app-recipes-page',
   templateUrl: './recipes-page.component.html',
-  styleUrls: ['./recipes-page.component.css', '../../../../shared/styles/crud.css']
+  styleUrls: ['./recipes-page.component.css', '../../../../global/styles/crud.css']
 })
 export class RecipesPageComponent implements OnInit {
 

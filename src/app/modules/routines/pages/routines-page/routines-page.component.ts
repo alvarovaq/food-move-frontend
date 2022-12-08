@@ -14,7 +14,7 @@ import { InfoRoutineComponent } from '@modules/routines/components/info-routine/
 @Component({
   selector: 'app-routines-page',
   templateUrl: './routines-page.component.html',
-  styleUrls: ['./routines-page.component.css', '../../../../shared/styles/crud.css']
+  styleUrls: ['./routines-page.component.css', '../../../../global/styles/crud.css']
 })
 export class RoutinesPageComponent implements OnInit {
 

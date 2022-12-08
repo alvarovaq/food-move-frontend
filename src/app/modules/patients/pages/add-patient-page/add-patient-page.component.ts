@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-add-patient-page',
   templateUrl: './add-patient-page.component.html',
-  styleUrls: ['./add-patient-page.component.css', '../../../../shared/styles/form.css']
+  styleUrls: ['./add-patient-page.component.css', '../../../../global/styles/form.css']
 })
 export class AddPatientPageComponent implements OnInit {
 

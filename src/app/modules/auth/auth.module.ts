@@ -8,6 +8,7 @@ import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import { SnackerService } from '@core/services/snacker.service';
+import { MatModule } from '../../shared/modules/mat/mat.module';
 
 
 @NgModule({
@@ -18,9 +19,9 @@ import { SnackerService } from '@core/services/snacker.service';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatModule
   ],
   providers: [
     AuthService,

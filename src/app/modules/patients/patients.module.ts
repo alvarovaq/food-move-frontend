@@ -10,6 +10,7 @@ import { SnackerService } from '@core/services/snacker.service';
 import { DialogService } from '@core/services/dialog.service';
 import { PatientsComponent } from '../patients/patients.component';
 import { AddPatientPageComponent } from './pages/add-patient-page/add-patient-page.component';
+import { MatModule } from '../../shared/modules/mat/mat.module';
 
 
 @NgModule({
@@ -22,6 +23,9 @@ import { AddPatientPageComponent } from './pages/add-patient-page/add-patient-pa
   imports: [
     CommonModule,
     PatientsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatModule,
     SharedModule
   ],
   providers: [

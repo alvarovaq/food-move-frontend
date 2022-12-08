@@ -9,6 +9,8 @@ import { RoutinesComponent } from '../routines/routines.component';
 import { RoutinesPageComponent } from './pages/routines-page/routines-page.component';
 import { InfoRoutineComponent } from './components/info-routine/info-routine.component';
 import { AddRoutinePageComponent } from './pages/add-routine-page/add-routine-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatModule } from '../../shared/modules/mat/mat.module';
 
 
 @NgModule({
@@ -21,6 +23,9 @@ import { AddRoutinePageComponent } from './pages/add-routine-page/add-routine-pa
   imports: [
     CommonModule,
     RoutinesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatModule,
     SharedModule
   ],
   providers: [

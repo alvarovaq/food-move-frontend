@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PatientComponent } from './patient.component';
-import { GraphicsPageComponent } from './pages/graphics-page/graphics-page.component';
+import { PatientPageComponent } from './pages/patient-page/patient-page.component';
 
 const routes: Routes = [
-  {path:'', component: PatientComponent, children: [
-    {path: '', component: GraphicsPageComponent},
+  {path:'', component: PatientPageComponent, children: [
+    {path: '', loadChildren: () => import('@modules/graphics/graphics.module').then(x => x.GraphicsModule)},
     {path: '**', redirectTo:''}
   ]}
 ];

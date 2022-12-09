@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: 'employees', loadChildren: () => import('@modules/employees/employees.module').then(x => x.EmployeesModule), canActivate: [AdminGuard]},
   {path: 'recipes', loadChildren: () => import('@modules/recipes/recipes.module').then(x => x.RecipesModule)},
   {path: 'routines', loadChildren: () => import('@modules/routines/routines.module').then(x => x.RoutinesModule)},
+  {path: 'patient/:id', loadChildren: () => import('@modules/patient/patient.module').then(x => x.PatientModule)},
 ];
 
 @NgModule({

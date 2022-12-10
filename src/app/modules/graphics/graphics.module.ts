@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { GraphicsRoutingModule } from './graphics-routing.module';
 import { GraphicsComponent } from './graphics.component';
 import { GraphicsPageComponent } from './pages/graphics-page/graphics-page.component';
+import { SharedModule } from '../../shared/shared.module';
+import { MatModule } from '../../shared/modules/mat/mat.module';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { GraphicsPageComponent } from './pages/graphics-page/graphics-page.compo
   ],
   imports: [
     CommonModule,
-    GraphicsRoutingModule
+    GraphicsRoutingModule,
+    MatModule,
+    SharedModule
   ]
 })
 export class GraphicsModule { }

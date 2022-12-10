@@ -6,12 +6,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from './modules/mat/mat.module';
+import { HeaderPatientComponent } from './components/header-patient/header-patient.component';
 
 @NgModule({
   declarations: [
     ConfirmDialogComponent,
     NavbarComponent,
-    SidenavComponent
+    SidenavComponent,
+    HeaderPatientComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { MatModule } from './modules/mat/mat.module';
   exports: [
     ConfirmDialogComponent,
     NavbarComponent,
-    SidenavComponent
+    SidenavComponent,
+    HeaderPatientComponent
   ]
 })
 export class SharedModule { }

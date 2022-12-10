@@ -13,34 +13,8 @@ import { finalize } from 'rxjs/operators';
 })
 export class PatientPageComponent implements OnInit {
 
-  patient: PatientModel | null = null;
+  constructor() { }
 
-  constructor(
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly routerService: RouterService,
-    private readonly patientsService: PatientsService,
-    private readonly loaderService: LoaderService
-  ) { }
-
-  ngOnInit(): void {
-    this.loaderService.isLoading.next(true);
-    const params = this.activatedRoute.snapshot.params;
-    if (params["id"]) {
-      this.patientsService.getPatient(params["id"])
-      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
-      .subscribe(
-        res => {
-          this.patient = res;
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    };
-  }
-
-  exit (): void {
-    this.routerService.goToPatients();
-  }
+  ngOnInit(): void {}
 
 }

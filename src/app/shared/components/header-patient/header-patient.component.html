@@ -7,16 +7,16 @@
     </div>
     <p class="title">{{title}}</p>
     <div class="nav">
-        <button mat-icon-button color="primary" matTooltip="Gráficas">
+        <button mat-icon-button color="primary" matTooltip="Gráficas" (click)="goToGraphics()">
             <mat-icon>assessment</mat-icon>
         </button>
-        <button mat-icon-button color="primary" matTooltip="Consultas">
+        <button mat-icon-button color="primary" matTooltip="Consultas" (click)="goToConsults()">
             <mat-icon>local_hospital</mat-icon>
         </button>
-        <button mat-icon-button color="primary" matTooltip="Comidas">
+        <button mat-icon-button color="primary" matTooltip="Comidas" (click)="goToFoods()">
             <mat-icon>fastfood</mat-icon>
         </button>
-        <button mat-icon-button color="primary" matTooltip="Ejercicios">
+        <button mat-icon-button color="primary" matTooltip="Ejercicios" (click)="goToMoves()">
             <mat-icon>fitness_center</mat-icon>
         </button>
     </div>

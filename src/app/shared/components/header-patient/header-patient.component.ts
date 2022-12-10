@@ -8,6 +8,7 @@ import { RouterService } from '../../../core/services/router.service';
 })
 export class HeaderPatientComponent implements OnInit {
 
+  @Input() id: string = "";
   @Input() name: string = "";
   @Input() title: string = "";
 
@@ -20,6 +21,22 @@ export class HeaderPatientComponent implements OnInit {
 
   exit (): void {
     this.routerService.goToPatients();
+  }
+
+  goToGraphics (): void {
+    this.routerService.goToGraphics(this.id);
+  }
+
+  goToConsults (): void {
+    this.routerService.goToConsults(this.id);
+  }
+
+  goToFoods (): void {
+    this.routerService.goToFoods(this.id);
+  }
+
+  goToMoves (): void {
+    this.routerService.goToMoves(this.id);
   }
 
 }

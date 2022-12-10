@@ -159,12 +159,16 @@ export class PatientsPageComponent implements OnInit {
     this.routerService.goToEditPatient(patient._id);
   }
 
-  openInfoPatient (patient: PatientModel) {
+  openInfoPatient (patient: PatientModel): void {
     const dialogRef = this.dialog.open(InfoPatientComponent, {
       width: '350px',
       data: patient
     });
     dialogRef.afterClosed();
+  }
+
+  viewPatient (patient: PatientModel): void {
+    this.routerService.goToGraphics(patient._id);
   }
 
 }

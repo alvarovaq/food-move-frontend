@@ -1,1 +1,24 @@
+<div class="header">
+    <div class="header-left">
+        <button type="button" mat-icon-button class="btn_exit" (click)="exit()">
+            <mat-icon>clear</mat-icon>
+        </button>
+        <h1 class="subtitle">{{patient?.name + ' ' + patient?.surname}}</h1>
+    </div>
+    <div class="nav">
+        <button mat-icon-button color="primary" matTooltip="Gráficas">
+            <mat-icon>assessment</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" matTooltip="Consultas">
+            <mat-icon>local_hospital</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" matTooltip="Comidas">
+            <mat-icon>fastfood</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" matTooltip="Ejercicios">
+            <mat-icon>fitness_center</mat-icon>
+        </button>
+    </div>
+</div>
+<mat-divider></mat-divider>
 <router-outlet></router-outlet>

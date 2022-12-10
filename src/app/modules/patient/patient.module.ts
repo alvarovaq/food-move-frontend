@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PatientRoutingModule } from './patient-routing.module';
 import { PatientPageComponent } from './pages/patient-page/patient-page.component';
+import { MatModule } from '../../shared/modules/mat/mat.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { PatientPageComponent } from './pages/patient-page/patient-page.componen
   ],
   imports: [
     CommonModule,
-    PatientRoutingModule
+    PatientRoutingModule,
+    MatModule
   ]
 })
 export class PatientModule { }

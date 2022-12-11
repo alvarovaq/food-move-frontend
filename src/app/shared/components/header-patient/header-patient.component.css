@@ -6,7 +6,7 @@
     margin-bottom: 5px;
 }
 
-.header-left {
+.header__left {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -14,7 +14,7 @@
     flex: wrap;
 }
 
-.btn_exit {
+.btn__exit {
     margin-right: 10px;
 }
 

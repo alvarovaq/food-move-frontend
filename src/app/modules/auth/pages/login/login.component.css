@@ -22,21 +22,21 @@ form {
     text-align: center;
 }
 
-.input-form {
+.form__input {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 }
 
-.input-icon {
+.input__icon {
     float: left;
     opacity: 0.5;
     margin-top: 14px;
     margin-right: 10px;
 }
 
-.input-field {
+.input__field {
     width: 90%;
 }
 

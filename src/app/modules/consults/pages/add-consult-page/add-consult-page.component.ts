@@ -23,13 +23,20 @@ export class AddConsultPageComponent implements OnInit {
   form!: FormGroup;
   edit: boolean = false;
   patient!: PatientModel;
+
+  created_at: Date = new Date();
   
   buttonClear = {
     masa: false,
     imc: false,
     per_abdominal: false,
     tension: false,
-    trigliceridos: false
+    trigliceridos: false,
+    hdl: false,
+    ldl: false,
+    hemoglobina: false,
+    glucosa: false,
+    comments: false
   }
 
   constructor(
@@ -68,11 +75,52 @@ export class AddConsultPageComponent implements OnInit {
       per_abdominal: [null, [Validators.min(0)]],
       tension: [null, [Validators.min(0)]],
       trigliceridos: [null, [Validators.min(0)]],
+      hdl: [null, [Validators.min(0)]],
+      ldl: [null, [Validators.min(0)]],
+      hemoglobina: [null, [Validators.min(0)]],
+      glucosa: [null, [Validators.min(0)]],
+      comments: [null],
     });
   }
 
-  get masa (): any {
+  get masa (): number | null {
     return this.form.value.masa;
+  }
+
+  get imc (): number | null {
+    return this.form.value.imc;
+  }
+
+  get per_abdominal (): number | null {
+    return this.form.value.per_abdominal;
+  }
+
+  get tension (): number | null {
+    return this.form.value.tension;
+  }
+
+  get trigliceridos (): number | null {
+    return this.form.value.trigliceridos;
+  }
+
+  get hdl (): number | null {
+    return this.form.value.hdl;
+  }
+
+  get ldl (): number | null {
+    return this.form.value.ldl;
+  }
+
+  get hemoglobina (): number | null {
+    return this.form.value.hemoglobina;
+  }
+
+  get glucosa (): number | null {
+    return this.form.value.glucosa;
+  }
+
+  get comments (): string | null {
+    return this.form.value.comments;
   }
 
   clearField (field: string): void {
@@ -86,6 +134,20 @@ export class AddConsultPageComponent implements OnInit {
 
   addConsult (): void {
     console.log(this.getConsultRequest());
+    const consult = this.getConsultRequest();
+    this.loaderService.isLoading.next(true);
+    this.consultsService.createConsult(consult)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+    .subscribe(
+      res => {
+        this.exit();
+        this.snackerService.showSuccessful("Consulta creada con éxito");
+      },
+      err => {
+        console.log(err);
+        this.snackerService.showError(err.error.message);
+      }
+    );
   }
 
   editConsult (): void {
@@ -95,8 +157,16 @@ export class AddConsultPageComponent implements OnInit {
     return this.optionalPipe.transform({
       patient: this.patient._id,
       masa: this.masa,
-      comments: "",
-      created_at: new Date(2000, 1, 1)
+      imc: this.imc,
+      per_abdominal: this.per_abdominal,
+      tension: this.tension,
+      trigliceridos: this.trigliceridos,
+      hdl: this.hdl,
+      ldl: this.ldl,
+      hemoglobina: this.hemoglobina,
+      glucosa: this.glucosa,
+      comments: this.comments,
+      created_at: this.created_at
     });
   }
 

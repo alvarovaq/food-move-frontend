@@ -8,6 +8,7 @@ import { RouterService } from '@core/services/router.service';
 import { finalize } from 'rxjs/operators';
 import { SnackerService } from '@core/services/snacker.service';
 import { EmployeeRequestModel } from '@core/models/employee-request.model';
+import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 
 @Component({
   selector: 'app-add-employee-page',
@@ -31,6 +32,7 @@ export class AddEmployeePageComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly fb: FormBuilder,
     private readonly employeesService: EmployeesService,
+    private readonly optionalPipe: OptionalPipe,
     private readonly loaderService: LoaderService,
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService
@@ -63,27 +65,27 @@ export class AddEmployeePageComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      name: [this.edit ? this.employee!.name : '', [Validators.required]],
-      surname: [this.edit ? this.employee!.surname : ''],
-      email: [this.edit ? this.employee!.email : '', [Validators.required, Validators.email]],
-      phone: [this.edit ? this.employee!.phone : ''],
+      name: [this.edit ? this.employee!.name : null, [Validators.required]],
+      surname: [this.edit ? this.employee!.surname : null],
+      email: [this.edit ? this.employee!.email : null, [Validators.required, Validators.email]],
+      phone: [this.edit ? this.employee!.phone : null],
       admin: [this.edit ? this.employee!.admin : false],
     });
   }
 
-  get name (): string {
+  get name (): string | null {
     return this.form.value.name;
   }
 
-  get surname (): string {
+  get surname (): string | null {
     return this.form.value.surname;
   }
 
-  get email (): string {
+  get email (): string | null {
     return this.form.value.email;
   }
 
-  get phone (): string {
+  get phone (): string | null {
     return this.form.value.phone;
   }
 
@@ -92,7 +94,7 @@ export class AddEmployeePageComponent implements OnInit {
   }
 
   clearField (field: string): void {
-    this.form.value[field] = '';
+    this.form.value[field] = null;
     this.form.reset(this.form.value);
   }
 
@@ -139,14 +141,14 @@ export class AddEmployeePageComponent implements OnInit {
   }
 
   private getEmployeeRequest (): EmployeeRequestModel {
-    return {
+    return this.optionalPipe.transform({
       name: this.name,
       surname: this.surname,
       email: this.email,
       password: '123456789',
       phone: this.phone,
       admin: this.admin
-    };
+    });
   }
 
 }

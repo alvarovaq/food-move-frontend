@@ -1,8 +1,8 @@
 export interface PatientRequestModel {
     name: string;
-    surname: string;
+    surname?: string;
     email: string;
     password: string;
-    phone: string;
-    birth: Date | null;
+    phone?: string;
+    birth?: Date;
 }

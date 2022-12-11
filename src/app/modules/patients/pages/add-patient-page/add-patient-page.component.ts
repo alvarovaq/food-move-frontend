@@ -10,6 +10,7 @@ import { dateValidator } from '@core/validators/date.validator';
 import { ActivatedRoute } from '@angular/router';
 import { PatientModel } from '@core/models/patient.model';
 import { DatePipe } from '@angular/common';
+import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 
 @Component({
   selector: 'app-add-patient-page',
@@ -35,6 +36,7 @@ export class AddPatientPageComponent implements OnInit {
     private readonly datePipe: DatePipe,
     private readonly fb: FormBuilder,
     private readonly patientsService: PatientsService,
+    private readonly optionalPipe: OptionalPipe,
     private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService
@@ -67,27 +69,27 @@ export class AddPatientPageComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      name: [this.edit ? this.patient!.name : '', [Validators.required]],
-      surname: [this.edit ? this.patient!.surname : ''],
-      email: [this.edit ? this.patient!.email : '', [Validators.required, Validators.email]],
-      phone: [this.edit ? this.patient!.phone : ''],
+      name: [this.edit ? this.patient!.name : null, [Validators.required]],
+      surname: [this.edit ? this.patient!.surname : null],
+      email: [this.edit ? this.patient!.email : null, [Validators.required, Validators.email]],
+      phone: [this.edit ? this.patient!.phone : null],
       birth: [this.edit ? this.patient!.birth ? this.datePipe.transform(this.patient!.birth, 'dd/MM/YYYY') : '' : '', dateValidator()],
     });
   }
 
-  get name (): string {
+  get name (): string | null {
     return this.form.value.name;
   }
 
-  get surname (): string {
+  get surname (): string | null {
     return this.form.value.surname;
   }
 
-  get email (): string {
+  get email (): string | null {
     return this.form.value.email;
   }
 
-  get phone (): string {
+  get phone (): string | null {
     return this.form.value.phone;
   }
 
@@ -98,7 +100,7 @@ export class AddPatientPageComponent implements OnInit {
   }
 
   clearField (field: string): void {
-    this.form.value[field] = '';
+    this.form.value[field] = null;
     this.form.reset(this.form.value);
   }
 
@@ -145,14 +147,14 @@ export class AddPatientPageComponent implements OnInit {
   }
 
   private getPatientRequest (): PatientRequestModel {
-    return {
+    return this.optionalPipe.transform({
       name: this.name,
       surname: this.surname,
       email: this.email,
       password: '123456789',
       phone: this.phone,
       birth: this.birth
-    };
+    });
   }
 
 }

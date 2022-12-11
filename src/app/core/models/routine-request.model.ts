@@ -1,5 +1,5 @@
 export interface RoutineRequestModel {
     title: string;
-    description: string;
+    description?: string;
     links: string[];
 }

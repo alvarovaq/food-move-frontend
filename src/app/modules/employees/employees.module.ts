@@ -11,6 +11,7 @@ import { InfoEmployeeComponent } from './components/info-employee/info-employee.
 import { AddEmployeePageComponent } from './pages/add-employee-page/add-employee-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from '../../shared/modules/mat/mat.module';
+import { OptionalPipe } from '../../shared/pipes/optional.pipe';
 
 
 @NgModule({

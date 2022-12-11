@@ -1,5 +1,5 @@
 export interface IngredientRequestModel {
     name: string;
-    quantity: number;
-    unit: string;
+    quantity?: number;
+    unit?: string;
 }

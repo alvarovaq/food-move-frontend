@@ -1,8 +1,8 @@
 export interface EmployeeRequestModel {
     name: string;
-    surname: string;
+    surname?: string;
     email: string;
     password: string;
-    phone: string;
+    phone?: string;
     admin: boolean;
 }

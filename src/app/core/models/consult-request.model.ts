@@ -1,5 +1,4 @@
-export interface ConsultModel {
-    _id: string;
+export interface ConsultRequestModel {
     patient: string;
     masa?: number;
     imc?: number;

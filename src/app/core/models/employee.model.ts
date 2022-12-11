@@ -1,8 +1,8 @@
 export interface EmployeeModel {
     _id: string,
     name: string;
-    surname: string;
+    surname?: string;
     email: string;
-    phone: string;
+    phone?: string;
     admin: boolean;
 }

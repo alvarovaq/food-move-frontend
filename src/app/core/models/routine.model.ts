@@ -1,6 +1,6 @@
 export interface RoutineModel {
     _id: string;
     title: string;
-    description: string;
+    description?: string;
     links: string[];
 }

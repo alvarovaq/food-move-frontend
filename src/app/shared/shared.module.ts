@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
@@ -7,13 +7,17 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from './modules/mat/mat.module';
 import { HeaderPatientComponent } from './components/header-patient/header-patient.component';
+import { NamePipe } from './pipes/name.pipe';
+import { OptionalPipe } from './pipes/optional.pipe';
 
 @NgModule({
   declarations: [
     ConfirmDialogComponent,
     NavbarComponent,
     SidenavComponent,
-    HeaderPatientComponent
+    HeaderPatientComponent,
+    NamePipe,
+    OptionalPipe
   ],
   imports: [
     CommonModule,
@@ -23,7 +27,9 @@ import { HeaderPatientComponent } from './components/header-patient/header-patie
     ConfirmDialogComponent,
     NavbarComponent,
     SidenavComponent,
-    HeaderPatientComponent
+    HeaderPatientComponent,
+    NamePipe,
+    OptionalPipe
   ]
 })
 export class SharedModule { }

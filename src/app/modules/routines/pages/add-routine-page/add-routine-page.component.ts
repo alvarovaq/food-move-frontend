@@ -8,6 +8,7 @@ import { RouterService } from '@core/services/router.service';
 import { finalize } from 'rxjs/operators';
 import { SnackerService } from '@core/services/snacker.service';
 import { RoutineRequestModel } from '@core/models/routine-request.model';
+import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 
 @Component({
   selector: 'app-add-routine-page',
@@ -31,6 +32,7 @@ export class AddRoutinePageComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly fb: FormBuilder,
     private readonly routinesService: RoutinesService,
+    private readonly optionalPipe: OptionalPipe,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService,
     private readonly routerService: RouterService
@@ -63,8 +65,8 @@ export class AddRoutinePageComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      title: [this.edit ? this.routine!.title : '', [Validators.required]],
-      description: [this.edit ? this.routine!.description : ''],
+      title: [this.edit ? this.routine!.title : null, [Validators.required]],
+      description: [this.edit ? this.routine!.description : null],
     });
     if (this.edit) {
       this.links = this.routine!.links.map((url, id) => {
@@ -73,16 +75,16 @@ export class AddRoutinePageComponent implements OnInit {
     }
   }
 
-  get title (): string {
+  get title (): string | null {
     return this.form.value.title;
   }
 
-  get description (): string {
+  get description (): string | null {
     return this.form.value.description;
   } 
 
   clearField (field: string): void {
-    this.form.value[field] = '';
+    this.form.value[field] = null;
     this.form.reset(this.form.value);
   }
 
@@ -141,11 +143,11 @@ export class AddRoutinePageComponent implements OnInit {
   }
 
   getRoutineRequest (): RoutineRequestModel {
-    return {
+    return this.optionalPipe.transform({
       title: this.title,
       description: this.description,
       links: this.links.map(link => {return link.url})
-    };
+    });
   }
 
 }

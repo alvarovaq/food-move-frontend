@@ -11,6 +11,7 @@ import { InfoRoutineComponent } from './components/info-routine/info-routine.com
 import { AddRoutinePageComponent } from './pages/add-routine-page/add-routine-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from '../../shared/modules/mat/mat.module';
+import { OptionalPipe } from '../../shared/pipes/optional.pipe';
 
 
 @NgModule({

@@ -11,6 +11,7 @@ import { TypeFood } from '@core/enums/type-food';
 import { SubtypeFood } from '@core/enums/subtype-food';
 import { IngredientRequestModel } from '@core/models/ingredient-request.model';
 import { RecipeRequestModel } from '@core/models/recipe-request.model';
+import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 
 @Component({
   selector: 'app-add-recipe-page',
@@ -39,6 +40,7 @@ export class AddRecipePageComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly recipesService: RecipesService,
+    private readonly optionalPipe: OptionalPipe,
     private readonly fb: FormBuilder,
     private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
@@ -72,8 +74,8 @@ export class AddRecipePageComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      title: [this.edit ? this.recipe!.title : '', [Validators.required]],
-      description: [this.edit ? this.recipe!.description : ''],
+      title: [this.edit ? this.recipe!.title : null, [Validators.required]],
+      description: [this.edit ? this.recipe!.description : null],
     });
     if (this.edit) {
       this.typeFood = this.recipe!.type;
@@ -88,16 +90,16 @@ export class AddRecipePageComponent implements OnInit {
     }
   }
 
-  get title (): string {
+  get title (): string | null {
     return this.form.value.title;
   }
 
-  get description (): string {
+  get description (): string | null {
     return this.form.value.description;
   } 
 
   clearField (field: string): void {
-    this.form.value[field] = '';
+    this.form.value[field] = null;
     this.form.reset(this.form.value);
   }
 
@@ -187,14 +189,14 @@ export class AddRecipePageComponent implements OnInit {
   }
 
   getRecipeRequest (): RecipeRequestModel {
-    return {
+    return this.optionalPipe.transform({
       title: this.title,
       description: this.description,
       type: this.typeFood,
       subtype: this.subtypeFood,
       links: this.links.map(link => {return link.url}),
       ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient})
-    };
+    });
   }
 
 }

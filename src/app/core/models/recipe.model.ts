@@ -5,7 +5,7 @@ import { IngredientModel } from "./ingredient.model";
 export interface RecipeModel {
     _id: string;
     title: string;
-    description: string;
+    description?: string;
     type: TypeFood;
     subtype: SubtypeFood;
     links: string[];

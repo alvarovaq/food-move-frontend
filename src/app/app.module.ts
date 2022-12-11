@@ -7,11 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PatientPipe } from './core/pipes/patient.pipe';
+import { OptionalPipe } from './shared/pipes/optional.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PatientPipe,
+    PatientPipe
   ],
   imports: [
     BrowserModule,

@@ -43,6 +43,14 @@ table {
     max-width: 100%;
 }
 
+.table__header {
+    text-align: center;
+}
+
+.table__item {
+    text-align: center;
+}
+
 .btns__user {
     display: flex;
     flex-direction: row;
@@ -55,6 +63,11 @@ table {
 
 .table__rows:hover {
     background-color: #efefef;
+}
+
+.table__not__exist {
+    text-align: center;
+    color: grey;
 }
 
 @media(max-width: 959px) {

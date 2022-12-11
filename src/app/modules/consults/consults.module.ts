@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { ConsultsRoutingModule } from './consults-routing.module';
 import { ConsultsComponent } from '../consults/consults.component';
@@ -8,8 +8,6 @@ import { MatModule } from '@shared/modules/mat/mat.module';
 import { SharedModule } from '@shared/shared.module';
 import { AddConsultPageComponent } from './pages/add-consult-page/add-consult-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SnackerService } from '@shared/services/snacker.service';
-import { OptionalPipe } from '../../shared/pipes/optional.pipe';
 
 
 @NgModule({

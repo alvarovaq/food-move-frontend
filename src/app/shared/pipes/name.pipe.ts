@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NamePipe implements PipeTransform {
 
   transform(user: any): string {
+    if (!user) return '';
     let name = user.name;
     if (user.surname != undefined) name += ' ' + user.surname; 
     return name;

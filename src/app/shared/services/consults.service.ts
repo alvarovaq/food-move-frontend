@@ -14,8 +14,8 @@ export class ConsultsService {
     private readonly http: HttpClient    
   ) {}
 
-  getConsultsByPatient (): Observable<ConsultModel[]> {
-    return this.http.get<ConsultModel[]>(`${environment.api}/consults/findByPatient`);
+  getConsultsByPatient (id: string): Observable<ConsultModel[]> {
+    return this.http.get<ConsultModel[]>(`${environment.api}/consults/findByPatient/${id}`);
   }
 
   createConsult (consult: ConsultRequestModel): Observable<ConsultModel> {

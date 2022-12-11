@@ -8,7 +8,7 @@ import { RouterService } from '../../services/router.service';
 })
 export class HeaderPatientComponent implements OnInit {
 
-  @Input() id: string = "";
+  @Input() id: string | null = "";
   @Input() name: string = "";
   @Input() title: string = "";
 
@@ -24,18 +24,22 @@ export class HeaderPatientComponent implements OnInit {
   }
 
   goToGraphics (): void {
+    if (!this.id) return;
     this.routerService.goToGraphics(this.id);
   }
 
   goToConsults (): void {
+    if (!this.id) return;
     this.routerService.goToConsults(this.id);
   }
 
   goToFoods (): void {
+    if (!this.id) return;
     this.routerService.goToFoods(this.id);
   }
 
   goToMoves (): void {
+    if (!this.id) return;
     this.routerService.goToMoves(this.id);
   }
 

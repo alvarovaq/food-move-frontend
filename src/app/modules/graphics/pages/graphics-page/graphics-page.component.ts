@@ -4,6 +4,8 @@ import { PatientsService } from '../../../../shared/services/patients.service';
 import { PatientModel } from '../../../../core/models/patient.model';
 import { LoaderService } from '../../../../shared/services/loader.service';
 import { finalize } from 'rxjs/operators';
+import { RouterService } from '../../../../shared/services/router.service';
+import { SnackerService } from '@shared/services/snacker.service';
 
 @Component({
   selector: 'app-graphics-page',
@@ -17,6 +19,8 @@ export class GraphicsPageComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly patientsService: PatientsService,
+    private readonly routerService: RouterService,
+    private readonly snackerService: SnackerService,
     private readonly loaderService: LoaderService
   ) { }
 
@@ -32,6 +36,8 @@ export class GraphicsPageComponent implements OnInit {
         },
         err => {
           console.log(err);
+          this.routerService.goToPatients();
+          this.snackerService.showError("No se ha encontrado al paciente");
         }
       );
     };

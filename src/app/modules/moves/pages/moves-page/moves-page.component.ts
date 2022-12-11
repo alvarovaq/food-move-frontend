@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { PatientModel } from '@core/models/patient.model';
 import { LoaderService } from '@shared/services/loader.service';
 import { PatientsService } from '@shared/services/patients.service';
+import { SnackerService } from '@shared/services/snacker.service';
 import { finalize } from 'rxjs/operators';
+import { RouterService } from '../../../../shared/services/router.service';
 
 @Component({
   selector: 'app-moves-page',
@@ -17,6 +19,8 @@ export class MovesPageComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly patientsService: PatientsService,
+    private readonly routerService: RouterService,
+    private readonly snackerService: SnackerService,
     private readonly loaderService: LoaderService
   ) { }
 
@@ -32,6 +36,8 @@ export class MovesPageComponent implements OnInit {
         },
         err => {
           console.log(err);
+          this.routerService.goToPatients();
+          this.snackerService.showError("No se ha encontrado al paciente");
         }
       );
     };

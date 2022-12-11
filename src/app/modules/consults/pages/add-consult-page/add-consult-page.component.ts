@@ -63,6 +63,8 @@ export class AddConsultPageComponent implements OnInit {
         },
         err => {
           console.log(err);
+          this.routerService.goToPatients();
+          this.snackerService.showError("No se ha encontrado al paciente");
         }
       );
     }

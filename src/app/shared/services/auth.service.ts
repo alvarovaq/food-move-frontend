@@ -57,7 +57,7 @@ export class AuthService {
     }
 
     isAdmin (): boolean {
-        if (this.rol == 'admin') return true;
+        if (this.rol === 'admin') return true;
         return false;
     }
 

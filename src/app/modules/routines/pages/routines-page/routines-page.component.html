@@ -1,19 +1,19 @@
 <div class="container">
-    <div class="button_add" *ngIf="isSmall">
+    <div class="btn__add" *ngIf="isSmall">
         <button mat-fab color="primary" (click)="addRoutine()">
             <mat-icon>add</mat-icon>
         </button>
     </div>
-    <div class="header">
-        <p class="subtitle">Rutinas</p>
-        <mat-form-field appearance="standard" class="input_search">
+    <div class="crud__header">
+        <p class="header__subtitle">Rutinas</p>
+        <mat-form-field appearance="standard" class="input__search">
             <mat-label>Buscar</mat-label>
             <input matInput (keyup)="applyFilter()" placeholder="Ej. Juan" #input autocomplete="off" [(ngModel)]="search">
         </mat-form-field>
         <button mat-raised-button color="primary" *ngIf="!isSmall" (click)="addRoutine()">Agregar Rutina</button>
     </div>
     <mat-divider></mat-divider>
-    <div style="margin-top: 20px;">
+    <div class="crud__main">
         <table mat-table [dataSource]="dataSource">
 
             <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
@@ -30,7 +30,7 @@
                     </div>
                 </th>
                 <td mat-cell *matCellDef="let element; let i = index" style="text-align: right;">
-                    <div class="buttons_user">
+                    <div class="btns__user">
                         <a class="pointer" style="color: #CCC" matTooltip="Info Receta" (click)="openInfoRoutine(element)">
                             <mat-icon>info</mat-icon>
                         </a>
@@ -50,7 +50,7 @@
             </tr>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumnsTotal"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumnsTotal;" class="rows"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsTotal;" table__rows></tr>
         </table>
     </div>
 </div>

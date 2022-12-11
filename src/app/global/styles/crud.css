@@ -1,25 +1,29 @@
-.subtitle {
-    font-size: 28px;
-    text-align: left;
-    margin: 0;
-}
-
-.button_add {
+.btn__add {
     position: fixed;
     right: 20px;
     bottom: 20px;
 }
 
-.header {
+.crud__header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.input_search {
+.header__subtitle {
+    font-size: 28px;
+    text-align: left;
+    margin: 0;
+}
+
+.input__search {
     width: 100%;
     max-width: 600px;
+}
+
+.crud__main {
+    margin-top: 20px;
 }
 
 .btn__table {
@@ -39,30 +43,17 @@ table {
     max-width: 100%;
 }
 
-.header_table {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.header_table .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-}
-
-.buttons_user {
+.btns__user {
     display: flex;
     flex-direction: row;
     justify-content: right;
 }
 
-.buttons_user * {
+.btns__user * {
     margin-left: 5px;
 }
 
-.rows:hover {
+.table__rows:hover {
     background-color: #efefef;
 }
 

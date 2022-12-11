@@ -73,7 +73,7 @@ export class AddPatientPageComponent implements OnInit {
       surname: [this.edit ? this.patient!.surname : null],
       email: [this.edit ? this.patient!.email : null, [Validators.required, Validators.email]],
       phone: [this.edit ? this.patient!.phone : null],
-      birth: [this.edit ? this.patient!.birth ? this.datePipe.transform(this.patient!.birth, 'dd/MM/YYYY') : '' : '', dateValidator()],
+      birth: [this.edit ? this.patient!.birth ? this.datePipe.transform(this.patient!.birth, 'dd/MM/YYYY') : null : null, dateValidator()],
     });
   }
 
@@ -94,7 +94,9 @@ export class AddPatientPageComponent implements OnInit {
   }
 
   get birth (): Date | null {
-    const [day, month, year] = this.form.value.birth.split('/');
+    const birth = this.form.value.birth;
+    if (!birth) return null;
+    const [day, month, year] = birth.split('/');
     const date = new Date(+year, +month - 1, +day);
     return date;
   }

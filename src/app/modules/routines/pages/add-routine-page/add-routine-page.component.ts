@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RoutineModel } from '@core/models/routine.model';
-import { LoaderService } from '@core/services/loader.service';
-import { RoutinesService } from '@core/services/routines.service';
-import { RouterService } from '@core/services/router.service';
+import { LoaderService } from '@shared/services/loader.service';
+import { RoutinesService } from '@shared/services/routines.service';
+import { RouterService } from '@shared/services/router.service';
 import { finalize } from 'rxjs/operators';
-import { SnackerService } from '@core/services/snacker.service';
+import { SnackerService } from '@shared/services/snacker.service';
 import { RoutineRequestModel } from '@core/models/routine-request.model';
 import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 

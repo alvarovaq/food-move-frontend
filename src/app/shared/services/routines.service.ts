@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RoutineModel } from '../models/routine.model';
-import { RoutineRequestModel } from '../models/routine-request.model';
+import { RoutineModel } from '../../core/models/routine.model';
+import { RoutineRequestModel } from '../../core/models/routine-request.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

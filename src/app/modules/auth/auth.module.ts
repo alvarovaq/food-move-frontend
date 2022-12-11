@@ -6,8 +6,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthComponent } from './auth.component';
 import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '@core/services/auth.service';
-import { SnackerService } from '@core/services/snacker.service';
+import { AuthService } from '@shared/services/auth.service';
+import { SnackerService } from '@shared/services/snacker.service';
 import { MatModule } from '../../shared/modules/mat/mat.module';
 
 
@@ -21,11 +21,8 @@ import { MatModule } from '../../shared/modules/mat/mat.module';
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatModule
-  ],
-  providers: [
-    AuthService,
-    SnackerService
+    MatModule,
+    SharedModule
   ]
 })
 export class AuthModule { }

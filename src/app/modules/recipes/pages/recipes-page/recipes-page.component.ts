@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { RecipeModel } from '@core/models/recipe.model';
-import { LoaderService } from '@core/services/loader.service';
-import { RecipesService } from '@core/services/recipes.service';
-import { RouterService } from '@core/services/router.service';
+import { LoaderService } from '@shared/services/loader.service';
+import { RecipesService } from '@shared/services/recipes.service';
+import { RouterService } from '@shared/services/router.service';
 import { finalize } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogService } from '@core/services/dialog.service';
-import { SnackerService } from '@core/services/snacker.service';
+import { DialogService } from '@shared/services/dialog.service';
+import { SnackerService } from '@shared/services/snacker.service';
 import { InfoRecipeComponent } from '@modules/recipes/components/info-recipe/info-recipe.component';
 
 @Component({

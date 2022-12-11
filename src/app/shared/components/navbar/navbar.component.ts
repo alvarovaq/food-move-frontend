@@ -1,8 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AuthService } from '@core/services/auth.service';
-import { LoaderService } from '@core/services/loader.service';
-import { RouterService } from '@core/services/router.service';
+import { AuthService } from '@shared/services/auth.service';
+import { LoaderService } from '@shared/services/loader.service';
+import { RouterService } from '@shared/services/router.service';
 
 @Component({
   selector: 'app-navbar',

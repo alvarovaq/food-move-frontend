@@ -6,8 +6,8 @@ import { RecipesPageComponent } from './pages/recipes-page/recipes-page.componen
 import { RecipesComponent } from '../recipes/recipes.component';
 import { SharedModule } from '@shared/shared.module';
 import { InfoRecipeComponent } from './components/info-recipe/info-recipe.component';
-import { SnackerService } from '@core/services/snacker.service';
-import { DialogService } from '@core/services/dialog.service';
+import { SnackerService } from '@shared/services/snacker.service';
+import { DialogService } from '@shared/services/dialog.service';
 import { AddRecipePageComponent } from './pages/add-recipe-page/add-recipe-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from '../../shared/modules/mat/mat.module';
@@ -29,9 +29,5 @@ import { OptionalPipe } from '../../shared/pipes/optional.pipe';
     MatModule,
     SharedModule
   ],
-  providers: [
-    SnackerService,
-    DialogService
-  ]
 })
 export class RecipesModule { }

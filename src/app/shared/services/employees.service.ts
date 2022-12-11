@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EmployeeModel } from '../models/employee.model';
-import { EmployeeRequestModel } from '../models/employee-request.model';
+import { EmployeeModel } from '../../core/models/employee.model';
+import { EmployeeRequestModel } from '../../core/models/employee-request.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

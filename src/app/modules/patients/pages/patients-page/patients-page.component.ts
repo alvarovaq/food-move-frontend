@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PatientModel } from '@core/models/patient.model';
-import { PatientsService } from '@core/services/patients.service';
+import { PatientsService } from '@shared/services/patients.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { RouterService } from '@core/services/router.service';
-import { LoaderService } from '@core/services/loader.service';
+import { RouterService } from '@shared/services/router.service';
+import { LoaderService } from '@shared/services/loader.service';
 import { finalize } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { SnackerService } from '@core/services/snacker.service';
-import { DialogService } from '@core/services/dialog.service';
+import { SnackerService } from '@shared/services/snacker.service';
+import { DialogService } from '@shared/services/dialog.service';
 import { InfoPatientComponent } from '@modules/patients/components/info-patient/info-patient.component';
 
 @Component({

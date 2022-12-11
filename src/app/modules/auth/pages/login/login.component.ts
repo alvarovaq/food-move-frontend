@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { AuthRequestModel } from '@core/models/auth-request.model';
-import { AuthService } from '@core/services/auth.service';
-import { EmployeesService } from '@core/services/employees.service';
-import { RouterService } from '@core/services/router.service';
-import { SnackerService } from '@core/services/snacker.service';
+import { AuthService } from '@shared/services/auth.service';
+import { EmployeesService } from '@shared/services/employees.service';
+import { RouterService } from '@shared/services/router.service';
+import { SnackerService } from '@shared/services/snacker.service';
 
 @Component({
   selector: 'app-login',

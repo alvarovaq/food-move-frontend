@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PatientModel } from '@core/models/patient.model';
-import { LoaderService } from '@core/services/loader.service';
-import { PatientsService } from '@core/services/patients.service';
+import { LoaderService } from '@shared/services/loader.service';
+import { PatientsService } from '@shared/services/patients.service';
 import { finalize } from 'rxjs/operators';
 
 @Component({

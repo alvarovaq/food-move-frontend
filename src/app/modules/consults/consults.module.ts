@@ -8,7 +8,7 @@ import { MatModule } from '@shared/modules/mat/mat.module';
 import { SharedModule } from '@shared/shared.module';
 import { AddConsultPageComponent } from './pages/add-consult-page/add-consult-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SnackerService } from '@core/services/snacker.service';
+import { SnackerService } from '@shared/services/snacker.service';
 import { OptionalPipe } from '../../shared/pipes/optional.pipe';
 
 
@@ -25,9 +25,6 @@ import { OptionalPipe } from '../../shared/pipes/optional.pipe';
     ReactiveFormsModule,
     MatModule,
     SharedModule
-  ],
-  providers: [
-    SnackerService
   ]
 })
 export class ConsultsModule { }

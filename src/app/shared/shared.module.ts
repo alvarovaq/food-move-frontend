@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from './modules/mat/mat.module';
 import { HeaderPatientComponent } from './components/header-patient/header-patient.component';
 import { NamePipe } from './pipes/name.pipe';
 import { OptionalPipe } from './pipes/optional.pipe';
+import { SnackerService } from '@shared/services/snacker.service';
+import { DialogService } from '@shared/services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,12 @@ import { OptionalPipe } from './pipes/optional.pipe';
     NavbarComponent,
     SidenavComponent,
     HeaderPatientComponent,
+    NamePipe,
+    OptionalPipe
+  ],
+  providers: [
+    SnackerService,
+    DialogService,
     NamePipe,
     OptionalPipe
   ]

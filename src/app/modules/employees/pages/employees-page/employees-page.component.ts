@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeModel } from '@core/models/employee.model';
-import { EmployeesService } from '@core/services/employees.service';
-import { LoaderService } from '@core/services/loader.service';
+import { EmployeesService } from '@shared/services/employees.service';
+import { LoaderService } from '@shared/services/loader.service';
 import { finalize } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { RouterService } from '@core/services/router.service';
-import { DialogService } from '@core/services/dialog.service';
-import { SnackerService } from '@core/services/snacker.service';
+import { RouterService } from '@shared/services/router.service';
+import { DialogService } from '@shared/services/dialog.service';
+import { SnackerService } from '@shared/services/snacker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoEmployeeComponent } from '@modules/employees/components/info-employee/info-employee.component';
 

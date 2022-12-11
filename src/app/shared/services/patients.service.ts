@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { PatientModel } from '../models/patient.model';
-import { PatientRequestModel } from '../models/patient-request.model';
+import { PatientModel } from '../../core/models/patient.model';
+import { PatientRequestModel } from '../../core/models/patient-request.model';
 import { PatientPipe } from '../pipes/patient.pipe';
 import { environment } from 'src/environments/environment';
 

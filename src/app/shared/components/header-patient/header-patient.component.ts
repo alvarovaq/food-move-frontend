@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RouterService } from '../../../core/services/router.service';
+import { RouterService } from '../../services/router.service';
 
 @Component({
   selector: 'app-header-patient',

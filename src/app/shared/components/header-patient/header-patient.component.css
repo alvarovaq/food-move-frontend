@@ -18,10 +18,30 @@
     margin-right: 10px;
 }
 
-.subtitle {
+.header__subtitle {
     margin: 0;
 }
 
-.title {
+.header__title {
     font-size: 28px;
+}
+
+@media(max-width: 959px) {
+    .header {
+        flex-direction: column;
+    }
+
+    .btn__exit {
+        display: none;
+    }
+
+    .header__subtitle {
+        font-size: 18px;
+        color: grey;
+    }
+
+    .header__title {
+        font-size: 38px;
+        margin: 20px 0;
+    }
 }

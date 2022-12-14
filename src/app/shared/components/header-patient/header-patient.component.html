@@ -3,20 +3,20 @@
         <button type="button" mat-icon-button class="btn__exit" (click)="exit()">
             <mat-icon>clear</mat-icon>
         </button>
-        <h1 class="subtitle">{{name}}</h1>
+        <h1 class="header__subtitle">{{name}}</h1>
     </div>
-    <p class="title">{{title}}</p>
-    <div class="nav">
-        <button mat-icon-button color="primary" matTooltip="Gráficas" (click)="goToGraphics()">
+    <p class="header__title">{{title}}</p>
+    <div class="header__nav">
+        <button mat-icon-button color="primary" matTooltip="Gráficas" (click)="goToGraphics()" class="nav__item">
             <mat-icon>assessment</mat-icon>
         </button>
-        <button mat-icon-button color="primary" matTooltip="Consultas" (click)="goToConsults()">
+        <button mat-icon-button color="primary" matTooltip="Consultas" (click)="goToConsults()" class="nav__item">
             <mat-icon>local_hospital</mat-icon>
         </button>
-        <button mat-icon-button color="primary" matTooltip="Comidas" (click)="goToFoods()">
+        <button mat-icon-button color="primary" matTooltip="Comidas" (click)="goToFoods()" class="nav__item">
             <mat-icon>fastfood</mat-icon>
         </button>
-        <button mat-icon-button color="primary" matTooltip="Ejercicios" (click)="goToMoves()">
+        <button mat-icon-button color="primary" matTooltip="Ejercicios" (click)="goToMoves()" class="nav__item">
             <mat-icon>fitness_center</mat-icon>
         </button>
     </div>

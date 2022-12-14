@@ -71,10 +71,11 @@ table {
 }
 
 @media(max-width: 959px) {
-    .header {
+    .crud__header {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: left;
+        margin-top: 25px;
     }
 }

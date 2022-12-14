@@ -150,4 +150,8 @@ export class ConsultsPageComponent implements OnInit {
     this.loadPatients();
   }
 
+  addConsult (): void {
+    this.routerService.goToAddConsult(this.patient!._id);
+  }
+
 }

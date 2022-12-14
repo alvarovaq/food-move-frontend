@@ -1,6 +1,14 @@
 <app-header-patient id="{{patient?._id}}" name="{{patient | name}}" title="Consultas"></app-header-patient>
 <div class="container">
     <div class="crud__main">
+        <div class="main__header">
+            <button mat-raised-button color="primary" *ngIf="!isSmall" (click)="addConsult()">Agregar Consulta</button>
+            <div class="btn__add" *ngIf="isSmall">
+                <button mat-fab color="primary" (click)="addConsult()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
         <table mat-table [dataSource]="dataSource">
 
             <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
@@ -18,13 +26,13 @@
                 </th>
                 <td mat-cell *matCellDef="let element; let i = index" style="text-align: right;">
                     <div class="btns__user">
-                        <a class="pointer" style="color: #CCC" matTooltip="Info Usuario">
+                        <a class="pointer" style="color: #CCC" matTooltip="Info Consulta">
                             <mat-icon>info</mat-icon>
                         </a>
-                        <a class="pointer" style="color: #1F516F" matTooltip="Editar Usuario">
+                        <a class="pointer" style="color: #1F516F" matTooltip="Editar Consulta">
                             <mat-icon>edit</mat-icon>
                         </a>
-                        <a class="pointer" style="color: #E15639" matTooltip="Eliminar Usuario">
+                        <a class="pointer" style="color: #E15639" matTooltip="Eliminar Consulta">
                             <mat-icon>delete</mat-icon>
                         </a>
                     </div>

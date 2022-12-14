@@ -84,6 +84,10 @@ export class RouterService {
     await this.router.navigate(['patient/consults', id]);
   }
 
+  async goToAddConsult (id: string): Promise<void> {
+    await this.router.navigate(['patient/consults/add-consult', id]);
+  }
+
   async goToFoods (id: string): Promise<void> {
     await this.router.navigate(['patient/foods', id]);
   }

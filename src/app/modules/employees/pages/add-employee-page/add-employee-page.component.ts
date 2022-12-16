@@ -123,7 +123,7 @@ export class AddEmployeePageComponent implements OnInit {
 
   editEmployee (): void {
     this.loaderService.isLoading.next(true);
-    const employee = this.getEmployeeRequest();
+    const employee = this.getEmployeeRequest(true);
     this.employeesService.updateEmployee(this.employee!._id, employee)
     .pipe(finalize(() => {
       this.loaderService.isLoading.next(false);
@@ -140,15 +140,16 @@ export class AddEmployeePageComponent implements OnInit {
     );
   }
 
-  private getEmployeeRequest (): EmployeeRequestModel {
-    return this.optionalPipe.transform({
+  private getEmployeeRequest (edit: boolean = false): EmployeeRequestModel {
+    const request = {
       name: this.name,
       surname: this.surname,
       email: this.email,
       password: '123456789',
       phone: this.phone,
       admin: this.admin
-    });
+    };
+    return edit ? request : this.optionalPipe.transform(request);
   }
 
 }

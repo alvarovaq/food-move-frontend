@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: '', component: ConsultsComponent, children: [
     {path: ':id', component: ConsultsPageComponent},
     {path: 'add-consult/:id', component: AddConsultPageComponent},
+    {path: 'edit-consult/:id/:idcon', component: AddConsultPageComponent},
     {path: '**', redirectTo: ''}
   ]}
 ];

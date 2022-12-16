@@ -131,7 +131,7 @@ export class AddPatientPageComponent implements OnInit {
 
   editPatient (): void {
     this.loaderService.isLoading.next(true);
-    const patient = this.getPatientRequest();
+    const patient = this.getPatientRequest(true);
     this.patientsService.updatePatient(this.patient!._id, patient)
     .pipe(finalize(() => {
       this.loaderService.isLoading.next(false);
@@ -148,15 +148,16 @@ export class AddPatientPageComponent implements OnInit {
     );
   }
 
-  private getPatientRequest (): PatientRequestModel {
-    return this.optionalPipe.transform({
+  private getPatientRequest (edit:boolean = false): PatientRequestModel {
+    const request = {
       name: this.name,
       surname: this.surname,
       email: this.email,
       password: '123456789',
       phone: this.phone,
       birth: this.birth
-    });
+    };
+    return edit ? request : this.optionalPipe.transform(request);
   }
 
 }

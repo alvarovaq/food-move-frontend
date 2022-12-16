@@ -171,7 +171,7 @@ export class AddRecipePageComponent implements OnInit {
 
   editRecipe(): void {
     this.loaderService.isLoading.next(true);
-    const recipe = this.getRecipeRequest();
+    const recipe = this.getRecipeRequest(true);
     this.recipesService.updateRecipe(this.recipe!._id, recipe)
     .pipe(finalize(() => {
       this.loaderService.isLoading.next(false);
@@ -188,15 +188,16 @@ export class AddRecipePageComponent implements OnInit {
     );
   }
 
-  getRecipeRequest (): RecipeRequestModel {
-    return this.optionalPipe.transform({
+  getRecipeRequest (edit: boolean = false): RecipeRequestModel {
+    const request = {
       title: this.title,
       description: this.description,
       type: this.typeFood,
       subtype: this.subtypeFood,
       links: this.links.map(link => {return link.url}),
       ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient})
-    });
+    }; 
+    return edit ? request : this.optionalPipe.transform(request);
   }
 
 }

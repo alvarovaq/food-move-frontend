@@ -1,17 +1,17 @@
-<div class="panel">
+<div class="info__dialog">
     <h1>{{routine.title}}</h1>
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
         <mat-tab label="General">
             <div style="height: 20px;"></div>
-            <div class="field_panel">
-                <p class="text_field">{{routine.description}}</p>
+            <div class="info__field">
+                <p class="field__text">{{routine.description}}</p>
             </div>
         </mat-tab>
         <mat-tab label="Links">
             <div style="height: 20px;"></div>
             <div *ngIf="routine.links.length > 0">
-                <div *ngFor="let link of routine.links" class="item_link">
-                    <a [href]="link" class="link_item_link">{{link}}</a>
+                <div *ngFor="let link of routine.links" class="link__item">
+                    <a [href]="link" class="link__url">{{link}}</a>
                     <mat-divider></mat-divider>
                 </div>
             </div>

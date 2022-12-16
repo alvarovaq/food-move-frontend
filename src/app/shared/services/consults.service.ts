@@ -21,4 +21,17 @@ export class ConsultsService {
   createConsult (consult: ConsultRequestModel): Observable<ConsultModel> {
     return this.http.post<ConsultModel>(`${environment.api}/consults/create`, consult);
   }
+
+  getConsult (id: string): Observable<ConsultModel> {
+    return this.http.get<ConsultModel>(`${environment.api}/consults/findOne/${id}`);
+  }
+
+  updateConsult (id: string, consult: ConsultRequestModel): Observable<ConsultModel> {
+    return this.http.patch<ConsultModel>(`${environment.api}/consults/update/${id}`, consult);
+  }
+
+  removeConsult (id: string): Observable<ConsultModel> {
+    return this.http.delete<ConsultModel>(`${environment.api}/consults/remove/${id}`);
+  }
+
 }

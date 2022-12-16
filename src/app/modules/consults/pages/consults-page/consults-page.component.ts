@@ -10,6 +10,9 @@ import { ConsultModel } from '../../../../core/models/consult.model';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { RouterService } from '../../../../shared/services/router.service';
 import { SnackerService } from '../../../../shared/services/snacker.service';
+import { DialogService } from '../../../../shared/services/dialog.service';
+import { InfoConsultComponent } from '../../components/info-consult/info-consult.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-consults-page',
@@ -29,11 +32,13 @@ export class ConsultsPageComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
+    private readonly dialog: MatDialog,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly patientsService: PatientsService,
     private readonly consultsService: ConsultsService,
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService,
+    private readonly dialogService: DialogService,
     private readonly loaderService: LoaderService
   ) { }
 
@@ -152,6 +157,41 @@ export class ConsultsPageComponent implements OnInit {
 
   addConsult (): void {
     this.routerService.goToAddConsult(this.patient!._id);
+  }
+
+  editConsult (consult: ConsultModel): void {
+    this.routerService.goToEditConsult(this.patient!._id, consult._id);
+  }
+
+  deleteConsult (consult: ConsultModel): void {
+    this.dialogService.openConfirmDialog('Eliminar Consulta', 'Seguro que quieres eliminar  la consulta?')
+    .subscribe(res => {
+      if (res) {
+        this.loaderService.isLoading.next(true);
+        this.consultsService.removeConsult(consult._id)
+        .pipe(finalize(() => {
+          this.loaderService.isLoading.next(false);
+        }))
+        .subscribe(
+          res => {
+            this.snackerService.showSuccessful("Consulta eliminado con éxito");
+            this.loadPatients();
+          },
+          err => {
+            console.log(err);
+            this.snackerService.showError(err.error.message);
+          }
+          );
+      }
+    });
+  }
+
+  openInfoConsult (consult: ConsultModel): void {
+    const dialogRef = this.dialog.open(InfoConsultComponent, {
+      width: '350px',
+      data: consult
+    });
+    dialogRef.afterClosed();
   }
 
 }

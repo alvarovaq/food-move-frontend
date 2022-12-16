@@ -1,15 +1,15 @@
-<div class="panel">
+<div class="info__dialog">
     <h1>{{patient.name + ' ' + patient.surname}}</h1>
-    <div class="field_panel">
-        <mat-icon class="icon_field">email</mat-icon>
-        <p class="text_field">{{patient.email}}</p>
+    <div class="info__field">
+        <mat-icon class="field__icon">email</mat-icon>
+        <p class="field__text">{{patient.email}}</p>
     </div>
-    <div class="field_panel" *ngIf="patient.phone">
-        <mat-icon class="icon_field">phone</mat-icon>
-        <p class="text_field">{{patient.phone}}</p>
+    <div class="info__field" *ngIf="patient.phone">
+        <mat-icon class="field__icon">phone</mat-icon>
+        <p class="field__text">{{patient.phone}}</p>
     </div>
-    <div class="field_panel" *ngIf="patient.birth">
-        <mat-icon class="icon_field">cake</mat-icon>
-        <p class="text_field">{{(patient.birth | date: 'dd/MM/YYYY')}}</p>
+    <div class="info__field" *ngIf="patient.birth">
+        <mat-icon class="field__icon">cake</mat-icon>
+        <p class="field__text">{{(patient.birth | date: 'dd/MM/YYYY')}}</p>
     </div>
 </div>

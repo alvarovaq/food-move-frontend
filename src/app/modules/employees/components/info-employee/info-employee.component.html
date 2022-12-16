@@ -1,15 +1,15 @@
-<div class="panel">
+<div class="info__dialog">
     <h1>{{employee.name + ' ' + employee.surname}}</h1>
-    <div class="field_panel">
-        <mat-icon class="icon_field">email</mat-icon>
-        <p class="text_field">{{employee.email}}</p>
+    <div class="info__field">
+        <mat-icon class="field__icon">email</mat-icon>
+        <p class="field__text">{{employee.email}}</p>
     </div>
-    <div class="field_panel" *ngIf="employee.phone">
-        <mat-icon class="icon_field">phone</mat-icon>
-        <p class="text_field">{{employee.phone}}</p>
+    <div class="info__field" *ngIf="employee.phone">
+        <mat-icon class="field__icon">phone</mat-icon>
+        <p class="field__text">{{employee.phone}}</p>
     </div>
-    <div class="field_panel" *ngIf="employee.admin">
-        <mat-icon class="icon_field">assignment_ind</mat-icon>
-        <p class="text_field">Administrador</p>
+    <div class="info__field" *ngIf="employee.admin">
+        <mat-icon class="field__icon">assignment_ind</mat-icon>
+        <p class="field__text">Administrador</p>
     </div>
 </div>

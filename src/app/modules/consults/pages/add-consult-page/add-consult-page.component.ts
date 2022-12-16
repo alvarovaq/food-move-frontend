@@ -23,6 +23,7 @@ export class AddConsultPageComponent implements OnInit {
   form!: FormGroup;
   edit: boolean = false;
   patient!: PatientModel;
+  consult: ConsultModel | null = null;
 
   created_at: Date = new Date();
   
@@ -59,7 +60,25 @@ export class AddConsultPageComponent implements OnInit {
       .subscribe(
         res => {
           this.patient = res;
-          this.initForm();
+          if(params["idcon"]) {
+            this.loaderService.isLoading.next(true);
+            this.consultsService.getConsult(params["idcon"])
+            .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+            .subscribe(
+              res => {
+                this.edit = true;
+                this.consult = res;
+                this.initForm();
+              },
+              err => {
+                console.log(err);
+                this.exit();
+                this.snackerService.showError("Algo no ha sucedido como se esperaba");
+              }
+            )
+          } else {
+            this.initForm();
+          }
         },
         err => {
           console.log(err);
@@ -72,17 +91,18 @@ export class AddConsultPageComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      masa: [null, [Validators.min(0)]],
-      imc: [null, [Validators.min(0)]],
-      per_abdominal: [null, [Validators.min(0)]],
-      tension: [null, [Validators.min(0)]],
-      trigliceridos: [null, [Validators.min(0)]],
-      hdl: [null, [Validators.min(0)]],
-      ldl: [null, [Validators.min(0)]],
-      hemoglobina: [null, [Validators.min(0)]],
-      glucosa: [null, [Validators.min(0)]],
-      comments: [null],
+      masa: [this.edit ? this.consult!.masa != undefined ? this.consult!.masa : null : null, [Validators.min(0)]],
+      imc: [this.edit ? this.consult!.imc != undefined ? this.consult!.imc : null : null, [Validators.min(0)]],
+      per_abdominal: [this.edit ? this.consult!.per_abdominal != undefined ? this.consult!.per_abdominal : null : null, [Validators.min(0)]],
+      tension: [this.edit ? this.consult!.tension != undefined ? this.consult!.tension : null : null, [Validators.min(0)]],
+      trigliceridos: [this.edit ? this.consult!.trigliceridos != undefined ? this.consult!.trigliceridos : null : null, [Validators.min(0)]],
+      hdl: [this.edit ? this.consult!.hdl != undefined ? this.consult!.hdl : null : null, [Validators.min(0)]],
+      ldl: [this.edit ? this.consult!.ldl != undefined ? this.consult!.ldl : null : null, [Validators.min(0)]],
+      hemoglobina: [this.edit ? this.consult!.hemoglobina != undefined ? this.consult!.hemoglobina : null : null, [Validators.min(0)]],
+      glucosa: [this.edit ? this.consult!.glucosa != undefined ? this.consult!.glucosa : null : null, [Validators.min(0)]],
+      comments: [this.edit ? this.consult!.comments != undefined ? this.consult!.comments : null : null],
     });
+    if (this.edit) this.created_at = this.consult!.created_at;
   }
 
   get masa (): number | null {
@@ -135,7 +155,6 @@ export class AddConsultPageComponent implements OnInit {
   }
 
   addConsult (): void {
-    console.log(this.getConsultRequest());
     const consult = this.getConsultRequest();
     this.loaderService.isLoading.next(true);
     this.consultsService.createConsult(consult)
@@ -153,10 +172,24 @@ export class AddConsultPageComponent implements OnInit {
   }
 
   editConsult (): void {
+    const consult = this.getConsultRequest(true);
+    this.loaderService.isLoading.next(true);
+    this.consultsService.updateConsult(this.consult!._id, consult)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+    .subscribe(
+      res => {
+        this.exit();
+        this.snackerService.showSuccessful("Consulta edita con éxito");
+      },
+      err => {
+        console.log(err);
+        this.snackerService.showError(err.error.message);
+      }
+    );
   }
 
-  getConsultRequest (): ConsultRequestModel {
-    return this.optionalPipe.transform({
+  getConsultRequest (edit: boolean = false): ConsultRequestModel {
+    const request = {
       patient: this.patient._id,
       masa: this.masa,
       imc: this.imc,
@@ -169,7 +202,8 @@ export class AddConsultPageComponent implements OnInit {
       glucosa: this.glucosa,
       comments: this.comments,
       created_at: this.created_at
-    });
+    };
+    return edit ? request : this.optionalPipe.transform(request);
   }
 
 }

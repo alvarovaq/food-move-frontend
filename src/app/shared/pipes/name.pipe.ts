@@ -8,7 +8,7 @@ export class NamePipe implements PipeTransform {
   transform(user: any): string {
     if (!user) return '';
     let name = user.name;
-    if (user.surname != undefined) name += ' ' + user.surname; 
+    if (user.surname) name += ' ' + user.surname; 
     return name;
   }
 

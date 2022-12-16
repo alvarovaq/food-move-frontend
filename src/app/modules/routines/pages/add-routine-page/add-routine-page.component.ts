@@ -125,7 +125,7 @@ export class AddRoutinePageComponent implements OnInit {
 
   editRoutine (): void {
     this.loaderService.isLoading.next(true);
-    const routine = this.getRoutineRequest();
+    const routine = this.getRoutineRequest(true);
     this.routinesService.updateRoutine(this.routine!._id, routine)
     .pipe(finalize(() => {
       this.loaderService.isLoading.next(false);
@@ -142,12 +142,13 @@ export class AddRoutinePageComponent implements OnInit {
     );
   }
 
-  getRoutineRequest (): RoutineRequestModel {
-    return this.optionalPipe.transform({
+  getRoutineRequest (edit:boolean = false): RoutineRequestModel {
+    const request = {
       title: this.title,
       description: this.description,
       links: this.links.map(link => {return link.url})
-    });
+    };
+    return edit ? request : this.optionalPipe.transform(request);
   }
 
 }

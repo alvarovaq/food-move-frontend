@@ -1,31 +1,33 @@
-.panel {
+.info__dialog {
     display: flex;
     flex-direction: column;
 }
 
-.field_panel {
+.info__field {
     display: flex;
     flex-direction: row;
     margin-bottom: 5px;
 }
 
-.icon_field {
+.field__icon {
     opacity: 0.5;
     margin-right: 10px;
 }
 
-.item_link:hover {
+.field__text {}
+
+.link__item:hover {
     background-color: #EEE;
 }
 
-.link_item_link {
+.link__url {
     padding: 10px 0;
     width: 100%;
     text-decoration: none;
     color: #666;
 }
 
-.item_ingredient {
+.info__between {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

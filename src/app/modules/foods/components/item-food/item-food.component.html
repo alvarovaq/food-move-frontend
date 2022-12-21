@@ -4,10 +4,10 @@
         <mat-panel-description class="header__description">
             {{food!.dish}}
             <div class="header__btns">
-                <a class="pointer" style="color: #1F516F" matTooltip="Editar comida">
+                <a class="pointer" style="color: #1F516F" matTooltip="Editar">
                     <mat-icon>edit</mat-icon>
                 </a>
-                <a class="pointer" style="color: #E15639" matTooltip="Eliminar comida">
+                <a class="pointer" style="color: #E15639" matTooltip="Eliminar">
                     <mat-icon>delete</mat-icon>
                 </a>
             </div>
@@ -15,13 +15,13 @@
     </mat-expansion-panel-header>
     <div class="item__main">
         <div class="main__nav">
-            <button mat-icon-button (click)="changeSeccion(0)" [ngClass]="{'nav__icon': true, 'actived': seccion == 0}">
+            <button mat-icon-button (click)="changeSeccion(0)" [ngClass]="{'nav__icon': true, 'actived': seccion == 0}" matTooltip="General">
                 <mat-icon>description</mat-icon>
             </button>
-            <button mat-icon-button (click)="changeSeccion(1)" [ngClass]="{'nav__icon': true, 'actived': seccion == 1}">
+            <button mat-icon-button (click)="changeSeccion(1)" [ngClass]="{'nav__icon': true, 'actived': seccion == 1}" matTooltip="Enlaces">
                 <mat-icon>links</mat-icon>
             </button>
-            <button mat-icon-button (click)="changeSeccion(2)" [ngClass]="{'nav__icon': true, 'actived': seccion == 2}">
+            <button mat-icon-button (click)="changeSeccion(2)" [ngClass]="{'nav__icon': true, 'actived': seccion == 2}" matTooltip="Ingredientes">
                 <mat-icon>assignment</mat-icon>
             </button>
         </div>

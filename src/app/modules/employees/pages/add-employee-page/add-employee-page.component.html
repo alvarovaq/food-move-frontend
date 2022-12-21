@@ -2,7 +2,7 @@
     <form [formGroup]="form" (ngSubmit)="edit ? editEmployee() : addEmployee()">
         <div class="form__header">
             <div class="header__left">
-                <button type="button" mat-icon-button class="btn__exit" (click)="exit()">
+                <button type="button" mat-icon-button matTooltip="Volver" (click)="exit()">
                     <mat-icon>clear</mat-icon>
                 </button>
                 <p class="header__subtitle">{{edit ? "Editar " : "Agregar "}} Personal</p>

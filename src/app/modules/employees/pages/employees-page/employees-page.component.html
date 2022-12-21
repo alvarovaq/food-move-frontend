@@ -24,20 +24,20 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>
                     <div class="btn__table">
-                        <button mat-icon-button (click)="resetTable()">
+                        <button mat-icon-button (click)="resetTable()" matTooltip="Recargar">
                             <mat-icon>autorenew</mat-icon>
                         </button>
                     </div>
                 </th>
                 <td mat-cell *matCellDef="let element; let i = index" style="text-align: right;">
                     <div class="btns__user">
-                        <a class="pointer" style="color: #CCC" matTooltip="Info Usuario" (click)="openInfoEmployee(element)">
+                        <a class="pointer" style="color: #CCC" matTooltip="Info" (click)="openInfoEmployee(element)">
                             <mat-icon>info</mat-icon>
                         </a>
-                        <a class="pointer" style="color: #1F516F" matTooltip="Editar Usuario" (click)="editEmployee(element)">
+                        <a class="pointer" style="color: #1F516F" matTooltip="Editar" (click)="editEmployee(element)">
                             <mat-icon>edit</mat-icon>
                         </a>
-                        <a class="pointer" style="color: #E15639" matTooltip="Eliminar Usuario" (click)="deleteEmployee(element)">
+                        <a class="pointer" style="color: #E15639" matTooltip="Eliminar" (click)="deleteEmployee(element)">
                             <mat-icon>delete</mat-icon>
                         </a>
                     </div>

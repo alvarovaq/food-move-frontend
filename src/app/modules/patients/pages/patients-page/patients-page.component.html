@@ -24,23 +24,23 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>
                     <div class="btn__table">
-                        <button mat-icon-button (click)="resetTable()">
+                        <button mat-icon-button (click)="resetTable()" matTooltip="Recargar">
                             <mat-icon>autorenew</mat-icon>
                         </button>
                     </div>
                 </th>
                 <td mat-cell *matCellDef="let element; let i = index" style="text-align: right;">
                     <div class="btns__user">
-                        <a class="pointer" style="color: #759E7F" matTooltip="Ver Usuario" (click)="viewPatient(element)">
+                        <a class="pointer" style="color: #759E7F" matTooltip="Ver" (click)="viewPatient(element)">
                             <mat-icon>remove_red_eye</mat-icon>
                         </a>
-                        <a class="pointer" style="color: #CCC" matTooltip="Info Usuario" (click)="openInfoPatient(element)">
+                        <a class="pointer" style="color: #CCC" matTooltip="Info" (click)="openInfoPatient(element)">
                             <mat-icon>info</mat-icon>
                         </a>
-                        <a class="pointer" style="color: #1F516F" matTooltip="Editar Usuario" (click)="editPatient(element)">
+                        <a class="pointer" style="color: #1F516F" matTooltip="Editar" (click)="editPatient(element)">
                             <mat-icon>edit</mat-icon>
                         </a>
-                        <a class="pointer" style="color: #E15639" matTooltip="Eliminar Usuario" (click)="deletePatient(element)">
+                        <a class="pointer" style="color: #E15639" matTooltip="Eliminar" (click)="deletePatient(element)">
                             <mat-icon>delete</mat-icon>
                         </a>
                     </div>

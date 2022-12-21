@@ -5,3 +5,7 @@
 .type-food__main {
     padding: 10px;
 }
+
+.food__item {
+    margin-bottom: 20px;
+}

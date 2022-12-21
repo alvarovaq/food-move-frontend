@@ -1,0 +1,70 @@
+.header__description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main__nav {
+    margin-bottom: 20px;
+}
+
+.nav__icon {
+    color: var(--color-1);
+}
+
+.nav__icon.actived {
+    color: var(--color-2);
+}
+
+.main__home {
+    display: flex;
+    flex-direction: column;
+}
+
+.home__item {
+    display: flex;
+    flex-direction: row;
+}
+
+.home-item__title {
+    color: var(--color-1);
+    font-size: var(--font-size-1);
+    width: 100px;
+}
+
+.links__item {
+    margin-bottom: 10px;
+}
+
+.links-item__url {
+    text-decoration: none;
+    color: black;
+    transition: all .2s;
+}
+
+.links-item__url:hover {
+    color: var(--color-2);
+}
+
+.ingredients__item {
+    display: flex;
+    flex-direction: row;
+}
+
+.ingredients-item__name {
+    min-width: 120px;
+}
+
+.ingredients-item__info {
+    display: flex;
+    flex-direction: row;
+}
+
+.ingredients-item__unit {
+    margin-left: 5px;
+}
+
+.text__info {
+    color: var(--color-1);
+    font-size: var(--font-size-1);
+    font-weight: 500;
+}

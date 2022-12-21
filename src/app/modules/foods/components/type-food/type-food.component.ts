@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FoodModel } from '../../../../core/models/food.model';
 
 @Component({
   selector: 'app-type-food',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./type-food.component.css']
 })
 export class TypeFoodComponent implements OnInit {
+
+  @Input() foods: FoodModel[] = [];
+  @Input() title: string = "";
+  @Input() icon: string = "";
 
   constructor() { }
 

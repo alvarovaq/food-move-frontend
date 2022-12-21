@@ -7,8 +7,8 @@ import { RecipesService } from '@shared/services/recipes.service';
 import { RouterService } from '@shared/services/router.service';
 import { SnackerService } from '@shared/services/snacker.service';
 import { finalize, max } from 'rxjs/operators';
-import { TypeFood } from '@core/enums/type-food';
-import { SubtypeFood } from '@core/enums/subtype-food';
+import { Mean } from '@core/enums/mean';
+import { Dish } from '@core/enums/dish';
 import { IngredientRequestModel } from '@core/models/ingredient-request.model';
 import { RecipeRequestModel } from '@core/models/recipe-request.model';
 import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
@@ -27,10 +27,10 @@ export class AddRecipePageComponent implements OnInit {
   links: Array<{id: number, url: string}> = [];
   ingredients: Array<{id: number, ingredient: IngredientRequestModel}> = [];
 
-  availableTypeFood = [TypeFood.Desayuno, TypeFood.Comida, TypeFood.Cena];
-  availableSubtypeFood = [SubtypeFood.Primero, SubtypeFood.Segundo, SubtypeFood.Postre];
-  typeFood = TypeFood.Comida;
-  subtypeFood = SubtypeFood.Primero;
+  availableMean = [Mean.Desayuno, Mean.Comida, Mean.Cena];
+  availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
+  mean: Mean = Mean.Comida;
+  dish: Dish = Dish.Primero;
   
   buttonClear = {
     title: false,
@@ -78,9 +78,9 @@ export class AddRecipePageComponent implements OnInit {
       description: [this.edit ? this.recipe!.description : null],
     });
     if (this.edit) {
-      this.typeFood = this.recipe!.type;
-      this.changeTypeFood();
-      this.subtypeFood = this.recipe!.subtype;
+      this.mean = this.recipe!.mean;
+      this.changeMean();
+      this.dish = this.recipe!.dish;
       this.links = this.recipe!.links.map((url, id) => {
         return {id, url};
       });
@@ -131,19 +131,19 @@ export class AddRecipePageComponent implements OnInit {
     });
   }
 
-  changeTypeFood (): void {
-    switch (this.typeFood) {
-      case TypeFood.Desayuno:
-        this.availableSubtypeFood = [SubtypeFood.Principal];
-        this.subtypeFood = SubtypeFood.Principal;
+  changeMean (): void {
+    switch (this.mean) {
+      case Mean.Desayuno:
+        this.availableDish = [Dish.Principal];
+        this.dish = Dish.Principal;
         break;
-      case TypeFood.Comida:
-        this.availableSubtypeFood = [SubtypeFood.Primero, SubtypeFood.Segundo, SubtypeFood.Postre];
-        this.subtypeFood = SubtypeFood.Primero;
+      case Mean.Comida:
+        this.availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
+        this.dish = Dish.Primero;
         break;
-      case TypeFood.Cena:
-        this.availableSubtypeFood = [SubtypeFood.Principal, SubtypeFood.Postre];
-        this.subtypeFood = SubtypeFood.Principal;
+      case Mean.Cena:
+        this.availableDish = [Dish.Principal, Dish.Postre];
+        this.dish = Dish.Principal;
         break;
       default:
         break;
@@ -153,6 +153,7 @@ export class AddRecipePageComponent implements OnInit {
   addRecipe(): void {
     this.loaderService.isLoading.next(true);
     const recipe = this.getRecipeRequest();
+    console.log(recipe);
     this.recipesService.createRecipe(recipe)
     .pipe(finalize(() => {
       this.loaderService.isLoading.next(false);
@@ -192,8 +193,8 @@ export class AddRecipePageComponent implements OnInit {
     const request = {
       title: this.title,
       description: this.description,
-      type: this.typeFood,
-      subtype: this.subtypeFood,
+      mean: this.mean,
+      dish: this.dish,
       links: this.links.map(link => {return link.url}),
       ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient})
     }; 

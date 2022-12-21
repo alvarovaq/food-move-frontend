@@ -8,8 +8,8 @@ import { RouterService } from '../../../../shared/services/router.service';
 import { SnackerService } from '../../../../shared/services/snacker.service';
 import { FoodModel } from '../../../../core/models/food.model';
 import { FoodsService } from '@shared/services/foods.service';
-import { TypeFood } from '@core/enums/type-food';
-import { SubtypeFood } from '../../../../core/enums/subtype-food';
+import { Mean } from '@core/enums/mean';
+import { Dish } from '../../../../core/enums/dish';
 
 @Component({
   selector: 'app-foods-page',
@@ -63,11 +63,11 @@ export class FoodsPageComponent implements OnInit {
         this.lunch = [];
         this.dinner = [];
         res.forEach(food => {
-          if (food.type == TypeFood.Desayuno) {
+          if (food.mean == Mean.Desayuno) {
             this.breakfast.push(food);
-          } else if (food.type == TypeFood.Comida) {
+          } else if (food.mean == Mean.Comida) {
             this.lunch.push(food);
-          } else if (food.type == TypeFood.Cena) {
+          } else if (food.mean == Mean.Cena) {
             this.dinner.push(food);
           }
         });
@@ -82,8 +82,8 @@ export class FoodsPageComponent implements OnInit {
   }
 
   sortFood (a: FoodModel, b: FoodModel): number {
-    const pa: number = this.getPointsDish(a.subtype);
-    const pb: number = this.getPointsDish(b.subtype); 
+    const pa: number = this.getPointsDish(a.dish);
+    const pb: number = this.getPointsDish(b.dish); 
     if (pa < pb) {
       return -1;
     } else if (pa > pb) {
@@ -93,12 +93,12 @@ export class FoodsPageComponent implements OnInit {
     }
   }
 
-  getPointsDish (subtype: SubtypeFood): number {
-    switch(subtype) {
-      case SubtypeFood.Principal: return 0;
-      case SubtypeFood.Primero: return 1;
-      case SubtypeFood.Segundo: return 2;
-      case SubtypeFood.Postre: return 3;
+  getPointsDish (dish: Dish): number {
+    switch(dish) {
+      case Dish.Principal: return 0;
+      case Dish.Primero: return 1;
+      case Dish.Segundo: return 2;
+      case Dish.Postre: return 3;
       default: return 4;
     }
   }

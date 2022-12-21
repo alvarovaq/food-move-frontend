@@ -1,13 +1,13 @@
-import { SubtypeFood } from "../enums/subtype-food";
-import { TypeFood } from "../enums/type-food";
+import { Dish } from "../enums/dish";
+import { Mean } from "../enums/mean";
 import { IngredientModel } from "./ingredient.model";
 
 export interface RecipeModel {
     _id: string;
     title: string;
     description?: string;
-    type: TypeFood;
-    subtype: SubtypeFood;
+    mean: Mean;
+    dish: Dish;
     links: string[];
     ingredients: IngredientModel[];
 }

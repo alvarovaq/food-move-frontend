@@ -22,7 +22,7 @@ export class RecipesPageComponent implements OnInit {
   isSmall: boolean = false;
   search: string = '';
 
-  displayedColumns: string[] = ['title', 'description', 'type', 'subtype'];
+  displayedColumns: string[] = ['title', 'description', 'mean', 'dish'];
   displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   dataSource!: MatTableDataSource<any>;
 
@@ -63,9 +63,9 @@ export class RecipesPageComponent implements OnInit {
         return "Título";
       case "description":
         return "Descripción";
-      case "type":
+      case "mean":
         return "Tipo de Comida";
-      case "subtype":
+      case "dish":
         return "Plato";
       default:
         return "";
@@ -85,7 +85,7 @@ export class RecipesPageComponent implements OnInit {
       .observe(['(max-width: 900px)', '(min-width:651px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['title', 'description', 'type'];
+          this.displayedColumns = ['title', 'description', 'mean'];
           this.updateDisplayedColumnsTotal();
         }
       });
@@ -109,7 +109,7 @@ export class RecipesPageComponent implements OnInit {
       .observe(['(min-width: 901px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['title', 'description', 'type', 'subtype'];
+          this.displayedColumns = ['title', 'description', 'mean', 'dish'];
           this.updateDisplayedColumnsTotal();
         }
       });

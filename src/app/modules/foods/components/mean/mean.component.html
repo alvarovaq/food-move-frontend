@@ -1,6 +1,6 @@
-<div class="type-food">
-    <app-header-type-food [title]="title" [icon]="icon"></app-header-type-food>
-    <div class="type-food__main">
+<div class="mean">
+    <app-header-mean [title]="title" [icon]="icon"></app-header-mean>
+    <div class="mean__main">
         <mat-accordion *ngFor="let food of foods">
             <app-item-food [food]="food"></app-item-food>
         </mat-accordion>

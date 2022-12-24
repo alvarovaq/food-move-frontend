@@ -13,8 +13,8 @@ export class FoodsService {
     private readonly http: HttpClient 
   ) {}
 
-  getFoodsByPatient (patient: string): Observable<FoodModel[]> {
-    return this.http.post<FoodModel[]>(`${environment.api}/foods/find`, {patient});
+  getFoodsByPatientAndDate (patient: string, date: Date): Observable<FoodModel[]> {
+    return this.http.post<FoodModel[]>(`${environment.api}/foods/find`, {patient, date});
   }
 
 }

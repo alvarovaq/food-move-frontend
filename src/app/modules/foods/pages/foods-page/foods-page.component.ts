@@ -10,6 +10,7 @@ import { FoodModel } from '../../../../core/models/food.model';
 import { FoodsService } from '@shared/services/foods.service';
 import { Mean } from '@core/enums/mean';
 import { Dish } from '../../../../core/enums/dish';
+import { dateValidator } from '../../../../shared/validators/date.validator';
 
 @Component({
   selector: 'app-foods-page',
@@ -19,7 +20,8 @@ import { Dish } from '../../../../core/enums/dish';
 export class FoodsPageComponent implements OnInit {
 
   patient: PatientModel | null = null;
-  
+  date: Date = new Date();
+
   breakfast: FoodModel[] = [];
   lunch: FoodModel[] = [];
   dinner: FoodModel[] = [];
@@ -55,7 +57,7 @@ export class FoodsPageComponent implements OnInit {
 
   loadFoods (): void {
     this.loaderService.isLoading.next(true);
-    this.foodsService.getFoodsByPatient(this.patient!._id)
+    this.foodsService.getFoodsByPatientAndDate(this.patient!._id, this.date)
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe(
       res => {
@@ -79,6 +81,17 @@ export class FoodsPageComponent implements OnInit {
         console.log(err.error.message);
       }
     );
+  }
+
+  addDate (): void {
+    this.date = new Date(this.date.setDate(this.date.getDate() + 1));
+    console.log(this.date);
+    this.loadFoods();
+  }
+
+  subtractDate (): void {
+    this.date = new Date(this.date.setDate(this.date.getDate() - 1));
+    this.loadFoods();
   }
 
   sortFood (a: FoodModel, b: FoodModel): number {

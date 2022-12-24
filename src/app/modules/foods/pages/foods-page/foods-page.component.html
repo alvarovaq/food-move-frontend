@@ -1,4 +1,15 @@
 <app-header-patient id="{{patient?._id}}" name="{{patient | name}}" title="Comidas"></app-header-patient>
-<app-mean [foods]="breakfast" title="Desayuno" icon="free_breakfast"></app-mean>
-<app-mean [foods]="lunch" title="Comida" icon="restaurant"></app-mean>
-<app-mean [foods]="dinner" title="Cena" icon="fastfood"></app-mean>
+<div class="food__main">
+    <div class="main__date">
+        <button mat-icon-button class="btn__date" (click)="subtractDate()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <p class="date">{{date | date : 'dd MMM yyyy'}}</p>
+        <button mat-icon-button class="btn__date" (click)="addDate()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+    <app-mean [foods]="breakfast" title="Desayuno" icon="free_breakfast"></app-mean>
+    <app-mean [foods]="lunch" title="Comida" icon="restaurant"></app-mean>
+    <app-mean [foods]="dinner" title="Cena" icon="fastfood"></app-mean>
+</div>

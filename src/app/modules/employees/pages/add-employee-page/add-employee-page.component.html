@@ -5,7 +5,7 @@
                 <button type="button" mat-icon-button matTooltip="Volver" (click)="exit()">
                     <mat-icon>clear</mat-icon>
                 </button>
-                <p class="header__subtitle">{{edit ? "Editar " : "Agregar "}} Personal</p>
+                <p class="header__subtitle">{{edit ? "Editar " : "Agregar "}} Profesional</p>
             </div>
             <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid" tabindex="6">Guardar</button>
         </div>
@@ -59,7 +59,7 @@
                 </button>
             </div>
             <div class="slide">
-                <mat-slide-toggle formControlName="admin" color="primary" tabindex="5"><p style="color: #999; margin-top: 12px; margin-left: 10px;">Administrador</p></mat-slide-toggle>
+                <mat-slide-toggle formControlName="admin" color="accent" tabindex="5"><p style="color: #999; margin-top: 12px; margin-left: 10px;">Administrador</p></mat-slide-toggle>
             </div>
         </div>
     </form>

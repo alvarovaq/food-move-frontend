@@ -5,12 +5,12 @@
         </button>
     </div>
     <div class="crud__header">
-        <p class="header__subtitle">Personal</p>
+        <p class="header__subtitle">Profesional</p>
         <mat-form-field appearance="standard" class="input__search">
             <mat-label>Buscar</mat-label>
             <input matInput (keyup)="applyFilter()" placeholder="Ej. Juan" #input autocomplete="off" [(ngModel)]="search">
         </mat-form-field>
-        <button mat-raised-button color="primary" *ngIf="!isSmall" (click)="addEmployee()">Agregar Personal</button>
+        <button mat-raised-button color="primary" *ngIf="!isSmall" (click)="addEmployee()">Agregar Profesional</button>
     </div>
     <mat-divider></mat-divider>
     <div class="crud__main">
@@ -18,7 +18,7 @@
 
             <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
                 <th mat-header-cell class="table__header" *matHeaderCellDef>{{getTitleColumn(column)}}</th>
-                <td mat-cell class="table__item" *matCellDef="let element" [style]="element.admin ? 'color: #83E5CA;' : ''">{{column == "name" ? (element | name) : column == "admin" ?  element.admin ? 'Administrador' : '' : element[column]}}</td>
+                <td mat-cell class="table__item" *matCellDef="let element" [style]="element.admin && column == 'admin' ? 'font-weight: 600;' : ''">{{column == "name" ? (element | name) : column == "admin" ?  element.admin ? 'Administrador' : '' : element[column]}}</td>
             </ng-container>
         
             <ng-container matColumnDef="actions">

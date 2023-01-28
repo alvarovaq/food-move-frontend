@@ -30,3 +30,10 @@ body {
 .error-color-snackbar {
     background-color: #F44336;
 }
+
+.box__shadow {
+    box-shadow: 0px 3px 6px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    overflow: auto;
+    background-color: white;
+}

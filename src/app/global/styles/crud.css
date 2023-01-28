@@ -26,19 +26,18 @@
     margin-top: 20px;
 }
 
+.table-container {
+    min-height: 200px;
+    max-height: 50vh;
+    overflow: auto;
+}
+
 .btn__table {
     width: 100%;
     text-align: right;
 }
 
-.table_container {
-    width: 100%;
-    max-width: 100%;
-    overflow: auto;
-}
-
 table {
-    margin-top: 10px;
     width: 100%;
     max-width: 100%;
 }

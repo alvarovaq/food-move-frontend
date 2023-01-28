@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SnackerService } from '@shared/services/snacker.service';
 import { DialogService } from '@shared/services/dialog.service';
 import { InfoPatientComponent } from '@modules/patients/components/info-patient/info-patient.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-patients-page',
@@ -26,6 +27,8 @@ export class PatientsPageComponent implements OnInit {
   displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   dataSource!: MatTableDataSource<any>;
 
+  resultsLength = 0;
+
   constructor(
     private readonly patientsService: PatientsService,
     private readonly breakpointObserver: BreakpointObserver,
@@ -41,6 +44,11 @@ export class PatientsPageComponent implements OnInit {
     this.setColumnsBySize();
   }
 
+  changeEvent (e: PageEvent) {
+    const array = this.listPatients.slice(e.pageIndex * e.pageSize, (e.pageIndex + 1) * e.pageSize);
+    this.dataSource = new MatTableDataSource(array);
+  }
+
   loadPatients (): void {
     this.loaderService.isLoading.next(true);
     this.patientsService.getPatients()
@@ -50,7 +58,7 @@ export class PatientsPageComponent implements OnInit {
     .subscribe(
       res => {
         this.listPatients = [...res];
-        this.dataSource = new MatTableDataSource(this.listPatients);     
+        this.dataSource = new MatTableDataSource(this.listPatients);  
       },
       err => console.log(err)
     );

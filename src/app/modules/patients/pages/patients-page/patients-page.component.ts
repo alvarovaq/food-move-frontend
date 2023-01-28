@@ -27,8 +27,6 @@ export class PatientsPageComponent implements OnInit {
   displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   dataSource!: MatTableDataSource<any>;
 
-  resultsLength = 0;
-
   constructor(
     private readonly patientsService: PatientsService,
     private readonly breakpointObserver: BreakpointObserver,
@@ -42,11 +40,6 @@ export class PatientsPageComponent implements OnInit {
   ngOnInit(): void {
     this.loadPatients();
     this.setColumnsBySize();
-  }
-
-  changeEvent (e: PageEvent) {
-    const array = this.listPatients.slice(e.pageIndex * e.pageSize, (e.pageIndex + 1) * e.pageSize);
-    this.dataSource = new MatTableDataSource(array);
   }
 
   loadPatients (): void {

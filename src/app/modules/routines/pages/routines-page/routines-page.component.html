@@ -20,7 +20,7 @@
 
                     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
                         <th mat-header-cell class="table__header" *matHeaderCellDef>{{getTitleColumn(column)}}</th>
-                        <td mat-cell class="table__item" *matCellDef="let element">{{element[column]}}</td>
+                        <td mat-cell class="table__item" *matCellDef="let element" [style.color]="column == 'title' ? 'black' : '#888'">{{element[column]}}</td>
                     </ng-container>
                 
                     <ng-container matColumnDef="actions">

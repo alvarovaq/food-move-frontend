@@ -15,7 +15,7 @@
 
                     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
                         <th mat-header-cell class="table__header" *matHeaderCellDef>{{getTitleColumn(column)}}</th>
-                        <td mat-cell class="table__item" *matCellDef="let element">{{column == "created_at" ? (element.created_at | date: 'dd/MM/YYYY') : element[column]}}</td>
+                        <td mat-cell class="table__item" *matCellDef="let element" [style.color]="column == 'created_at' ? 'black' : '#888'">{{column == "created_at" ? (element.created_at | date: 'dd/MM/YYYY') : element[column]}}</td>
                     </ng-container>
                 
                     <ng-container matColumnDef="actions">

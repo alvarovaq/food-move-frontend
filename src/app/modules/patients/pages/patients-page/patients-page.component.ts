@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PatientModel } from '@core/models/patient.model';
 import { PatientsService } from '@shared/services/patients.service';
@@ -10,7 +10,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { SnackerService } from '@shared/services/snacker.service';
 import { DialogService } from '@shared/services/dialog.service';
 import { InfoPatientComponent } from '@modules/patients/components/info-patient/info-patient.component';
+import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
+import { DEFAULT_LIMIT } from '@core/constants';
 
 @Component({
   selector: 'app-patients-page',
@@ -21,11 +23,17 @@ export class PatientsPageComponent implements OnInit {
 
   listPatients: PatientModel[] = [];
   isSmall: boolean = false;
-  search: string = '';
+  isLoadingResults = false;
 
   displayedColumns: string[] = ['name', 'email', 'phone', 'birth'];
   displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   dataSource!: MatTableDataSource<any>;
+
+  search: string = '';
+  sort: string = 'asc';
+  page: number = 0;
+  limit: number = DEFAULT_LIMIT;
+  total: number = 0;
 
   constructor(
     private readonly patientsService: PatientsService,
@@ -43,15 +51,21 @@ export class PatientsPageComponent implements OnInit {
   }
 
   loadPatients (): void {
-    this.loaderService.isLoading.next(true);
-    this.patientsService.getPatients()
+    this.isLoadingResults = true;
+    this.patientsService.getPatientsPagination({
+      page: this.page + 1,
+      limit: this.limit,
+      sort: this.sort,
+      s: this.search
+    })
     .pipe(finalize(() => {
-      this.loaderService.isLoading.next(false);
+      this.isLoadingResults = false;
     }))
     .subscribe(
       res => {
-        this.listPatients = [...res];
-        this.dataSource = new MatTableDataSource(this.listPatients);  
+        this.total = res.total;
+        this.listPatients = [...res.items];
+        this.dataSource = new MatTableDataSource(this.listPatients);
       },
       err => console.log(err)
     );
@@ -120,8 +134,21 @@ export class PatientsPageComponent implements OnInit {
     this.displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   }
 
+  changeSort (sort: Sort) {
+    this.sort = sort.direction;
+    this.page = 0;
+    this.loadPatients();
+  }
+
+  changePage (e: PageEvent) {
+    this.page = e.pageIndex;
+    this.loadPatients();
+  }
+
   applyFilter(): void {
-    this.dataSource.filter = this.search.trim().toLowerCase();
+    //this.dataSource.filter = this.search.trim().toLowerCase();
+    this.page = 0;
+    this.loadPatients();
   }
 
   resetTable (): void {

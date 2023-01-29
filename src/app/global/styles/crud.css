@@ -2,6 +2,7 @@
     position: fixed;
     right: 20px;
     bottom: 20px;
+    z-index: 99;
 }
 
 .crud__header {
@@ -24,6 +25,29 @@
 
 .crud__main {
     margin-top: 20px;
+}
+
+.crud__table {
+    position: relative;
+}
+
+.loading__shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.not-find-results {
+    max-width: 360px;
+    text-align: center;
+    font-size: 16px;
 }
 
 .table__container {

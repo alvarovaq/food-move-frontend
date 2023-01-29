@@ -15,12 +15,22 @@
     <mat-divider></mat-divider>
     <div class="crud__main">
         <div class="crud__table box__shadow">
+            <div class="loading__shade"
+                *ngIf="isLoadingResults">
+                <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            </div>
             <div class="table__container">
-                <table mat-table [dataSource]="dataSource">
-    
-                    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
-                        <th mat-header-cell class="table__header" *matHeaderCellDef [style.text-align]="column == 'name' ? 'left' : 'center'">{{getTitleColumn(column)}}</th>
-                        <td mat-cell class="table__item" *matCellDef="let element" [style.color]="column == 'name' ? 'black' : '#888'" [style.text-align]="column == 'name' ? 'left' : 'center'">{{column == "name" ? (element | name) : column == "birth" ?  (element.birth | date: 'dd/MM/YYYY') : element[column]}}</td>
+                <table mat-table [dataSource]="dataSource" matSort  matSortActive="name" matSortDisableClear matSortDirection="asc" (matSortChange)="changeSort($event)">
+
+                    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns" [ngSwitch]="column">
+                        <div *ngSwitchCase="'name'">
+                            <th mat-header-cell class="table__header" *matHeaderCellDef mat-sort-header disableClear [style.text-align]="'left'">{{getTitleColumn(column)}}</th>
+                            <td mat-cell class="table__item" *matCellDef="let element" [style.color]="'black'" [style.text-align]="'left'">{{(element | name)}}</td>
+                        </div>
+                        <div *ngSwitchDefault>
+                            <th mat-header-cell class="table__header" *matHeaderCellDef [style.text-align]="'center'">{{getTitleColumn(column)}}</th>
+                            <td mat-cell class="table__item" *matCellDef="let element" [style.color]="'#888'" [style.text-align]="'center'">{{column == "birth" ?  (element.birth | date: 'dd/MM/YYYY') : element[column]}}</td>
+                        </div>
                     </ng-container>
                 
                     <ng-container matColumnDef="actions">
@@ -58,6 +68,7 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsTotal;" class="table__rows"></tr>
                 </table>
             </div>
+            <mat-paginator [length]="total" [pageSize]="limit" [pageIndex]="page" (page)="changePage($event)"></mat-paginator>
         </div>
     </div>
 </div>

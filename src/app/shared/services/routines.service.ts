@@ -19,7 +19,7 @@ export class RoutinesService {
   }
 
   getRoutine (id: string): Observable<RoutineModel> {
-    return this.http.get<RoutineModel>(`${environment.api}/routines/findOne/${id}`);
+    return this.http.get<RoutineModel>(`${environment.api}/routines/${id}`);
   }
 
   createRoutine (routine: RoutineRequestModel): Observable<RoutineModel> {

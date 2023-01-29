@@ -31,7 +31,7 @@ export class PatientsService {
   }
 
   getPatientsPagination (paginationReq: PaginationRequest): Observable<PaginationResponse> {
-    return this.http.get<PaginationResponse>(`${environment.api}/patients/findPag?${this.paginationService.getUrlParameters(paginationReq)}`).pipe(
+    return this.http.get<PaginationResponse>(`${environment.api}/patients?${this.paginationService.getUrlParameters(paginationReq)}`).pipe(
       map((data) => {
         let newData: PaginationResponse = Object.assign({}, data);
         newData.items.map((patient: PatientModel) => {
@@ -43,7 +43,7 @@ export class PatientsService {
   }
 
   getPatient (id: string): Observable<PatientModel> {
-    return this.http.get<PatientModel>(`${environment.api}/patients/findOne/${id}`).pipe(
+    return this.http.get<PatientModel>(`${environment.api}/patients/${id}`).pipe(
       map((patient) => {
         return this.patientPipe.transform(patient);
       })

@@ -19,7 +19,7 @@ export class RecipesService {
   }
 
   getRecipe (id: string): Observable<RecipeModel> {
-    return this.http.get<RecipeModel>(`${environment.api}/recipes/findOne/${id}`);
+    return this.http.get<RecipeModel>(`${environment.api}/recipes/${id}`);
   }
 
   createRecipe (recipe: RecipeRequestModel): Observable<RecipeModel> {

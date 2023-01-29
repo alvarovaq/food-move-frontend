@@ -23,7 +23,7 @@ export class ConsultsService {
   }
 
   getConsult (id: string): Observable<ConsultModel> {
-    return this.http.get<ConsultModel>(`${environment.api}/consults/findOne/${id}`);
+    return this.http.get<ConsultModel>(`${environment.api}/consults/${id}`);
   }
 
   updateConsult (id: string, consult: ConsultRequestModel): Observable<ConsultModel> {

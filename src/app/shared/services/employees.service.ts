@@ -15,7 +15,7 @@ export class EmployeesService {
   ) { }
 
   getEmployeeByEmail (email: string): Observable<EmployeeModel> {
-    return this.http.post<EmployeeModel>(`${environment.api}/employees/findFirst`, {email});
+    return this.http.post<EmployeeModel>(`${environment.api}/employees/lookUp`, {email});
   }
 
   getEmployees (): Observable<EmployeeModel[]> {
@@ -23,7 +23,7 @@ export class EmployeesService {
   }
 
   getEmployee (id: string): Observable<EmployeeModel> {
-    return this.http.get<EmployeeModel>(`${environment.api}/employees/findOne/${id}`);
+    return this.http.get<EmployeeModel>(`${environment.api}/employees/${id}`);
   }
 
   createEmployee (employee: EmployeeRequestModel): Observable<EmployeeModel> {

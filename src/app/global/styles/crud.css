@@ -44,12 +44,6 @@
     justify-content: center;
 }
 
-.not-find-results {
-    max-width: 360px;
-    text-align: center;
-    font-size: 16px;
-}
-
 .table__container {
     min-height: 200px;
     max-height: 50vh;

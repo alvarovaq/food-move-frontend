@@ -17,7 +17,7 @@
         <div class="crud__table box__shadow">
             <div class="loading__shade"
                 *ngIf="isLoadingResults">
-                <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+                <mat-spinner *ngIf="isLoadingResults" diameter="50"></mat-spinner>
             </div>
             <div class="table__container">
                 <table mat-table [dataSource]="dataSource" matSort  matSortActive="name" matSortDisableClear matSortDirection="asc" (matSortChange)="changeSort($event)">
@@ -60,8 +60,7 @@
                     </ng-container>
                 
                     <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="5" *ngIf="listPatients.length > 0" class="table__not__exist">No se ha encontrada nada con ese resultado</td>
-                        <td class="mat-cell" colspan="5" *ngIf="listPatients.length == 0" class="table__not__exist">No existe ningún usuario</td>
+                        <td class="mat-cell" colspan="5" *ngIf="listPatients.length == 0" class="table__not__exist">No se ha encontrado ningún resultado</td>
                     </tr>
                 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsTotal" class="primaryColorBG"></tr>

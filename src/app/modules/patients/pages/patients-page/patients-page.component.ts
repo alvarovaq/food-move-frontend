@@ -146,7 +146,6 @@ export class PatientsPageComponent implements OnInit {
   }
 
   applyFilter(): void {
-    //this.dataSource.filter = this.search.trim().toLowerCase();
     this.page = 0;
     this.loadPatients();
   }

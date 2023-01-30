@@ -6,7 +6,7 @@ import { PatientRequestModel } from '../../core/models/patient-request.model';
 import { PatientPipe } from '../pipes/patient.pipe';
 import { environment } from 'src/environments/environment';
 import { CustomQuery } from '@core/interfaces/custom-query';
-import { FilterResponse } from '../../core/interfaces/filter-response';
+import { CustomResponse } from '../../core/interfaces/custom-response';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +18,10 @@ export class PatientsService {
     private readonly patientPipe: PatientPipe
   ) {}
 
-  getPatientsPagination (customQuery: CustomQuery): Observable<FilterResponse> {
-    return this.http.post<FilterResponse>(`${environment.api}/patients/filter`, customQuery).pipe(
+  getPatientsPagination (customQuery: CustomQuery): Observable<CustomResponse> {
+    return this.http.post<CustomResponse>(`${environment.api}/patients/filter`, customQuery).pipe(
       map((data) => {
-        let newData: FilterResponse = Object.assign({}, data);
+        let newData: CustomResponse = Object.assign({}, data);
         newData.items.map((patient: PatientModel) => {
           return this.patientPipe.transform(patient);
         });

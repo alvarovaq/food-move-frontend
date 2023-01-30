@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SnackerService } from '@shared/services/snacker.service';
 import { DialogService } from '@shared/services/dialog.service';
 import { InfoPatientComponent } from '@modules/patients/components/info-patient/info-patient.component';
-import { Sort } from '@angular/material/sort';
+import { Sort, SortDirection } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { DEFAULT_LIMIT } from '@core/constants';
 
@@ -30,7 +30,11 @@ export class PatientsPageComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
 
   search: string = '';
-  sort: string = 'asc';
+  searchFields: string[] = ['name', 'surname', 'email', 'phone'];
+  
+  sortField: string = "name";
+  sortDirection: string = 'asc';
+
   page: number = 0;
   limit: number = DEFAULT_LIMIT;
   total: number = 0;
@@ -52,11 +56,15 @@ export class PatientsPageComponent implements OnInit {
 
   loadPatients (): void {
     this.isLoadingResults = true;
+    const sort = this.sortField == "name" ? [{field: "name", direction: this.sortDirection}, {field: "surname", direction: this.sortDirection}] : [{field: this.sortField, direction: this.sortDirection}];
     this.patientsService.getPatientsPagination({
-      page: this.page + 1,
-      limit: this.limit,
-      sort: this.sort,
-      s: this.search
+      paging: {
+        page: this.page + 1,
+        limit: this.limit
+      },
+      sorting: sort,
+      search: {search: this.search, fields: this.searchFields},
+      filter: {}
     })
     .pipe(finalize(() => {
       this.isLoadingResults = false;
@@ -135,7 +143,8 @@ export class PatientsPageComponent implements OnInit {
   }
 
   changeSort (sort: Sort) {
-    this.sort = sort.direction;
+    this.sortDirection = sort.direction;
+    this.sortField = sort.active;
     this.page = 0;
     this.loadPatients();
   }

@@ -5,9 +5,8 @@ import { PatientModel } from '../../core/models/patient.model';
 import { PatientRequestModel } from '../../core/models/patient-request.model';
 import { PatientPipe } from '../pipes/patient.pipe';
 import { environment } from 'src/environments/environment';
-import { PaginationRequest } from '@core/interfaces/pagination-request.interface';
-import { PaginationResponse } from '../../core/interfaces/pagination-response.interface';
-import { PaginationService } from './pagination.service';
+import { CustomQuery } from '@core/interfaces/custom-query';
+import { FilterResponse } from '../../core/interfaces/filter-response';
 
 @Injectable({
   providedIn: 'root'
@@ -16,24 +15,13 @@ export class PatientsService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly patientPipe: PatientPipe,
-    private readonly paginationService: PaginationService
+    private readonly patientPipe: PatientPipe
   ) {}
 
-  getPatients (): Observable<PatientModel[]> {
-    return this.http.get<PatientModel[]>(`${environment.api}/patients/findAll`).pipe(
+  getPatientsPagination (customQuery: CustomQuery): Observable<FilterResponse> {
+    return this.http.post<FilterResponse>(`${environment.api}/patients/filter`, customQuery).pipe(
       map((data) => {
-        return data.map((patient) => {
-          return this.patientPipe.transform(patient);
-        })
-      })
-    );
-  }
-
-  getPatientsPagination (paginationReq: PaginationRequest): Observable<PaginationResponse> {
-    return this.http.get<PaginationResponse>(`${environment.api}/patients?${this.paginationService.getUrlParameters(paginationReq)}`).pipe(
-      map((data) => {
-        let newData: PaginationResponse = Object.assign({}, data);
+        let newData: FilterResponse = Object.assign({}, data);
         newData.items.map((patient: PatientModel) => {
           return this.patientPipe.transform(patient);
         });

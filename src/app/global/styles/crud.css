@@ -61,11 +61,11 @@ table {
 }
 
 .table__header {
-    text-align: center;
+    text-align: left;
 }
 
 .table__item {
-    text-align: center;
+    text-align: left;
 }
 
 .btns__user {

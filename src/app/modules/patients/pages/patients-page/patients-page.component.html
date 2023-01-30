@@ -28,8 +28,8 @@
                             <td mat-cell class="table__item" *matCellDef="let element" [style.color]="'black'" [style.text-align]="'left'">{{(element | name)}}</td>
                         </div>
                         <div *ngSwitchDefault>
-                            <th mat-header-cell class="table__header" *matHeaderCellDef [style.text-align]="'center'">{{getTitleColumn(column)}}</th>
-                            <td mat-cell class="table__item" *matCellDef="let element" [style.color]="'#888'" [style.text-align]="'center'">{{column == "birth" ?  (element.birth | date: 'dd/MM/YYYY') : element[column]}}</td>
+                            <th mat-header-cell class="table__header" *matHeaderCellDef mat-sort-header disableClear [style.text-align]="'center'">{{getTitleColumn(column)}}</th>
+                            <td mat-cell class="table__item" *matCellDef="let element" [style.color]="'#888'">{{column == "birth" ?  (element.birth | date: 'dd/MM/YYYY') : element[column]}}</td>
                         </div>
                     </ng-container>
                 

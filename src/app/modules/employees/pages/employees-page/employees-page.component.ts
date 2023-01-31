@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeModel } from '@core/models/employee.model';
-import { EmployeesService } from '@shared/services/employees.service';
-import { LoaderService } from '@shared/services/loader.service';
+import { EmployeesService } from '@core/services/employees.service';
+import { LoaderService } from '@core/services/loader.service';
 import { finalize } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { RouterService } from '@shared/services/router.service';
-import { DialogService } from '@shared/services/dialog.service';
-import { SnackerService } from '@shared/services/snacker.service';
+import { RouterService } from '@core/services/router.service';
+import { DialogService } from '@core/services/dialog.service';
+import { SnackerService } from '@core/services/snacker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoEmployeeComponent } from '@modules/employees/components/info-employee/info-employee.component';
+import { DEFAULT_LIMIT } from '@core/constants';
+import { Sort } from '@angular/material/sort';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-employees-page',
@@ -20,11 +23,21 @@ export class EmployeesPageComponent implements OnInit {
 
   listEmployees: EmployeeModel[] = [];
   isSmall: boolean = false;
-  search: string = '';
+  isLoadingResults = false;
 
   displayedColumns: string[] = ['name', 'email', 'phone', 'admin'];
   displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   dataSource!: MatTableDataSource<any>;
+
+  search: string = '';
+  searchFields: string[] = ['name', 'surname', 'email', 'phone'];
+  
+  sortField: string = "name";
+  sortDirection: string = 'asc';
+
+  page: number = 0;
+  limit: number = DEFAULT_LIMIT;
+  total: number = 0;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -42,14 +55,24 @@ export class EmployeesPageComponent implements OnInit {
   }
 
   loadEmployees (): void {
-    this.loaderService.isLoading.next(true);
-    this.employeesService.getEmployees()
+    this.isLoadingResults = true;
+    const sort = this.sortField == "name" ? [{field: "name", direction: this.sortDirection}, {field: "surname", direction: this.sortDirection}] : [{field: this.sortField, direction: this.sortDirection}];
+    this.employeesService.filter({
+      paging: {
+        page: this.page + 1,
+        limit: this.limit
+      },
+      sorting: sort,
+      search: {search: this.search, fields: this.searchFields},
+      filter: {}
+    })
     .pipe(finalize(() => {
-      this.loaderService.isLoading.next(false);
+      this.isLoadingResults = false;
     }))
     .subscribe(
       res => {
-        this.listEmployees = [...res];
+        this.total = res.total;
+        this.listEmployees = [...res.items];
         this.dataSource = new MatTableDataSource(this.listEmployees);     
       },
       err => console.log(err)
@@ -119,13 +142,27 @@ export class EmployeesPageComponent implements OnInit {
     this.displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   }
 
+  changeSort (sort: Sort) {
+    this.sortDirection = sort.direction;
+    this.sortField = sort.active;
+    this.page = 0;
+    this.loadEmployees();
+  }
+
+  changePage (e: PageEvent) {
+    this.page = e.pageIndex;
+    this.loadEmployees();
+  }
+
   applyFilter(): void {
-    this.dataSource.filter = this.search.trim().toLowerCase();
+    this.page = 0;
+    this.loadEmployees();
   }
 
   resetTable (): void {
-    this.loadEmployees();
     this.search = '';
+    this.page = 0;
+    this.loadEmployees();
   }
 
   addEmployee(): void {

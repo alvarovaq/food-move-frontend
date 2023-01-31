@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeModel } from '@core/models/employee.model';
-import { EmployeesService } from '@shared/services/employees.service';
-import { LoaderService } from '@shared/services/loader.service';
-import { RouterService } from '@shared/services/router.service';
+import { EmployeesService } from '@core/services/employees.service';
+import { LoaderService } from '@core/services/loader.service';
+import { RouterService } from '@core/services/router.service';
 import { finalize } from 'rxjs/operators';
-import { SnackerService } from '@shared/services/snacker.service';
+import { SnackerService } from '@core/services/snacker.service';
 import { EmployeeRequestModel } from '@core/models/employee-request.model';
 import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 

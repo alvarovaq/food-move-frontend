@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { RoutineModel } from '@core/models/routine.model';
-import { LoaderService } from '@shared/services/loader.service';
-import { RoutinesService } from '@shared/services/routines.service';
+import { LoaderService } from '@core/services/loader.service';
+import { RoutinesService } from '@core/services/routines.service';
 import { finalize  } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { RouterService } from '@shared/services/router.service';
-import { DialogService } from '@shared/services/dialog.service';
-import { SnackerService } from '@shared/services/snacker.service';
+import { RouterService } from '@core/services/router.service';
+import { DialogService } from '@core/services/dialog.service';
+import { SnackerService } from '@core/services/snacker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoRoutineComponent } from '@modules/routines/components/info-routine/info-routine.component';
 

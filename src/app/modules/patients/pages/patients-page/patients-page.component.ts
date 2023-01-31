@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PatientModel } from '@core/models/patient.model';
-import { PatientsService } from '@shared/services/patients.service';
+import { PatientsService } from '@core/services/patients.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { RouterService } from '@shared/services/router.service';
-import { LoaderService } from '@shared/services/loader.service';
+import { RouterService } from '@core/services/router.service';
+import { LoaderService } from '@core/services/loader.service';
 import { finalize } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { SnackerService } from '@shared/services/snacker.service';
-import { DialogService } from '@shared/services/dialog.service';
+import { SnackerService } from '@core/services/snacker.service';
+import { DialogService } from '@core/services/dialog.service';
 import { InfoPatientComponent } from '@modules/patients/components/info-patient/info-patient.component';
 import { Sort, SortDirection } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
@@ -57,7 +57,7 @@ export class PatientsPageComponent implements OnInit {
   loadPatients (): void {
     this.isLoadingResults = true;
     const sort = this.sortField == "name" ? [{field: "name", direction: this.sortDirection}, {field: "surname", direction: this.sortDirection}] : [{field: this.sortField, direction: this.sortDirection}];
-    this.patientsService.getPatientsPagination({
+    this.patientsService.filter({
       paging: {
         page: this.page + 1,
         limit: this.limit
@@ -160,8 +160,9 @@ export class PatientsPageComponent implements OnInit {
   }
 
   resetTable (): void {
-    this.loadPatients();
     this.search = '';
+    this.page = 0;
+    this.loadPatients();
   }
 
   addPatient (): void {

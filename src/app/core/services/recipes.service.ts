@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RecipeModel } from '../../core/models/recipe.model';
-import { RecipeRequestModel } from '../../core/models/recipe-request.model';
+import { RecipeModel } from '../models/recipe.model';
+import { RecipeRequestModel } from '../models/recipe-request.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

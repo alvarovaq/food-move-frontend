@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoaderService } from '@shared/services/loader.service';
-import { PatientsService } from '@shared/services/patients.service';
+import { LoaderService } from '@core/services/loader.service';
+import { PatientsService } from '@core/services/patients.service';
 import { PatientModel } from '../../../../core/models/patient.model';
 import { finalize } from 'rxjs/operators';
-import { RouterService } from '../../../../shared/services/router.service';
-import { SnackerService } from '../../../../shared/services/snacker.service';
+import { RouterService } from '../../../../core/services/router.service';
+import { SnackerService } from '../../../../core/services/snacker.service';
 import { FoodModel } from '../../../../core/models/food.model';
-import { FoodsService } from '@shared/services/foods.service';
+import { FoodsService } from '@core/services/foods.service';
 import { Mean } from '@core/enums/mean';
 import { Dish } from '../../../../core/enums/dish';
-import { dateValidator } from '../../../../shared/validators/date.validator';
 
 @Component({
   selector: 'app-foods-page',

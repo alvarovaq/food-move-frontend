@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthResponseModel } from '../../core/models/auth-response.model';
+import { AuthResponseModel } from '../models/auth-response.model';
 import { Observable } from 'rxjs';
 import { RouterService } from './router.service';
 import { EmployeesService } from './employees.service';
-import { AuthRequestModel } from '../../core/models/auth-request.model';
+import { AuthRequestModel } from '../models/auth-request.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

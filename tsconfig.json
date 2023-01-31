@@ -21,7 +21,8 @@
     "paths": {
       "@core/*": ["src/app/core/*"],
       "@modules/*": ["src/app/modules/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@shared/*": ["src/app/shared/*"],
+      "@global/*": ["src/app/global/*"]
     },
     "lib": [
       "es2020",

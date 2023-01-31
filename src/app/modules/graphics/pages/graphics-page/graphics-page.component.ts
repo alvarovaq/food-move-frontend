@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PatientsService } from '../../../../shared/services/patients.service';
+import { PatientsService } from '../../../../core/services/patients.service';
 import { PatientModel } from '../../../../core/models/patient.model';
-import { LoaderService } from '../../../../shared/services/loader.service';
+import { LoaderService } from '../../../../core/services/loader.service';
 import { finalize } from 'rxjs/operators';
-import { RouterService } from '../../../../shared/services/router.service';
-import { SnackerService } from '@shared/services/snacker.service';
+import { RouterService } from '../../../../core/services/router.service';
+import { SnackerService } from '@core/services/snacker.service';
 
 @Component({
   selector: 'app-graphics-page',

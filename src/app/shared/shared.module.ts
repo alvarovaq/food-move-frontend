@@ -8,8 +8,8 @@ import { MatModule } from './modules/mat/mat.module';
 import { HeaderPatientComponent } from './components/header-patient/header-patient.component';
 import { NamePipe } from './pipes/name.pipe';
 import { OptionalPipe } from './pipes/optional.pipe';
-import { SnackerService } from '@shared/services/snacker.service';
-import { DialogService } from '@shared/services/dialog.service';
+import { SnackerService } from '@core/services/snacker.service';
+import { DialogService } from '@core/services/dialog.service';
 
 @NgModule({
   declarations: [

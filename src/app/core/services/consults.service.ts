@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ConsultModel } from '../../core/models/consult.model';
-import { ConsultRequestModel } from '../../core/models/consult-request.model';
+import { ConsultModel } from '../models/consult.model';
+import { ConsultRequestModel } from '../models/consult-request.model';
 
 @Injectable({
   providedIn: 'root'

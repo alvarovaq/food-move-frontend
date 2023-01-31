@@ -23,14 +23,8 @@
                 <table mat-table [dataSource]="dataSource" matSort  matSortActive="name" matSortDisableClear matSortDirection="asc" (matSortChange)="changeSort($event)">
 
                     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns" [ngSwitch]="column">
-                        <div *ngSwitchCase="'name'">
-                            <th mat-header-cell class="table__header" *matHeaderCellDef mat-sort-header disableClear [style.text-align]="'left'">{{getTitleColumn(column)}}</th>
-                            <td mat-cell class="table__item" *matCellDef="let element" [style.color]="'black'" [style.text-align]="'left'">{{(element | name)}}</td>
-                        </div>
-                        <div *ngSwitchDefault>
-                            <th mat-header-cell class="table__header" *matHeaderCellDef mat-sort-header disableClear [style.text-align]="'center'">{{getTitleColumn(column)}}</th>
-                            <td mat-cell class="table__item" *matCellDef="let element" [style.color]="'#888'">{{column == "birth" ?  (element.birth | date: 'dd/MM/YYYY') : element[column]}}</td>
-                        </div>
+                        <th mat-header-cell class="table__header" *matHeaderCellDef mat-sort-header disableClear>{{getTitleColumn(column)}}</th>
+                        <td mat-cell class="table__item" *matCellDef="let element" [style.color]="column == 'name' ? 'black' : '#888'">{{column == "name" ? (element | name) : column == "birth" ?  (element.birth | date: 'dd/MM/YYYY') : element[column]}}</td>
                     </ng-container>
                 
                     <ng-container matColumnDef="actions">

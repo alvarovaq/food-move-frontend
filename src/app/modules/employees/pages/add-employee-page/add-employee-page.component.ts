@@ -13,7 +13,7 @@ import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 @Component({
   selector: 'app-add-employee-page',
   templateUrl: './add-employee-page.component.html',
-  styleUrls: ['./add-employee-page.component.css', '../../../../global/styles/form.css']
+  styleUrls: ['./add-employee-page.component.css', '../../../../../assets/styles/form.css']
 })
 export class AddEmployeePageComponent implements OnInit {
 

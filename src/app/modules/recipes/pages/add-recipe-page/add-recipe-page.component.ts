@@ -16,7 +16,7 @@ import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 @Component({
   selector: 'app-add-recipe-page',
   templateUrl: './add-recipe-page.component.html',
-  styleUrls: ['./add-recipe-page.component.css', '../../../../global/styles/form.css']
+  styleUrls: ['./add-recipe-page.component.css', '../../../../../assets/styles/form.css']
 })
 export class AddRecipePageComponent implements OnInit {
 

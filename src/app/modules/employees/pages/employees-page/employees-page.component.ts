@@ -10,14 +10,14 @@ import { DialogService } from '@core/services/dialog.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoEmployeeComponent } from '@modules/employees/components/info-employee/info-employee.component';
-import { DEFAULT_LIMIT } from '@core/constants';
+import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-employees-page',
   templateUrl: './employees-page.component.html',
-  styleUrls: ['./employees-page.component.css', '../../../../global/styles/crud.css']
+  styleUrls: ['./employees-page.component.css', '../../../../../assets/styles/crud.css']
 })
 export class EmployeesPageComponent implements OnInit {
 

@@ -13,7 +13,7 @@ import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 @Component({
   selector: 'app-add-routine-page',
   templateUrl: './add-routine-page.component.html',
-  styleUrls: ['./add-routine-page.component.css', '../../../../global/styles/form.css']
+  styleUrls: ['./add-routine-page.component.css', '../../../../../assets/styles/form.css']
 })
 export class AddRoutinePageComponent implements OnInit {
 

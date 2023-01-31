@@ -5,7 +5,7 @@ import { PatientModel } from '@core/models/patient.model';
 @Component({
   selector: 'app-info-patient',
   templateUrl: './info-patient.component.html',
-  styleUrls: ['./info-patient.component.css', '../../../../global/styles/info-dialog.css']
+  styleUrls: ['./info-patient.component.css', '../../../../../assets/styles/info-dialog.css']
 })
 export class InfoPatientComponent implements OnInit {
 

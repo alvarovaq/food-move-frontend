@@ -16,7 +16,7 @@ import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 @Component({
   selector: 'app-add-consult-page',
   templateUrl: './add-consult-page.component.html',
-  styleUrls: ['./add-consult-page.component.css', '../../../../global/styles/form.css']
+  styleUrls: ['./add-consult-page.component.css', '../../../../../assets/styles/form.css']
 })
 export class AddConsultPageComponent implements OnInit {
 

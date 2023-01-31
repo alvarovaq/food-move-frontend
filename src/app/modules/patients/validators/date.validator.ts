@@ -1,6 +1,6 @@
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 
-export function dateValidator (): ValidatorFn {
+export function birthDateValidator (): ValidatorFn {
     return (control: AbstractControl): {[key: string]: boolean} | null => {
         if (control.pristine) {
             return null;

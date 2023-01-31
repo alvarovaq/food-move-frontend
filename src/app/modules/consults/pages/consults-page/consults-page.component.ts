@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-consults-page',
   templateUrl: './consults-page.component.html',
-  styleUrls: ['./consults-page.component.css', '../../../../global/styles/crud.css']
+  styleUrls: ['./consults-page.component.css', '../../../../../assets/styles/crud.css']
 })
 export class ConsultsPageComponent implements OnInit {
 

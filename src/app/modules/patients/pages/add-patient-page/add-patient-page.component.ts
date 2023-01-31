@@ -6,7 +6,7 @@ import { PatientsService } from '@core/services/patients.service';
 import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { finalize } from 'rxjs/operators';
-import { dateValidator } from '@shared/validators/date.validator';
+import { birthDateValidator } from '@modules/patients/validators/date.validator';
 import { ActivatedRoute } from '@angular/router';
 import { PatientModel } from '@core/models/patient.model';
 import { DatePipe } from '@angular/common';
@@ -15,7 +15,7 @@ import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 @Component({
   selector: 'app-add-patient-page',
   templateUrl: './add-patient-page.component.html',
-  styleUrls: ['./add-patient-page.component.css', '../../../../global/styles/form.css']
+  styleUrls: ['./add-patient-page.component.css', '../../../../../assets/styles/form.css']
 })
 export class AddPatientPageComponent implements OnInit {
 
@@ -73,7 +73,7 @@ export class AddPatientPageComponent implements OnInit {
       surname: [this.edit ? this.patient!.surname : null],
       email: [this.edit ? this.patient!.email : null, [Validators.required, Validators.email]],
       phone: [this.edit ? this.patient!.phone : null],
-      birth: [this.edit ? this.patient!.birth ? this.datePipe.transform(this.patient!.birth, 'dd/MM/YYYY') : null : null, dateValidator()],
+      birth: [this.edit ? this.patient!.birth ? this.datePipe.transform(this.patient!.birth, 'dd/MM/YYYY') : null : null, birthDateValidator()],
     });
   }
 

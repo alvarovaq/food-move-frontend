@@ -11,8 +11,6 @@ import { DialogService } from '@core/services/dialog.service';
 import { PatientsComponent } from '../patients/patients.component';
 import { AddPatientPageComponent } from './pages/add-patient-page/add-patient-page.component';
 import { MatModule } from '../../shared/modules/mat/mat.module';
-import { OptionalPipe } from '../../shared/pipes/optional.pipe';
-import { NamePipe } from '../../shared/pipes/name.pipe';
 
 
 @NgModule({
@@ -29,9 +27,6 @@ import { NamePipe } from '../../shared/pipes/name.pipe';
     ReactiveFormsModule,
     MatModule,
     SharedModule
-  ],
-  providers: [
-    DatePipe
   ]
 })
 export class PatientsModule { }

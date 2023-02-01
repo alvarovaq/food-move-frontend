@@ -10,6 +10,6 @@
     </div>
     <div class="info__field" *ngIf="patient.birth">
         <mat-icon class="field__icon">cake</mat-icon>
-        <p class="field__text">{{(patient.birth | date: 'dd/MM/YYYY')}}</p>
+        <p class="field__text">{{patient.birth ? (patient.birth | date: 'dd/MM/YYYY') : ""}}</p>
     </div>
 </div>

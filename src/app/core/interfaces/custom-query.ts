@@ -6,5 +6,5 @@ export interface CustomQuery {
     search?: Search;
     paging?: Paging;
     sorting?: Sorting[];
-    filter: any;
+    filter?: any;
 }

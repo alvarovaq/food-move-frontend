@@ -10,9 +10,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { SnackerService } from '@core/services/snacker.service';
 import { DialogService } from '@core/services/dialog.service';
 import { InfoPatientComponent } from '@modules/patients/components/info-patient/info-patient.component';
-import { Sort, SortDirection } from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
+import { TableStructure } from '@core/interfaces/table-structure';
+import { TypeValueTable } from '@core/enums/type-value-table';
 
 @Component({
   selector: 'app-patients-page',
@@ -23,11 +25,18 @@ export class PatientsPageComponent implements OnInit {
 
   listPatients: PatientModel[] = [];
   isSmall: boolean = false;
-  isLoadingResults = false;
+  isLoadingResults: boolean = false;
 
-  displayedColumns: string[] = ['name', 'email', 'phone', 'birth'];
-  displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   dataSource!: MatTableDataSource<any>;
+
+  tableStructure: TableStructure[] = [
+    {index: 0, field: 'photo', header: '', sort: false},
+    {index: 1, field: 'name', header: 'Nombre', sort: true, type: TypeValueTable.NAME},
+    {index: 2, field: 'email', header: 'Email', sort: true},
+    {index: 3, field: 'phone', header: 'Teléfono', sort: true},
+    {index: 4, field: 'birth', header: 'Nacimiento', sort: true, type :TypeValueTable.DATE}
+  ];
+  indexDisplay: number = 4;
 
   search: string = '';
   searchFields: string[] = ['name', 'surname', 'email', 'phone'];
@@ -77,22 +86,6 @@ export class PatientsPageComponent implements OnInit {
       },
       err => console.log(err)
     );
-    this.dataSource = new MatTableDataSource(this.listPatients);
-  }
-
-  getTitleColumn (column: string): string {
-    switch (column) {
-      case "name":
-        return "Nombre";
-      case "email":
-        return "Email";
-      case "phone":
-        return "Teléfono";
-      case "birth":
-        return "Nacimiento";
-      default:
-        return "";
-    }
   }
 
   setColumnsBySize (): void {
@@ -103,43 +96,42 @@ export class PatientsPageComponent implements OnInit {
         if (result.matches) {
           this.isSmall = true;
         }
-      });
-    this.breakpointObserver
-      .observe(['(max-width: 900px)', '(min-width:651px)'])
-      .subscribe(result => {
-        if (result.matches) {
-          this.displayedColumns = ['name', 'email', 'phone'];
-          this.updateDisplayedColumnsTotal();
-        }
-      });
-    this.breakpointObserver
-      .observe(['(max-width: 650px)','(min-width:551px)'])
-      .subscribe(result => {
-        if (result.matches) {
-          this.displayedColumns = ['name', 'email'];
-          this.updateDisplayedColumnsTotal();
-        }
-      });
+      }
+    );
     this.breakpointObserver
       .observe(['(max-width: 550px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['name'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 1;
+
         }
-      });
+      }
+    );
+    this.breakpointObserver
+      .observe(['(max-width: 650px)','(min-width:551px)'])
+      .subscribe(result => {
+        if (result.matches) {
+          this.indexDisplay = 2;
+
+        }
+      }
+    );
+    this.breakpointObserver
+      .observe(['(max-width: 900px)', '(min-width:651px)'])
+      .subscribe(result => {
+        if (result.matches) {
+          this.indexDisplay = 3;
+        }
+      }
+    );
     this.breakpointObserver
       .observe(['(min-width: 901px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['name', 'email', 'phone', 'birth'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 4;
         }
-      });
-  }
-
-  updateDisplayedColumnsTotal (): void {
-    this.displayedColumnsTotal = [...this.displayedColumns, 'actions'];
+      }
+    );
   }
 
   changeSort (sort: Sort) {

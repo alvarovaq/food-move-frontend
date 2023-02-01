@@ -27,66 +27,6 @@
     margin-top: 20px;
 }
 
-.crud__table {
-    position: relative;
-}
-
-.loading__shade {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 56px;
-    right: 0;
-    background: rgba(0, 0, 0, 0.15);
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.table__container {
-    min-height: 200px;
-    max-height: 50vh;
-    overflow: auto;
-}
-
-.btn__table {
-    width: 100%;
-    text-align: right;
-}
-
-table {
-    width: 100%;
-    max-width: 100%;
-}
-
-.table__header {
-    text-align: left;
-}
-
-.table__item {
-    text-align: left;
-}
-
-.btns__user {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-}
-
-.btns__user * {
-    margin-left: 5px;
-}
-
-.table__rows:hover {
-    background-color: #efefef;
-}
-
-.table__not__exist {
-    text-align: center;
-    color: grey;
-}
-
 @media(max-width: 959px) {
     .crud__header {
         display: flex;

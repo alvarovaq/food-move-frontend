@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { RoutineModel } from '../models/routine.model';
 import { RoutineRequestModel } from '../models/routine-request.model';
 import { environment } from 'src/environments/environment';
+import { CustomResponse } from '@core/interfaces/custom-response';
+import { CustomQuery } from '@core/interfaces/custom-query';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +16,12 @@ export class RoutinesService {
     private readonly http: HttpClient
   ) { }
 
-  getRoutines (): Observable<RoutineModel[]> {
-    return this.http.get<RoutineModel[]>(`${environment.api}/routines/findAll`);
-  }
-
   getRoutine (id: string): Observable<RoutineModel> {
     return this.http.get<RoutineModel>(`${environment.api}/routines/${id}`);
+  }
+
+  filter (customQuery: CustomQuery): Observable<CustomResponse> {
+    return this.http.post<CustomResponse>(`${environment.api}/routines/filter`, customQuery);
   }
 
   createRoutine (routine: RoutineRequestModel): Observable<RoutineModel> {

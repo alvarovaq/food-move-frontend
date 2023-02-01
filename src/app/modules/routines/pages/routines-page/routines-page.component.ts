@@ -10,6 +10,10 @@ import { DialogService } from '@core/services/dialog.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoRoutineComponent } from '@modules/routines/components/info-routine/info-routine.component';
+import { TableStructure } from '@core/interfaces/table-structure';
+import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
+import { Sort } from '@angular/material/sort';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-routines-page',
@@ -20,11 +24,25 @@ export class RoutinesPageComponent implements OnInit {
 
   listRoutines: RoutineModel[] = [];
   isSmall: boolean = false;
-  search: string = '';
-
-  displayedColumns: string[] = ['title', 'description'];
-  displayedColumnsTotal = [...this.displayedColumns, 'actions'];
+  isLoadingResults: boolean = false;
+  
   dataSource!: MatTableDataSource<any>;
+
+  tableStructure: TableStructure[] = [
+    {index: 1, field: 'title', header: 'Título', sort: true},
+    {index: 2, field: 'description', header: 'Descripción', sort: true}
+  ];
+  indexDisplay: number = 2;
+
+  search: string = '';
+  searchFields: string[] = ['title'];
+
+  sortField: string = "title";
+  sortDirection: string = 'asc';
+
+  limit = DEFAULT_LIMIT;
+  page = 0;
+  total = 0;
 
   constructor(
     private readonly breakpointObserver: BreakpointObserver,
@@ -42,30 +60,27 @@ export class RoutinesPageComponent implements OnInit {
   }
 
   loadRoutines (): void {
-    this.loaderService.isLoading.next(true);
-    this.routinesService.getRoutines()
+    this.isLoadingResults = true;
+    this.routinesService.filter({
+      paging: {
+        page: this.page + 1,
+        limit: this.limit
+      },
+      sorting: [{field: this.sortField, direction: this.sortDirection}],
+      search: {search: this.search, fields: this.searchFields},
+      filter: {}
+    })
     .pipe(finalize(() => {
-      this.loaderService.isLoading.next(false);
+      this.isLoadingResults = false;
     }))
     .subscribe(
       res => {
-        this.listRoutines = [...res];
+        this.total = res.total;
+        this.listRoutines = [...res.items];
         this.dataSource = new MatTableDataSource(this.listRoutines);     
       },
       err => console.log(err)
     );
-    this.dataSource = new MatTableDataSource(this.listRoutines);
-  }
-
-  getTitleColumn (column: string): string {
-    switch (column) {
-      case "title":
-        return "Título";
-      case "description":
-        return "Descripción";
-      default:
-        return "";
-    }
   }
 
   setColumnsBySize (): void {
@@ -81,31 +96,39 @@ export class RoutinesPageComponent implements OnInit {
       .observe(['(max-width: 550px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['title'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 1;
         }
       });
     this.breakpointObserver
       .observe(['(min-width: 901px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['title', 'description'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 2;
         }
       });
   }
 
-  updateDisplayedColumnsTotal (): void {
-    this.displayedColumnsTotal = [...this.displayedColumns, 'actions'];
+  changeSort (sort: Sort) {
+    this.sortDirection = sort.direction;
+    this.sortField = sort.active;
+    this.page = 0;
+    this.loadRoutines();
   }
 
-  applyFilter (): void {
-    this.dataSource.filter = this.search.trim().toLowerCase();
+  changePage (e: PageEvent) {
+    this.page = e.pageIndex;
+    this.loadRoutines();
+  }
+
+  applyFilter(): void {
+    this.page = 0;
+    this.loadRoutines();
   }
 
   resetTable (): void {
-    this.loadRoutines();
     this.search = '';
+    this.page = 0;
+    this.loadRoutines();
   }
 
   addRoutine(): void {

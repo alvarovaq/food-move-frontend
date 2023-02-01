@@ -10,6 +10,9 @@ import { NamePipe } from './pipes/name.pipe';
 import { OptionalPipe } from './pipes/optional.pipe';
 import { SnackerService } from '@core/services/snacker.service';
 import { DialogService } from '@core/services/dialog.service';
+import { ProfilePictureComponent } from './components/profile-picture/profile-picture.component';
+import { TableComponent } from './components/table/table.component';
+import { AdminPipe } from './pipes/admin.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { DialogService } from '@core/services/dialog.service';
     SidenavComponent,
     HeaderPatientComponent,
     NamePipe,
-    OptionalPipe
+    OptionalPipe,
+    ProfilePictureComponent,
+    TableComponent,
+    AdminPipe
   ],
   imports: [
     CommonModule,
@@ -29,6 +35,8 @@ import { DialogService } from '@core/services/dialog.service';
     NavbarComponent,
     SidenavComponent,
     HeaderPatientComponent,
+    ProfilePictureComponent,
+    TableComponent,
     NamePipe,
     OptionalPipe
   ],

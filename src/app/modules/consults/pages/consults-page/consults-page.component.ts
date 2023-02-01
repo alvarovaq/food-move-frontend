@@ -13,6 +13,11 @@ import { SnackerService } from '../../../../core/services/snacker.service';
 import { DialogService } from '../../../../core/services/dialog.service';
 import { InfoConsultComponent } from '../../components/info-consult/info-consult.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TableStructure } from '@core/interfaces/table-structure';
+import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
+import { Sort } from '@angular/material/sort';
+import { PageEvent } from '@angular/material/paginator';
+import { TypeValueTable } from '@core/enums/type-value-table';
 
 @Component({
   selector: 'app-consults-page',
@@ -23,12 +28,27 @@ export class ConsultsPageComponent implements OnInit {
 
   patient: PatientModel | null = null;
 
-  isSmall: boolean = false;
-
   listConsults: ConsultModel[] = [];
-  displayedColumns: string[] = ['created_at', 'masa', 'imc', 'per_abdominal', 'tension'];
-  displayedColumnsTotal = [...this.displayedColumns, 'actions'];
+  isSmall: boolean = false;
+  isLoadingResults: boolean = false;
+
   dataSource!: MatTableDataSource<any>;
+
+  tableStructure: TableStructure[] = [
+    {index: 1, field: 'created_at', header: 'Fecha', sort: true, type: TypeValueTable.DATE},
+    {index: 2, field: 'masa', header: 'Masa [Kg]', sort: true},
+    {index: 3, field: 'imc', header: 'IMC [Kg/m2]', sort: true},
+    {index: 4, field: 'per_abdominal', header: 'Perímetro abdominal [cm]', sort: true},
+    {index: 5, field: 'tension', header: 'Tensión Arterial [mmHg]', sort: true}
+  ];
+  indexDisplay: number = 5;
+
+  sortField: string = 'created_at';
+  sortDirection: string = 'asc';
+
+  limit: number = DEFAULT_LIMIT;
+  page: number = 0;
+  total: number = 0;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -51,7 +71,7 @@ export class ConsultsPageComponent implements OnInit {
       .subscribe(
         res => {
           this.patient = res;
-          this.loadPatients();
+          this.loadConsults();
           this.setColumnsBySize();
         },
         err => {
@@ -63,37 +83,25 @@ export class ConsultsPageComponent implements OnInit {
     };
   }
 
-  loadPatients (): void {
+  loadConsults (): void {
     if (!this.patient) return;
-    this.loaderService.isLoading.next(true);
-    this.consultsService.getConsultsByPatient(this.patient!._id)
+    this.isLoadingResults = true;
+    this.consultsService.filter({
+      paging: {page: this.page + 1, limit: this.limit},
+      sorting: [{field: this.sortField, direction: this.sortDirection}],
+      filter: {patient: this.patient!._id}
+    })
     .pipe(finalize(() => {
-      this.loaderService.isLoading.next(false);
+      this.isLoadingResults = false;
     }))
     .subscribe(
       res => {
-        this.listConsults = [...res];
+        this.total = res.total;
+        this.listConsults = [...res.items];
         this.dataSource = new MatTableDataSource(this.listConsults);
       },
       err => console.log(err)
     );
-  }
-
-  getTitleColumn (column: string): string {
-    switch (column) {
-      case "created_at":
-        return "Fecha";
-      case "masa":
-        return "Masa [Kg]";
-      case "imc":
-        return "IMC [Kg/m2]";
-      case "per_abdominal":
-        return "Perímetro Abdominal [cm]";
-      case "tension":
-        return "Tensión Arterial [mmHg]";
-      default:
-        return "";
-    }
   }
 
   setColumnsBySize (): void {
@@ -109,50 +117,54 @@ export class ConsultsPageComponent implements OnInit {
       .observe(['(max-width: 900px)', '(min-width:651px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['created_at', 'masa', 'imc', 'per_abdominal'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 4;
         }
       });
     this.breakpointObserver
       .observe(['(max-width: 650px)','(min-width:551px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['created_at', 'masa', 'imc'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 3;
         }
       });
     this.breakpointObserver
       .observe(['(max-width: 550px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['created_at', 'masa'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 2;
         }
       });
       this.breakpointObserver
       .observe(['(max-width: 350px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['created_at'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 1;
         }
       });
     this.breakpointObserver
       .observe(['(min-width: 901px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['created_at', 'masa', 'imc', 'per_abdominal', 'tension'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 5;
         }
       });
   }
 
-  updateDisplayedColumnsTotal (): void {
-    this.displayedColumnsTotal = [...this.displayedColumns, 'actions'];
+  changeSort (sort: Sort) {
+    this.sortDirection = sort.direction;
+    this.sortField = sort.active;
+    this.page = 0;
+    this.loadConsults();
+  }
+
+  changePage (e: PageEvent) {
+    this.page = e.pageIndex;
+    this.loadConsults();
   }
 
   resetTable (): void {
-    this.loadPatients();
+    this.page = 0;
+    this.loadConsults();
   }
 
   addConsult (): void {
@@ -175,7 +187,7 @@ export class ConsultsPageComponent implements OnInit {
         .subscribe(
           res => {
             this.snackerService.showSuccessful("Consulta eliminado con éxito");
-            this.loadPatients();
+            this.loadConsults();
           },
           err => {
             console.log(err);

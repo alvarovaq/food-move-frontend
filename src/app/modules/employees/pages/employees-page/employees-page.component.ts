@@ -13,7 +13,8 @@ import { InfoEmployeeComponent } from '@modules/employees/components/info-employ
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
-
+import { TableStructure } from '../../../../core/interfaces/table-structure';
+import { TypeValueTable } from '@core/enums/type-value-table';
 @Component({
   selector: 'app-employees-page',
   templateUrl: './employees-page.component.html',
@@ -23,11 +24,18 @@ export class EmployeesPageComponent implements OnInit {
 
   listEmployees: EmployeeModel[] = [];
   isSmall: boolean = false;
-  isLoadingResults = false;
+  isLoadingResults: boolean = false;
 
-  displayedColumns: string[] = ['name', 'email', 'phone', 'admin'];
-  displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   dataSource!: MatTableDataSource<any>;
+
+  indexDisplay: number = 4;
+  tableStructure: TableStructure[] = [
+    {index: 0, field: 'photo', header: '', sort: false},
+    {index: 1, field: 'name', header: 'Nombre', sort: true, type: TypeValueTable.NAME},
+    {index: 2, field: 'email', header: 'Email', sort: true},
+    {index: 3, field: 'phone', header: 'Teléfono', sort: true},
+    {index: 4, field: 'admin', header: '', sort: true, type: TypeValueTable.ADMIN}
+  ];
 
   search: string = '';
   searchFields: string[] = ['name', 'surname', 'email', 'phone'];
@@ -77,22 +85,6 @@ export class EmployeesPageComponent implements OnInit {
       },
       err => console.log(err)
     );
-    this.dataSource = new MatTableDataSource(this.listEmployees);
-  }
-
-  getTitleColumn (column: string): string {
-    switch (column) {
-      case "name":
-        return "Nombre";
-      case "email":
-        return "Email";
-      case "phone":
-        return "Teléfono";
-      case "admin":
-        return "";
-      default:
-        return "";
-    }
   }
 
   setColumnsBySize (): void {
@@ -108,38 +100,30 @@ export class EmployeesPageComponent implements OnInit {
       .observe(['(max-width: 900px)', '(min-width:651px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['name', 'email', 'phone'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 3;
         }
       });
     this.breakpointObserver
       .observe(['(max-width: 650px)','(min-width:551px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['name', 'email'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 2;
         }
       });
     this.breakpointObserver
       .observe(['(max-width: 550px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['name'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 1;
         }
       });
     this.breakpointObserver
       .observe(['(min-width: 901px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.displayedColumns = ['name', 'email', 'phone', 'admin'];
-          this.updateDisplayedColumnsTotal();
+          this.indexDisplay = 4;
         }
       });
-  }
-
-  updateDisplayedColumnsTotal (): void {
-    this.displayedColumnsTotal = [...this.displayedColumns, 'actions'];
   }
 
   changeSort (sort: Sort) {
@@ -170,7 +154,7 @@ export class EmployeesPageComponent implements OnInit {
   }
 
   deleteEmployee(employee: EmployeeModel): void {
-    this.dialogService.openConfirmDialog('Eliminar personal', 'Seguro que quieres eliminar a ' + employee.name + ' ' + employee.surname + '?')
+    this.dialogService.openConfirmDialog('Eliminar personal', 'Seguro que quieres eliminar a ' + employee.name + '?')
     .subscribe(res => {
       if (res) {
         this.loaderService.isLoading.next(true);
@@ -187,7 +171,7 @@ export class EmployeesPageComponent implements OnInit {
             console.log(err);
             this.snackerService.showError(err.error.message);
           }
-          );
+        );
       }
     });
   }

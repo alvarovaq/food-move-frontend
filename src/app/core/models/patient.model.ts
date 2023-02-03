@@ -5,4 +5,5 @@ export interface PatientModel {
     email: string;
     phone?: string;
     birth?: Date;
+    profile_image?: string;
 }

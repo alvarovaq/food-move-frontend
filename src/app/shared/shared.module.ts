@@ -13,6 +13,7 @@ import { DialogService } from '@core/services/dialog.service';
 import { ProfilePictureComponent } from './components/profile-picture/profile-picture.component';
 import { TableComponent } from './components/table/table.component';
 import { AdminPipe } from './pipes/admin.pipe';
+import { PhotoPipe } from './pipes/photo.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AdminPipe } from './pipes/admin.pipe';
     OptionalPipe,
     ProfilePictureComponent,
     TableComponent,
-    AdminPipe
+    AdminPipe,
+    PhotoPipe
   ],
   imports: [
     CommonModule,

@@ -30,7 +30,7 @@ export class PatientsPageComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
 
   tableStructure: TableStructure[] = [
-    {index: 0, field: 'photo', header: '', sort: false},
+    {index: 0, field: 'profile_image', header: '', sort: false},
     {index: 1, field: 'name', header: 'Nombre', sort: true, type: TypeValueTable.NAME},
     {index: 2, field: 'email', header: 'Email', sort: true},
     {index: 3, field: 'phone', header: 'Teléfono', sort: true},

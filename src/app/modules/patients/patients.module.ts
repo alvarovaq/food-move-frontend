@@ -27,6 +27,7 @@ import { MatModule } from '../../shared/modules/mat/mat.module';
     ReactiveFormsModule,
     MatModule,
     SharedModule
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class PatientsModule { }

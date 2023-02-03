@@ -11,6 +11,7 @@ import { DialogService } from '@core/services/dialog.service';
 import { PatientsComponent } from '../patients/patients.component';
 import { AddPatientPageComponent } from './pages/add-patient-page/add-patient-page.component';
 import { MatModule } from '../../shared/modules/mat/mat.module';
+import { PhotoPipe } from '../../shared/pipes/photo.pipe';
 
 
 @NgModule({
@@ -28,6 +29,6 @@ import { MatModule } from '../../shared/modules/mat/mat.module';
     MatModule,
     SharedModule
   ],
-  providers: [DatePipe]
+  providers: [DatePipe, PhotoPipe]
 })
 export class PatientsModule { }

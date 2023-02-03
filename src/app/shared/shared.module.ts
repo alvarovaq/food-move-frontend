@@ -40,7 +40,8 @@ import { PhotoPipe } from './pipes/photo.pipe';
     ProfilePictureComponent,
     TableComponent,
     NamePipe,
-    OptionalPipe
+    OptionalPipe,
+    PhotoPipe
   ],
   providers: [
     SnackerService,

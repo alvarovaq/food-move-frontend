@@ -5,4 +5,5 @@ export interface EmployeeModel {
     email: string;
     phone?: string;
     admin: boolean;
+    profile_image?: string;
 }

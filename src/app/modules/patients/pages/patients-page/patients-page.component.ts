@@ -99,11 +99,10 @@ export class PatientsPageComponent implements OnInit {
       }
     );
     this.breakpointObserver
-      .observe(['(max-width: 550px)'])
+      .observe(['(max-width: 900px)', '(min-width:651px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.indexDisplay = 1;
-
+          this.indexDisplay = 3;
         }
       }
     );
@@ -117,10 +116,11 @@ export class PatientsPageComponent implements OnInit {
       }
     );
     this.breakpointObserver
-      .observe(['(max-width: 900px)', '(min-width:651px)'])
+      .observe(['(max-width: 550px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.indexDisplay = 3;
+          this.indexDisplay = 1;
+
         }
       }
     );

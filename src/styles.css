@@ -23,6 +23,10 @@ body {
     cursor: pointer;
 }
 
+.margin_bottom_20 {
+    margin-bottom: 20px;
+}
+
 .successful-color-snackbar {
     background-color: rgb(65, 252, 134);
 }

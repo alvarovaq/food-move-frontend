@@ -1,4 +1,5 @@
 export enum InputProfileEvent {
     Add = "add",
-    Remove = "remove"
+    Remove = "remove",
+    Recover = "recover"
 }

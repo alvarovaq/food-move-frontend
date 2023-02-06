@@ -15,6 +15,7 @@ export class InputProfileImageComponent implements OnInit {
   @Input() url: string = URL_PROFILE_IMAGE;
 
   @Output() onSelect = new EventEmitter<any>();
+  @Output() onRecover = new EventEmitter<boolean>();
   @Output() onRemove = new EventEmitter<boolean>();
 
   imageSrc?: string;
@@ -36,6 +37,8 @@ export class InputProfileImageComponent implements OnInit {
           fileUpload.click();
         } else if (result.event == InputProfileEvent.Remove) {
           this.onRemove.emit(true);
+        } else if (result.event == InputProfileEvent.Recover) {
+          this.onRecover.emit(true);
         }
       }
     );

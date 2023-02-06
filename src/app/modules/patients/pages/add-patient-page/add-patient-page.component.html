@@ -13,7 +13,7 @@
         <div class="form__main">
             <div class="form__box">
                 <div class="form__profile-image">
-                    <app-input-profile-image [size]="'170px'" [url]="!imageFile ? removeProfileImage ? ('' | photo) : (patient?.profile_image | photo) : imageFile" (onSelect)="onSelectFile($event)" (onRemove)="onRemoveProfileImage()"></app-input-profile-image>
+                    <app-input-profile-image [size]="'170px'" [url]="!imageFile ? removeProfileImage ? ('' | photo) : (patient?.profile_image | photo) : imageFile" (onSelect)="onSelectFile($event)" (onRemove)="onRemoveProfileImage()" (onRecover)="onRecoverProfileImage()"></app-input-profile-image>
                     <p>Foto de Perfil</p>
                 </div>
                 <div class="main__primary">

@@ -24,4 +24,8 @@ export class EditProfileImageComponent implements OnInit {
     this._bottomSheetRef.dismiss({event: InputProfileEvent.Remove});
   }
 
+  onRecoverPhoto (): void {
+    this._bottomSheetRef.dismiss({event: InputProfileEvent.Recover});
+  }
+
 }

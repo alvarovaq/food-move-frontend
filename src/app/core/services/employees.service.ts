@@ -40,4 +40,12 @@ export class EmployeesService {
     return this.http.delete<EmployeeModel>(`${environment.api}/employees/remove/${id}`);
   }
 
+  uploadProfileImage (id: string, formData: FormData): Observable<EmployeeModel> {
+    return this.http.post<EmployeeModel>(`${environment.api}/employees/upload/${id}`, formData);
+  }
+
+  removeProfileImage (id: string): Observable<EmployeeModel> {
+    return this.http.delete<EmployeeModel>(`${environment.api}/employees/remove-profile-image/${id}`);
+  }
+
 }

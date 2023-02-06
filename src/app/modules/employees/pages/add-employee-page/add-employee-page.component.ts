@@ -28,6 +28,10 @@ export class AddEmployeePageComponent implements OnInit {
     phone: false
   }
 
+  imageFile?: string = "";
+  selectedFile?: File;
+  removeProfileImage: boolean = false;
+
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly fb: FormBuilder,
@@ -111,8 +115,25 @@ export class AddEmployeePageComponent implements OnInit {
     }))
     .subscribe(
       res => {
-        this.exit();
-        this.snackerService.showSuccessful("Personal creado con éxito");
+        if (this.selectedFile) {
+          const fd = new FormData();
+          fd.append('file', this.selectedFile!, this.selectedFile?.name);
+          this.employeesService.uploadProfileImage(res._id, fd)
+          .subscribe(
+            res => {
+              this.exit();
+              this.snackerService.showSuccessful("Profesional creado con éxito");
+            },
+            err => {
+              console.log(err);
+              this.exit();
+              this.snackerService.showError("Error al subir la foto de perfil");
+            }
+          );
+        } else {
+          this.exit();
+          this.snackerService.showSuccessful("Profesional creado con éxito");
+        }
       },
       err => {
         console.log(err);
@@ -130,8 +151,38 @@ export class AddEmployeePageComponent implements OnInit {
     }))
     .subscribe(
       res => {
-        this.exit();
-        this.snackerService.showSuccessful("Personal editado con éxito");
+        if (this.selectedFile) {
+          const fd = new FormData();
+          fd.append('file', this.selectedFile!, this.selectedFile?.name);
+          this.employeesService.uploadProfileImage(res._id, fd)
+          .subscribe(
+            res => {
+              this.exit();
+              this.snackerService.showSuccessful("Profesional editado con éxito");
+            },
+            err => {
+              console.log(err);
+              this.exit()
+              this.snackerService.showError("Error al subir la foto la foto de perfil")
+            }
+          )
+        } else if (this.removeProfileImage) {
+          this.employeesService.removeProfileImage(res._id)
+          .subscribe(
+            res => {
+              this.exit();
+              this.snackerService.showSuccessful("Profesional editado con éxito");
+            },
+            err => {
+              console.log(err);
+              this.exit()
+              this.snackerService.showError("Error al eliminar la foto de perfil");
+            }
+          )
+        } else {
+          this.exit();
+          this.snackerService.showSuccessful("Profesional editado con éxito");
+        }
       },
       err => {
         console.log(err);
@@ -150,6 +201,25 @@ export class AddEmployeePageComponent implements OnInit {
       admin: this.admin
     };
     return edit ? request : this.optionalPipe.transform(request);
+  }
+
+  onSelectFile (event: any): void {
+    this.selectedFile = <File>event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = e => this.imageFile = reader.result as string;
+    reader.readAsDataURL(this.selectedFile);
+  }
+
+  onRemoveProfileImage (): void {
+    this.removeProfileImage = true;
+    this.selectedFile = undefined;
+    this.imageFile = "";
+  }
+
+  onRecoverProfileImage (): void {
+    this.removeProfileImage = false;
+    this.selectedFile = undefined;
+    this.imageFile = "";
   }
 
 }

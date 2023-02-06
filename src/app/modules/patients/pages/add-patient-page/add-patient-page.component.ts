@@ -211,16 +211,6 @@ export class AddPatientPageComponent implements OnInit {
     return edit ? request : this.optionalPipe.transform(request);
   }
 
-  uploadProfileImage () {
-    const fd = new FormData();
-    fd.append('file', this.selectedFile!, this.selectedFile?.name);
-    if(this.patient) this.patientsService.uploadProfileImage(this.patient._id, fd).subscribe(res => {console.log(res)}, err => {console.log(err)});
-  }
-
-  deleteProfileImage () {
-    if(this.patient) this.patientsService.removeProfileImage(this.patient._id).subscribe(res => {console.log(res)}, err => {console.log(err)});
-  }
-
   onSelectFile (event: any): void {
     this.selectedFile = <File>event.target.files[0];
     const reader = new FileReader();
@@ -230,6 +220,12 @@ export class AddPatientPageComponent implements OnInit {
 
   onRemoveProfileImage (): void {
     this.removeProfileImage = true;
+    this.selectedFile = undefined;
+    this.imageFile = "";
+  }
+
+  onRecoverProfileImage (): void {
+    this.removeProfileImage = false;
     this.selectedFile = undefined;
     this.imageFile = "";
   }

@@ -10,5 +10,9 @@
 
 .image {
     position: relative;
-    width: 100%;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
 }

@@ -14,6 +14,8 @@ import { ProfilePictureComponent } from './components/profile-picture/profile-pi
 import { TableComponent } from './components/table/table.component';
 import { AdminPipe } from './pipes/admin.pipe';
 import { PhotoPipe } from './pipes/photo.pipe';
+import { InputProfileImageComponent } from './components/input-profile-image/input-profile-image.component';
+import { EditProfileImageComponent } from './components/input-profile-image/components/edit-profile-image/edit-profile-image.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { PhotoPipe } from './pipes/photo.pipe';
     ProfilePictureComponent,
     TableComponent,
     AdminPipe,
-    PhotoPipe
+    PhotoPipe,
+    InputProfileImageComponent,
+    EditProfileImageComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +42,7 @@ import { PhotoPipe } from './pipes/photo.pipe';
     SidenavComponent,
     HeaderPatientComponent,
     ProfilePictureComponent,
+    InputProfileImageComponent,
     TableComponent,
     NamePipe,
     OptionalPipe,

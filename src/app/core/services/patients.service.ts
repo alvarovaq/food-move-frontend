@@ -62,4 +62,12 @@ export class PatientsService {
     );
   }  
 
+  uploadProfileImage (id: string, formData: FormData): Observable<PatientModel> {
+    return this.http.post<PatientModel>(`${environment.api}/patients/upload/${id}`, formData);
+  }
+
+  removeProfileImage (id: string): Observable<PatientModel> {
+    return this.http.delete<PatientModel>(`${environment.api}/patients/remove-profile-image/${id}`);
+  }
+
 }

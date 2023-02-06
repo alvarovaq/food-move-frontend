@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PatientRequestModel } from '@core/models/patient-request.model';
 import { LoaderService } from '@core/services/loader.service';
@@ -30,6 +30,10 @@ export class AddPatientPageComponent implements OnInit {
     phone: false,
     birth: false
   }
+
+  imageFile?: string = "";
+  selectedFile?: File;
+  removeProfileImage: boolean = false;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -119,8 +123,25 @@ export class AddPatientPageComponent implements OnInit {
     }))
     .subscribe(
       res => {
-        this.exit();
-        this.snackerService.showSuccessful("Paciente creado con éxito");
+        if (this.selectedFile) {
+          const fd = new FormData();
+          fd.append('file', this.selectedFile!, this.selectedFile?.name);
+          this.patientsService.uploadProfileImage(res._id, fd)
+          .subscribe(
+            res => {
+              this.exit();
+              this.snackerService.showSuccessful("Paciente creado con éxito");
+            },
+            err => {
+              console.log(err);
+              this.exit();
+              this.snackerService.showError("Error al subir la foto de perfil");
+            }
+          );
+        } else {
+          this.exit();
+          this.snackerService.showSuccessful("Paciente creado con éxito");
+        }
       },
       err => {
         console.log(err);
@@ -138,8 +159,38 @@ export class AddPatientPageComponent implements OnInit {
     }))
     .subscribe(
       res => {
-        this.exit();
-        this.snackerService.showSuccessful("Paciente editado con éxito");
+        if (this.selectedFile) {
+          const fd = new FormData();
+          fd.append('file', this.selectedFile!, this.selectedFile?.name);
+          this.patientsService.uploadProfileImage(res._id, fd)
+          .subscribe(
+            res => {
+              this.exit();
+              this.snackerService.showSuccessful("Paciente editado con éxito");
+            },
+            err => {
+              console.log(err);
+              this.exit()
+              this.snackerService.showError("Error al subir la foto la foto de perfil")
+            }
+          )
+        } else if (this.removeProfileImage) {
+          this.patientsService.removeProfileImage(res._id)
+          .subscribe(
+            res => {
+              this.exit();
+              this.snackerService.showSuccessful("Paciente editado con éxito");
+            },
+            err => {
+              console.log(err);
+              this.exit()
+              this.snackerService.showError("Error al eliminar la foto de perfil");
+            }
+          )
+        } else {
+          this.exit();
+          this.snackerService.showSuccessful("Paciente editado con éxito");
+        }
       },
       err => {
         console.log(err);
@@ -158,6 +209,29 @@ export class AddPatientPageComponent implements OnInit {
       birth: this.birth
     };
     return edit ? request : this.optionalPipe.transform(request);
+  }
+
+  uploadProfileImage () {
+    const fd = new FormData();
+    fd.append('file', this.selectedFile!, this.selectedFile?.name);
+    if(this.patient) this.patientsService.uploadProfileImage(this.patient._id, fd).subscribe(res => {console.log(res)}, err => {console.log(err)});
+  }
+
+  deleteProfileImage () {
+    if(this.patient) this.patientsService.removeProfileImage(this.patient._id).subscribe(res => {console.log(res)}, err => {console.log(err)});
+  }
+
+  onSelectFile (event: any): void {
+    this.selectedFile = <File>event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = e => this.imageFile = reader.result as string;
+    reader.readAsDataURL(this.selectedFile);
+  }
+
+  onRemoveProfileImage (): void {
+    this.removeProfileImage = true;
+    this.selectedFile = undefined;
+    this.imageFile = "";
   }
 
 }

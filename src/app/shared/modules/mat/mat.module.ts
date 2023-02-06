@@ -27,6 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSortModule} from '@angular/material/sort';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
 const MatModules = [
   MatCardModule,
@@ -53,7 +54,8 @@ const MatModules = [
   MatNativeDateModule,
   MatButtonToggleModule,
   MatSortModule,
-  MatMenuModule
+  MatMenuModule,
+  MatBottomSheetModule
 ];
 
 @NgModule({

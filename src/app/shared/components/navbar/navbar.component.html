@@ -13,16 +13,30 @@
             <button mat-button (click)="goToRecipes()">Recetas</button>
             <button mat-button (click)="goToRoutines()">Rutinas</button>
           </div>
-          <span class="spacer" *ngIf="!isSmall"></span>
-          <div class="buttons" *ngIf="!isSmall">
-            <button mat-icon-button class="example-icon favorite-icon">
-              <mat-icon>settings</mat-icon>
-            </button>
-            <button (click)="logout()" mat-icon-button class="example-icon favorite-icon">
-              <mat-icon>logout</mat-icon>
-            </button>
-          </div>
+          <span class="spacer"></span>
+          <a class="profile pointer" (click)="showProfilePanel = !showProfilePanel">
+            <p class="profile__name">{{employee | name}}</p>
+            <app-profile-picture [url]="(employee?.profile_image | photo)" size="40px"></app-profile-picture>
+          </a>
         </mat-toolbar>
     </p>
 </div>
-  
+<div class="click__out" *ngIf="showProfilePanel" (click)="showProfilePanel = false"></div>
+<div class="profile__panel" *ngIf="showProfilePanel">
+  <div class="profile__buttons">
+    <button mat-icon-button>
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+  <mat-divider style="margin-bottom: 10px"></mat-divider>
+  <div class="profile__info">
+    <app-profile-picture [url]="(employee?.profile_image | photo)" size="100px"></app-profile-picture>
+    <div class="profile__info-main">
+      <p class="main__name">{{(employee | name)}}</p>
+      <p class="main__email">{{employee?.email}}</p>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { LoaderService } from '@core/services/loader.service';
 import { RouterService } from '@core/services/router.service';
+import { EmployeeModel } from '../../../core/models/employee.model';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,9 @@ import { RouterService } from '@core/services/router.service';
 export class NavbarComponent implements OnInit {
 
   isSmall: boolean = false;
+  employee: EmployeeModel | null = null;
+
+  showProfilePanel: boolean = false;
 
   @Output() public sidenavToggle = new EventEmitter();
 
@@ -23,6 +27,14 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe(
+      res => {
+        this.employee = res;
+      },
+      err => {
+        console.log(err);
+      }
+    )
     this.breakpointObserver
       .observe(['(max-width: 959px)'])
       .subscribe(result => {
@@ -30,11 +42,11 @@ export class NavbarComponent implements OnInit {
         if (result.matches) {
           this.isSmall = true;
         }
-      });
+    });
   }
 
   isAdmin (): boolean {
-    return this.authService.isAdmin();
+    return this.employee ? this.employee.admin : false;
   }
 
   logout (): void {

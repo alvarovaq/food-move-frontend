@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthResponseModel } from '../models/auth-response.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { RouterService } from './router.service';
 import { EmployeesService } from './employees.service';
 import { AuthRequestModel } from '../models/auth-request.model';
 import { environment } from 'src/environments/environment';
+import { EmployeeModel } from '../models/employee.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
+
+    private userLogged = new BehaviorSubject<EmployeeModel | null>(null);
+    public user$: Observable<EmployeeModel | null> = this.userLogged;
 
     constructor (
         private readonly http: HttpClient,
@@ -23,17 +27,18 @@ export class AuthService {
     }
 
     setSession (): void {
-        if (this.isLogin() && !this.rol) {
+        const myUser = this.userLogged.getValue();
+        if (!myUser && this.isLogin()) {
             this.employeesService.getEmployeeByEmail(this.email!)
             .subscribe(
                 res => {
-                    this.setRol(res.admin);
+                    this.userLogged.next(res);
                 },
                 err => {
                     console.log(err);
                     this.logout();
                 }
-            );
+            )
         }
     }
 
@@ -47,8 +52,8 @@ export class AuthService {
     logout (): void {
         localStorage.removeItem('token');
         localStorage.removeItem('email');
-        sessionStorage.removeItem('rol');
         this.routerService.goToLogin();
+        this.userLogged.next(null);
     }
 
     isLogin (): boolean {
@@ -57,32 +62,24 @@ export class AuthService {
     }
 
     isAdmin (): boolean {
-        if (this.rol === 'admin') return true;
-        return false;
+        const myUser = this.userLogged.getValue();
+        return myUser ? myUser.admin : false;
     }
 
     get token (): string | null {
         return localStorage.getItem('token');
     }
     
+    setToken (token: string): void {
+        localStorage.setItem('token', token);
+    }
+
     get email (): string | null {
         return localStorage.getItem('email');
     }
 
-    get rol (): string | null {
-        return sessionStorage.getItem('rol');
-    }
-    
-    setToken (token: string): void {
-        localStorage.setItem('token', token);
-    }
-    
     setEmail (email: string): void {
         localStorage.setItem('email', email);
-    }
-
-    setRol (isAdmin: boolean): void {
-        sessionStorage.setItem('rol', isAdmin ? 'admin' : 'employee');
     }
 
 }

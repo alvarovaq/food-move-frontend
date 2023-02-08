@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { RouterService } from '@core/services/router.service';
+import { EmployeeModel } from '../../../core/models/employee.model';
 
 @Component({
   selector: 'app-sidenav',
@@ -11,12 +12,23 @@ export class SidenavComponent implements OnInit {
 
   @Output() sidenavClose = new EventEmitter();
 
+  employee: EmployeeModel | null = null;
+
   constructor(
     private readonly routerService: RouterService,
     private readonly authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    this.authService.user$
+    .subscribe(
+      res => {
+        this.employee = res;
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
 
   onSidenavClose () {
@@ -24,7 +36,7 @@ export class SidenavComponent implements OnInit {
   }
 
   isAdmin (): boolean {
-    return this.authService.isAdmin();
+    return this.employee ? this.employee?.admin : false;
   }
 
   logout (): void {

@@ -13,15 +13,15 @@
             <button mat-button (click)="goToRecipes()">Recetas</button>
             <button mat-button (click)="goToRoutines()">Rutinas</button>
           </div>
-          <span class="spacer"></span>
-          <a class="profile pointer" (click)="showProfilePanel = !showProfilePanel">
+          <span class="spacer" *ngIf="!isSmall"></span>
+          <a class="profile pointer" (click)="showProfilePanel = !showProfilePanel" *ngIf="!isSmall">
             <p class="profile__name">{{employee | name}}</p>
             <app-profile-picture [url]="(employee?.profile_image | photo)" size="40px"></app-profile-picture>
           </a>
         </mat-toolbar>
     </p>
 </div>
-<div class="click__out" *ngIf="showProfilePanel" (click)="showProfilePanel = false"></div>
+<div class="click__out" *ngIf="showProfilePanel && !isSmall" (click)="showProfilePanel = false"></div>
 <div class="profile__panel" *ngIf="showProfilePanel">
   <div class="profile__buttons">
     <button mat-icon-button>

@@ -13,11 +13,11 @@ import { SnackerService } from '../../../../core/services/snacker.service';
 import { DialogService } from '../../../../core/services/dialog.service';
 import { InfoConsultComponent } from '../../components/info-consult/info-consult.component';
 import { MatDialog } from '@angular/material/dialog';
-import { TableStructure } from '@core/interfaces/table-structure';
+import { TableStructure } from '@shared/components/table/interfaces/table-structure';
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
-import { TypeValueTable } from '@core/enums/type-value-table';
+import { TypeValueTable } from '@shared/components/table/enums/type-value-table';
 
 @Component({
   selector: 'app-consults-page',

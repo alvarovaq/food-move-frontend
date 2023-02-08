@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { InfoRecipeComponent } from '@modules/recipes/components/info-recipe/info-recipe.component';
-import { TableStructure } from '@core/interfaces/table-structure';
+import { TableStructure } from '@shared/components/table/interfaces/table-structure';
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort, SortDirection } from '@angular/material/sort';

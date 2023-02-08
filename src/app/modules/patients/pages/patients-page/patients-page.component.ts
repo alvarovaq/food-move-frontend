@@ -13,8 +13,8 @@ import { InfoPatientComponent } from '@modules/patients/components/info-patient/
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
-import { TableStructure } from '@core/interfaces/table-structure';
-import { TypeValueTable } from '@core/enums/type-value-table';
+import { TableStructure } from '@shared/components/table/interfaces/table-structure';
+import { TypeValueTable } from '@shared/components/table/enums/type-value-table';
 
 @Component({
   selector: 'app-patients-page',

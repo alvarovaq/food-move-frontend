@@ -1,4 +1,4 @@
-import { TypeValueTable } from "@core/enums/type-value-table";
+import { TypeValueTable } from "@shared/components/table/enums/type-value-table";
 
 export interface TableStructure {
     index: number;

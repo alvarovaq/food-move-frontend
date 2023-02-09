@@ -200,7 +200,7 @@ export class ConsultsPageComponent implements OnInit {
 
   openInfoConsult (consult: ConsultModel): void {
     const dialogRef = this.dialog.open(InfoConsultComponent, {
-      width: '350px',
+      width: '500px',
       data: consult
     });
     dialogRef.afterClosed();

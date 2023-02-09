@@ -80,7 +80,7 @@ mat-toolbar {
 
 .main__email {
     font-size: 14px;
-    color: #888;
+    color: var(--gray-text);
 }
 
 @media(max-width: 959px) {

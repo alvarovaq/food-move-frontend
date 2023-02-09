@@ -1,35 +1,46 @@
-<div class="info__dialog">
-    <h1>{{recipe.title}}</h1>
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-        <mat-tab label="General">
-            <div style="height: 20px;"></div>
-            <div class="info__field">
-                <p class="field__text">{{recipe.description}}</p>
+<div class="dialog__box">
+    <h1 class="title">{{recipe.title}}</h1>
+    <div class="header">
+        <p class="subtitle">General</p>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="section">
+        <div class="item">
+            <p class="text">{{recipe.description}}</p>
+        </div>
+        <div class="item">
+            <mat-icon class="icon">restaurant</mat-icon>
+            <p class="text">{{recipe.mean}} - {{recipe.dish}}</p>
+        </div>
+    </div>
+    <div class="header">
+        <p class="subtitle">Links</p>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="section" [ngSwitch]="recipe.links.length">
+        <div class="list__not-exist" *ngSwitchCase="0">
+            <p class="text">No existe ningún link</p>
+        </div>
+        <div class="list" *ngSwitchDefault>
+            <a [href]="link" *ngFor="let link of recipe.links" class="list__item list__item-normal">
+                <mat-icon class="icon">link</mat-icon>
+                <p class="url text">{{link}}</p>
+            </a>
+        </div>
+    </div>
+    <div class="header">
+        <p class="subtitle">Ingredientes</p>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="section" [ngSwitch]="recipe.ingredients">
+        <div class="list__not-exist" *ngSwitchCase="0">
+            <p class="text">No existe ningún ingrediente</p>
+        </div>
+        <div class="list" *ngSwitchDefault>
+            <div *ngFor="let ingredient of recipe.ingredients" class="list__item list__item-between">
+                <p class="text">{{ingredient.name}}</p>
+                <p class="text">{{ingredient.quantity != 0 ? ingredient.quantity : ''}} {{ingredient.unit}}</p>
             </div>
-            <div class="info__field">
-                <mat-icon class="field__icon">restaurant</mat-icon>
-                <p class="field__text">{{recipe.mean}} - {{recipe.dish}}</p>
-            </div>
-        </mat-tab>
-        <mat-tab label="Links">
-            <div style="height: 20px;"></div>
-            <div *ngIf="recipe.links.length > 0">
-                <div *ngFor="let link of recipe.links" class="link__item">
-                    <a [href]="link" class="link__url">{{link}}</a>
-                    <mat-divider></mat-divider>
-                </div>
-            </div>
-            <p *ngIf="recipe.links.length <= 0">No hay ningún enlace</p>
-        </mat-tab>
-        <mat-tab label="Ingredientes">
-            <div style="height: 20px;"></div>
-            <div *ngIf="recipe.ingredients.length > 0">
-                <div *ngFor="let ingredient of recipe.ingredients" class="info__between">
-                    <p>{{ingredient.name}}</p>
-                    <p>{{ingredient.quantity != 0 ? ingredient.quantity : ''}} {{ingredient.unit}}</p>
-                </div>
-            </div>
-            <p *ngIf="recipe.ingredients.length <= 0">No hay ningún ingrediente</p>
-        </mat-tab>
-    </mat-tab-group>
+        </div>
+    </div>
 </div>

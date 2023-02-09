@@ -180,7 +180,7 @@ export class RecipesPageComponent implements OnInit {
 
   openInfoRecipe (recipe: RecipeModel): void {
     const dialogRef = this.dialog.open(InfoRecipeComponent, {
-      width: '350px',
+      width: '800px',
       data: recipe
     });
     dialogRef.afterClosed();

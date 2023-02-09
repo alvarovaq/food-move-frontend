@@ -164,7 +164,7 @@ export class RoutinesPageComponent implements OnInit {
 
   openInfoRoutine(routine: RoutineModel) {
     const dialogRef = this.dialog.open(InfoRoutineComponent, {
-      width: '350px',
+      width: '800px',
       data: routine
     });
     dialogRef.afterClosed();

@@ -38,7 +38,7 @@ table {
 .table__item {
     text-align: left;
     padding: 7px 0;
-    color: #888
+    color: var(--gray-text)
 }
 
 .table__text {

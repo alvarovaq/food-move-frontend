@@ -5,6 +5,7 @@
 :root {
     --color-1: #0000008A;
     --color-2: #5F91DE;
+    --gray-text: #888;
     --font-size-1: 14px;
 }
 
@@ -23,8 +24,8 @@ body {
     cursor: pointer;
 }
 
-.margin_bottom_20 {
-    margin-bottom: 20px;
+.text-center {
+    text-align: center;
 }
 
 .successful-color-snackbar {
@@ -40,4 +41,17 @@ body {
     border-radius: 15px;
     overflow: auto;
     background-color: white;
+}
+
+.app__dialog {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+}
+
+.one-line {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre;
 }

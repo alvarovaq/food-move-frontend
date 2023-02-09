@@ -1,49 +1,100 @@
-.info__dialog {
+.dialog__box {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    max-height: calc(100vh - 20px);
+}
+
+.dialog__box .header {
+    margin-bottom: 15px;
+}
+
+.dialog__box .subtitle {
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--gray-text);
+    margin-bottom: 5px;
 }
 
 .info__profile-image {
     width: 100%;
     display: flex;
     justify-content: center;
+    text-align: center;
     margin-bottom: 10px;
 }
 
-.info__title {
-    text-align: center;
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
 }
 
-.info__field {
+.section-top {
+    margin: 15px 0 0 0;
+}
+
+.section .item {
     display: flex;
     flex-direction: row;
-    margin-bottom: 5px;
+    align-items: center;
+    gap: 10px;
 }
 
-.field__icon {
-    opacity: 0.5;
-    margin-right: 10px;
-}
-
-.field__text {
-    font-size: 16px;
+.section .text {
+    font-size: 15px;
     margin: 0;
-    padding: 0;
 }
 
-.link__item:hover {
+.section .icon {
+    color: var(--gray-text);
+    min-width: 22px;
+}
+
+/* LISTS */
+
+.section .list {
+    display: flex;
+    flex-direction: column;
+}
+
+.section .list .list__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+    padding: 0 5px;
+    text-decoration: none;
+}
+
+.section .list .list__item:hover {
     background-color: #EEE;
 }
 
-.link__url {
-    padding: 10px 0;
-    width: 100%;
-    text-decoration: none;
-    color: #666;
+.section .list .list__item-normal {
+    gap: 10px;
+    cursor: pointer;
 }
 
-.info__between {
-    display: flex;
-    flex-direction: row;
+.section .list .url {
+    color: var(--gray-text);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre;
+}
+
+.section .list .list__item-between {
     justify-content: space-between;
+}
+
+.list__not-exist {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.list__not-exist p {
+    margin: 0;
+    color: var(--gray-text);
 }

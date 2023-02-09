@@ -1,21 +1,27 @@
-<div class="info__dialog">
-    <h1>{{routine.title}}</h1>
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-        <mat-tab label="General">
-            <div style="height: 20px;"></div>
-            <div class="info__field">
-                <p class="field__text">{{routine.description}}</p>
-            </div>
-        </mat-tab>
-        <mat-tab label="Links">
-            <div style="height: 20px;"></div>
-            <div *ngIf="routine.links.length > 0">
-                <div *ngFor="let link of routine.links" class="link__item">
-                    <a [href]="link" class="link__url">{{link}}</a>
-                    <mat-divider></mat-divider>
-                </div>
-            </div>
-            <p *ngIf="routine.links.length <= 0">No hay ningún enlace</p>
-        </mat-tab>
-    </mat-tab-group>
+<div class="dialog__box">
+    <h1 class="title">{{routine.title}}</h1>
+    <div class="header">
+        <p class="subtitle">General</p>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="section">
+        <div class="item">
+            <p class="text">{{routine.description}}</p>
+        </div>
+    </div>
+    <div class="header">
+        <p class="subtitle">Links</p>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="section" [ngSwitch]="routine.links.length">
+        <div class="list__not-exist" *ngSwitchCase="0">
+            <p class="text">No existe ningún link</p>
+        </div>
+        <div class="list" *ngSwitchDefault>
+            <a [href]="link" *ngFor="let link of routine.links" class="list__item list__item-normal">
+                <mat-icon class="icon">link</mat-icon>
+                <p class="url text">{{link}}</p>
+            </a>
+        </div>
+    </div>
 </div>

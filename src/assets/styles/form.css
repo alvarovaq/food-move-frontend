@@ -152,11 +152,11 @@
 }
 
 .form__list-box .header .subtitle {
-    color: #888;
+    color: var(--gray-text);
 }
 
 .form__list-box .header .icon {
-    color: #888;
+    color: var(--gray-text);
 }
 
 .form__list-box .form__list {

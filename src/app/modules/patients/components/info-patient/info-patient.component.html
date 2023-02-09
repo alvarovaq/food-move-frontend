@@ -1,20 +1,21 @@
-<div class="info__dialog">
+<div class="box__dialog">
     <div class="info__profile-image">
         <app-profile-picture size="150px" [url]="(patient.profile_image | photo)"></app-profile-picture>
     </div>
-    <h1 class="info__title">{{patient.name + ' ' + patient.surname}}</h1>
+    <h1 class="title text-center">{{(patient | name)}}</h1>
     <mat-divider></mat-divider>
-    <div class="margin_bottom_20"></div>
-    <div class="info__field">
-        <mat-icon class="field__icon">email</mat-icon>
-        <p class="field__text">{{patient.email}}</p>
-    </div>
-    <div class="info__field" *ngIf="patient.phone">
-        <mat-icon class="field__icon">phone</mat-icon>
-        <p class="field__text">{{patient.phone}}</p>
-    </div>
-    <div class="info__field" *ngIf="patient.birth">
-        <mat-icon class="field__icon">cake</mat-icon>
-        <p class="field__text">{{patient.birth ? (patient.birth | date: 'dd/MM/YYYY') : ""}}</p>
+    <div class="section section-top">
+        <div class="item">
+            <mat-icon class="icon">email</mat-icon>
+            <p class="text">{{patient.email}}</p>
+        </div>
+        <div class="item" *ngIf="patient.phone">
+            <mat-icon class="icon">phone</mat-icon>
+            <p class="text">{{patient.phone}}</p>
+        </div>
+        <div class="item" *ngIf="patient.birth">
+            <mat-icon class="icon">cake</mat-icon>
+            <p class="text">{{patient.birth ? (patient.birth | date: 'dd/MM/YYYY') : ""}}</p>
+        </div>
     </div>
 </div>

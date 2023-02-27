@@ -15,6 +15,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { TableStructure } from '@shared/components/table/interfaces/table-structure';
 import { TypeValueTable } from '@shared/components/table/enums/type-value-table';
+import { ViewPatientService } from '../../../../core/services/view-patient.service';
 
 @Component({
   selector: 'app-patients-page',
@@ -55,7 +56,8 @@ export class PatientsPageComponent implements OnInit {
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService,
     private readonly dialogService: DialogService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly viewPatientService: ViewPatientService
   ) {}
 
   ngOnInit(): void {
@@ -196,8 +198,9 @@ export class PatientsPageComponent implements OnInit {
     dialogRef.afterClosed();
   }
 
-  viewPatient (patient: PatientModel): void {
-    this.routerService.goToGraphics(patient._id);
+  async viewPatient (patient: PatientModel): Promise<void> {
+    await this.viewPatientService.updatePatient(patient._id);
+    this.routerService.goToGraphics();
   }
 
 }

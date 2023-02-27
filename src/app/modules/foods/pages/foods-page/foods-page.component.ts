@@ -10,6 +10,7 @@ import { FoodModel } from '../../../../core/models/food.model';
 import { FoodsService } from '@core/services/foods.service';
 import { Mean } from '@core/enums/mean';
 import { Dish } from '../../../../core/enums/dish';
+import { ViewPatientService } from '../../../../core/services/view-patient.service';
 
 @Component({
   selector: 'app-foods-page',
@@ -17,6 +18,37 @@ import { Dish } from '../../../../core/enums/dish';
   styleUrls: ['./foods-page.component.css']
 })
 export class FoodsPageComponent implements OnInit {
+
+  weekdays = [
+    {
+      name: 'Lunes',
+      color: 'rgba(0, 255, 0, 0.2)'
+    },
+    {
+      name: 'Martes',
+      color: 'rgba(255, 0, 0, 0.2)'
+    },
+    {
+      name: 'Miercoles',
+      color: 'rgba(0, 0, 255, 0.2)'
+    },
+    {
+      name: 'Jueves',
+      color: 'rgba(0, 255, 0, 0.2)'
+    },
+    {
+      name: 'Viernes',
+      color: 'rgba(0, 255, 0, 0.2)'
+    },
+    {
+      name: 'Sábado',
+      color: 'rgba(0, 255, 0, 0.2)'
+    },
+    {
+      name: 'Domingo',
+      color: 'rgba(0, 255, 0, 0.2)'
+    }
+  ];
 
   patient: PatientModel | null = null;
   date: Date = new Date();
@@ -31,27 +63,23 @@ export class FoodsPageComponent implements OnInit {
     private readonly foodsService: FoodsService,
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService,
-    private readonly loaderService: LoaderService
+    private readonly loaderService: LoaderService,
+    private readonly viewPatientService: ViewPatientService
   ) { }
 
   ngOnInit(): void {
-    this.loaderService.isLoading.next(true);
-    const params = this.activatedRoute.snapshot.params;
-    if (params["id"]) {
-      this.patientsService.getPatient(params["id"])
-      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
-      .subscribe(
-        res => {
-          this.patient = res;
-          this.loadFoods();
-        },
-        err => {
-          console.log(err);
-          this.routerService.goToPatients();
-          this.snackerService.showError("No se ha encontrado al paciente");
-        }
-      );
-    };
+    this.viewPatientService.patient$
+    .subscribe(
+      res => {
+        this.patient = res;
+        this.loadFoods();
+      },
+      err => {
+        console.log(err);
+        this.routerService.goToPatients();
+        this.snackerService.showError("No se ha encontrado al paciente");
+      }
+    );
   }
 
   loadFoods (): void {
@@ -113,6 +141,10 @@ export class FoodsPageComponent implements OnInit {
       case Dish.Postre: return 3;
       default: return 4;
     }
+  }
+
+  addFood (): void {
+    this.routerService.goToAddFood(new Date());
   }
 
 }

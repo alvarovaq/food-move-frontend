@@ -1,4 +1,4 @@
-<app-header-patient id="{{patient?._id}}" name="{{patient | name}}" title="Comidas"></app-header-patient>
+<app-header-patient [patient]="patient" title="Comidas"></app-header-patient>
 <div class="food__main">
     <div class="main__date">
         <button mat-icon-button class="btn__date" (click)="subtractDate()">
@@ -12,4 +12,21 @@
     <app-mean [foods]="breakfast" title="Desayuno" icon="free_breakfast"></app-mean>
     <app-mean [foods]="lunch" title="Comida" icon="restaurant"></app-mean>
     <app-mean [foods]="dinner" title="Cena" icon="fastfood"></app-mean>
+</div>
+<div class="container">
+    <div class="day" *ngFor="let weekday of weekdays">
+        <div class="day__header">
+            <p class="weekday">{{weekday.name}}</p>
+            <button mat-icon-button color="primary" (click)="addFood()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div class="day__main">
+            <div class="day__item">
+                <mat-icon class="item__icon">coffee</mat-icon>
+                <p class="item__title">Macarrones</p>
+                <a class="item__delete"><mat-icon>close</mat-icon></a>
+            </div> 
+        </div>
+    </div>
 </div>

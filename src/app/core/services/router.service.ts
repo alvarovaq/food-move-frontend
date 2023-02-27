@@ -76,28 +76,32 @@ export class RouterService {
 
   // Patient
 
-  async goToGraphics (id: string): Promise<void> {
-    await this.router.navigate(['patient/graphics', id]);
+  async goToGraphics (): Promise<void> {
+    await this.router.navigate(['patient/graphics']);
   }
 
-  async goToConsults (id: string): Promise<void> {
-    await this.router.navigate(['patient/consults', id]);
+  async goToConsults (): Promise<void> {
+    await this.router.navigate(['patient/consults']);
   }
 
-  async goToAddConsult (id: string): Promise<void> {
-    await this.router.navigate(['patient/consults/add-consult', id]);
+  async goToAddConsult (): Promise<void> {
+    await this.router.navigate(['patient/consults/add-consult']);
   }
 
-  async goToEditConsult (id: string, idcon: string): Promise<void> {
-    await this.router.navigate(['patient/consults/edit-consult', id, idcon]);
+  async goToEditConsult (idcon: string): Promise<void> {
+    await this.router.navigate(['patient/consults/edit-consult', idcon]);
   }
 
-  async goToFoods (id: string): Promise<void> {
-    await this.router.navigate(['patient/foods', id]);
+  async goToFoods (): Promise<void> {
+    await this.router.navigate(['patient/foods']);
   }
 
-  async goToMoves (id: string): Promise<void> {
-    await this.router.navigate(['patient/moves', id]);
+  async goToAddFood (date: Date): Promise<void> {
+    await this.router.navigate(['patient/foods/add-food', date.toDateString()]);
+  }
+
+  async goToMoves (): Promise<void> {
+    await this.router.navigate(['patient/moves']);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Dish } from '@core/enums/dish';
 import { Mean } from '@core/enums/mean';
 import { IngredientModel } from './ingredient.model';
+import { Rating } from '../enums/rating';
 
 export interface FoodModel {
     _id: string;
@@ -14,4 +15,5 @@ export interface FoodModel {
     comments?: string;
     date: Date;
     done?: boolean;
+    rating?: Rating;
 }

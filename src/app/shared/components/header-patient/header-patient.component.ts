@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RouterService } from '../../../core/services/router.service';
+import { PatientModel } from '../../../core/models/patient.model';
 
 @Component({
   selector: 'app-header-patient',
@@ -8,8 +9,7 @@ import { RouterService } from '../../../core/services/router.service';
 })
 export class HeaderPatientComponent implements OnInit {
 
-  @Input() id: string | null = "";
-  @Input() name: string = "";
+  @Input() patient: PatientModel | null = null;
   @Input() title: string = "";
 
   constructor(
@@ -24,23 +24,23 @@ export class HeaderPatientComponent implements OnInit {
   }
 
   goToGraphics (): void {
-    if (!this.id) return;
-    this.routerService.goToGraphics(this.id);
+    if (!this.patient) return;
+    this.routerService.goToGraphics();
   }
 
   goToConsults (): void {
-    if (!this.id) return;
-    this.routerService.goToConsults(this.id);
+    if (!this.patient) return;
+    this.routerService.goToConsults();
   }
 
   goToFoods (): void {
-    if (!this.id) return;
-    this.routerService.goToFoods(this.id);
+    if (!this.patient) return;
+    this.routerService.goToFoods();
   }
 
   goToMoves (): void {
-    if (!this.id) return;
-    this.routerService.goToMoves(this.id);
+    if (!this.patient) return;
+    this.routerService.goToMoves();
   }
 
 }

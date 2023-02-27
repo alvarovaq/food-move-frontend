@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FoodsComponent } from './foods.component';
 import { FoodsPageComponent } from './pages/foods-page/foods-page.component';
+import { AddFoodPageComponent } from './pages/add-food-page/add-food-page.component';
 
 const routes: Routes = [
   {path: '', component: FoodsComponent, children: [
-    {path: ':id', component: FoodsPageComponent},
+    {path: '', component: FoodsPageComponent},
+    {path: 'add-food/:date', component: AddFoodPageComponent},
     {path: '**', redirectTo: ''}
   ]}
 ];

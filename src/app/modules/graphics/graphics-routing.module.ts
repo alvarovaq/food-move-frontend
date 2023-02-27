@@ -5,7 +5,7 @@ import { GraphicsPageComponent } from './pages/graphics-page/graphics-page.compo
 
 const routes: Routes = [
   {path: '', component: GraphicsComponent, children: [
-    {path: ':id', component: GraphicsPageComponent},
+    {path: '', component: GraphicsPageComponent},
     {path: '**', redirectTo: ''}
   ]}
 ];

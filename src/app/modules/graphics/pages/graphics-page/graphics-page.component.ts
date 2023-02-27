@@ -6,6 +6,7 @@ import { LoaderService } from '../../../../core/services/loader.service';
 import { finalize } from 'rxjs/operators';
 import { RouterService } from '../../../../core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
+import { ViewPatientService } from '../../../../core/services/view-patient.service';
 
 @Component({
   selector: 'app-graphics-page',
@@ -21,26 +22,22 @@ export class GraphicsPageComponent implements OnInit {
     private readonly patientsService: PatientsService,
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService,
-    private readonly loaderService: LoaderService
+    private readonly loaderService: LoaderService,
+    private readonly viewPatientService: ViewPatientService
   ) { }
 
   ngOnInit(): void {
-    this.loaderService.isLoading.next(true);
-    const params = this.activatedRoute.snapshot.params;
-    if (params["id"]) {
-      this.patientsService.getPatient(params["id"])
-      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
-      .subscribe(
-        res => {
-          this.patient = res;
-        },
-        err => {
-          console.log(err);
-          this.routerService.goToPatients();
-          this.snackerService.showError("No se ha encontrado al paciente");
-        }
-      );
-    };
+    this.viewPatientService.patient$
+    .subscribe(
+      res => {
+        this.patient = res;
+      },
+      err => {
+        console.log(err);
+        this.routerService.goToPatients();
+        this.snackerService.showError("No se ha encontrado al paciente");
+      }
+    );
   }
 
 }

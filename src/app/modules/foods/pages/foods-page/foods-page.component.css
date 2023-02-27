@@ -11,3 +11,73 @@
     margin: 0 40px;
     font-size: 24px;
 }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.day {
+    min-height: 200px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 3px 6px 1px rgba(0,0,0,0.1);
+    display: 200px;
+    overflow: hidden;
+    max-width: 600px;
+}
+
+.day .day__header {
+    text-align: center;
+    padding: 7px;
+    background-color: rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.day p {
+    margin: 0;
+}
+
+.day__header .weekday {
+    font-size: 18px;
+    width: 100%;
+}
+
+.day__main {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.day__item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background-color: rgba(0, 255, 0, 0.2);
+}
+
+.day__item .item__title {
+    margin: 0;
+    text-align: left;
+    width: 100%;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.day__item .item__delete {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}

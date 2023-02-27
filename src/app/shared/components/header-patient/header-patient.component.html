@@ -3,9 +3,14 @@
         <button type="button" mat-icon-button matTooltip="Volver" (click)="exit()">
             <mat-icon>clear</mat-icon>
         </button>
-        <h1 class="header__subtitle">{{name}}</h1>
-    </div>
-    <p class="header__title">{{title}}</p>
+        <div class="profile">
+            <app-profile-picture [url]="(patient?.profile_image | photo)" size="60px"></app-profile-picture>
+            <div class="profile__text">
+                <p class="profile__name">{{patient | name}}</p>
+                <p class="profile__email">{{patient?.email}}</p>
+            </div>
+        </div>
+    </div><p class="header__title">{{title}}</p>
     <div class="header__nav">
         <button mat-icon-button color="primary" matTooltip="Gráficas" (click)="goToGraphics()" class="nav__item">
             <mat-icon>assessment</mat-icon>

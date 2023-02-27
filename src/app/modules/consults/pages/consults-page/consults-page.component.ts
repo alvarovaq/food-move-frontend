@@ -18,6 +18,7 @@ import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { TypeValueTable } from '@shared/components/table/enums/type-value-table';
+import { ViewPatientService } from '../../../../core/services/view-patient.service';
 
 @Component({
   selector: 'app-consults-page',
@@ -59,28 +60,24 @@ export class ConsultsPageComponent implements OnInit {
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService,
     private readonly dialogService: DialogService,
-    private readonly loaderService: LoaderService
+    private readonly loaderService: LoaderService,
+    private readonly viewPatientService: ViewPatientService
   ) { }
 
   ngOnInit(): void {
-    this.loaderService.isLoading.next(true);
-    const params = this.activatedRoute.snapshot.params;
-    if (params["id"]) {
-      this.patientsService.getPatient(params["id"])
-      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
-      .subscribe(
-        res => {
-          this.patient = res;
-          this.loadConsults();
-          this.setColumnsBySize();
-        },
-        err => {
-          console.log(err);
-          this.routerService.goToPatients();
-          this.snackerService.showError("No se ha encontrado al paciente");
-        }
-      );
-    };
+    this.viewPatientService.patient$
+    .subscribe(
+      res => {
+        this.patient = res;
+        this.loadConsults();
+        this.setColumnsBySize();
+      },
+      err => {
+        console.log(err);
+        this.routerService.goToPatients();
+        this.snackerService.showError("No se ha encontrado al paciente");
+      }
+    );
   }
 
   loadConsults (): void {
@@ -168,11 +165,11 @@ export class ConsultsPageComponent implements OnInit {
   }
 
   addConsult (): void {
-    this.routerService.goToAddConsult(this.patient!._id);
+    this.routerService.goToAddConsult();
   }
 
   editConsult (consult: ConsultModel): void {
-    this.routerService.goToEditConsult(this.patient!._id, consult._id);
+    this.routerService.goToEditConsult(consult._id);
   }
 
   deleteConsult (consult: ConsultModel): void {

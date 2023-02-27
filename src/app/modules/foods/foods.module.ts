@@ -9,6 +9,8 @@ import { SharedModule } from '@shared/shared.module';
 import { HeaderMeanComponent } from './components/header-mean/header-mean.component';
 import { MeanComponent } from './components/mean/mean.component';
 import { ItemFoodComponent } from './components/item-food/item-food.component';
+import { AddFoodPageComponent } from './pages/add-food-page/add-food-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,11 +19,14 @@ import { ItemFoodComponent } from './components/item-food/item-food.component';
     FoodsPageComponent,
     HeaderMeanComponent,
     MeanComponent,
-    ItemFoodComponent
+    ItemFoodComponent,
+    AddFoodPageComponent
   ],
   imports: [
     CommonModule,
     FoodsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatModule,
     SharedModule
   ]

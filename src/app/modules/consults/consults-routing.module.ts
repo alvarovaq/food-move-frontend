@@ -6,9 +6,9 @@ import { AddConsultPageComponent } from './pages/add-consult-page/add-consult-pa
 
 const routes: Routes = [
   {path: '', component: ConsultsComponent, children: [
-    {path: ':id', component: ConsultsPageComponent},
-    {path: 'add-consult/:id', component: AddConsultPageComponent},
-    {path: 'edit-consult/:id/:idcon', component: AddConsultPageComponent},
+    {path: '', component: ConsultsPageComponent},
+    {path: 'add-consult', component: AddConsultPageComponent},
+    {path: 'edit-consult/:idcon', component: AddConsultPageComponent},
     {path: '**', redirectTo: ''}
   ]}
 ];

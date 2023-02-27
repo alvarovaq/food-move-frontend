@@ -4,14 +4,42 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 .header__left {
     display: flex;
     flex-direction: row;
     align-items: center;
-    flex-wrap: 10px;
-    flex: wrap;
+    gap: 20px;
+    border-right: 1px solid #888;
+    padding-right: 50px;
+}
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile .profile__text {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+}
+
+.profile .profile__text p {
+    margin: 0;
+}
+
+.profile .profile__text .profile__name {
+    font-size: 18px;
+}
+
+.profile .profile__text .profile__email {
+    font-size: 14px;
+    color: var(--gray-text);
 }
 
 .btn__exit {

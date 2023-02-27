@@ -5,7 +5,7 @@ import { MovesPageComponent } from './pages/moves-page/moves-page.component';
 
 const routes: Routes = [
   {path: '', component: MovesComponent, children: [
-    {path: ':id', component: MovesPageComponent},
+    {path: '', component: MovesPageComponent},
     {path: '**', redirectTo: ''}
   ]}
 ];

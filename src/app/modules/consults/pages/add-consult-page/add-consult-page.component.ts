@@ -12,6 +12,7 @@ import { ConsultsService } from '@core/services/consults.service';
 import { PatientModel } from '@core/models/patient.model';
 import { ConsultRequestModel } from '../../../../core/models/consult-request.model';
 import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
+import { ViewPatientService } from '../../../../core/services/view-patient.service';
 
 @Component({
   selector: 'app-add-consult-page',
@@ -22,7 +23,7 @@ export class AddConsultPageComponent implements OnInit {
 
   form!: FormGroup;
   edit: boolean = false;
-  patient!: PatientModel;
+  patient: PatientModel | null = null;
   consult: ConsultModel | null = null;
 
   created_at: Date = new Date();
@@ -48,45 +49,42 @@ export class AddConsultPageComponent implements OnInit {
     private readonly optionalPipe: OptionalPipe,
     private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
-    private readonly snackerService: SnackerService
+    private readonly snackerService: SnackerService,
+    private readonly viewPatientService: ViewPatientService
   ) {}
 
   ngOnInit(): void {
     const params = this.activatedRoute.snapshot.params;
-    if (params["id"]) {
-      this.loaderService.isLoading.next(true);
-      this.patientsService.getPatient(params["id"])
-      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
-      .subscribe(
-        res => {
-          this.patient = res;
-          if(params["idcon"]) {
-            this.loaderService.isLoading.next(true);
-            this.consultsService.getConsult(params["idcon"])
-            .pipe(finalize(() => this.loaderService.isLoading.next(false)))
-            .subscribe(
-              res => {
-                this.edit = true;
-                this.consult = res;
-                this.initForm();
-              },
-              err => {
-                console.log(err);
-                this.exit();
-                this.snackerService.showError("Algo no ha sucedido como se esperaba");
-              }
-            )
-          } else {
-            this.initForm();
-          }
-        },
-        err => {
-          console.log(err);
-          this.routerService.goToPatients();
-          this.snackerService.showError("No se ha encontrado al paciente");
+    this.viewPatientService.patient$.
+    subscribe(
+      res => {
+        this.patient = res;
+        if(params["idcon"]) {
+          this.loaderService.isLoading.next(true);
+          this.consultsService.getConsult(params["idcon"])
+          .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+          .subscribe(
+            res => {
+              this.edit = true;
+              this.consult = res;
+              this.initForm();
+            },
+            err => {
+              console.log(err);
+              this.exit();
+              this.snackerService.showError("Algo no ha sucedido como se esperaba");
+            }
+          )
+        } else {
+          this.initForm();
         }
-      );
-    }
+      },
+      err => {
+        console.log(err);
+        this.routerService.goToPatients();
+        this.snackerService.showError("No se ha encontrado al paciente");
+      }
+    )
   }
 
   initForm(): void {
@@ -151,7 +149,7 @@ export class AddConsultPageComponent implements OnInit {
   }
 
   exit(): void {
-    this.routerService.goToConsults(this.patient._id);
+    this.routerService.goToConsults();
   }
 
   addConsult (): void {
@@ -190,7 +188,7 @@ export class AddConsultPageComponent implements OnInit {
 
   getConsultRequest (edit: boolean = false): ConsultRequestModel {
     const request = {
-      patient: this.patient._id,
+      patient: this.patient?._id,
       masa: this.masa,
       imc: this.imc,
       per_abdominal: this.per_abdominal,

@@ -16,23 +16,26 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
     flex-wrap: wrap;
+    margin-top: 30px;
 }
 
 .day {
     min-height: 200px;
     width: 100%;
-    border-radius: 20px;
+    border-radius: 5px;
     box-shadow: 0 3px 6px 1px rgba(0,0,0,0.1);
     display: 200px;
     overflow: hidden;
     max-width: 600px;
+    display: flex;
+    flex-direction: column;
 }
 
 .day .day__header {
     text-align: center;
-    padding: 7px;
+    padding: 5px 10px;
     background-color: rgba(0,0,0,0.05);
     display: flex;
     align-items: center;
@@ -53,6 +56,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 100%;
 }
 
 .day__item {
@@ -65,6 +69,15 @@
     box-sizing: border-box;
     border-radius: 20px;
     background-color: rgba(0, 255, 0, 0.2);
+    transition: all 0.3s;
+}
+
+.day__item:hover {
+    transform: scale(1.01);
+}
+
+.day__item .item__icon {
+    min-width: 25px;
 }
 
 .day__item .item__title {
@@ -80,4 +93,18 @@
     align-items: center;
     text-decoration: none;
     cursor: pointer;
+    transition: all 0.3s;
+}
+
+.day__item .item__delete:hover {
+    color: red;
+}
+
+.add__day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
 }

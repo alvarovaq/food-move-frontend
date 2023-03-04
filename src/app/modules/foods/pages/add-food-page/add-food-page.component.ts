@@ -14,6 +14,9 @@ import { OptionalPipe } from '@shared/pipes/optional.pipe';
 import { finalize } from 'rxjs';
 import { ViewPatientService } from '../../../../core/services/view-patient.service';
 import { PatientModel } from '../../../../core/models/patient.model';
+import { FoodsService } from '../../../../core/services/foods.service';
+import { FoodRequestModel } from '@core/models/food-request.model';
+import { FoodModel } from '../../../../core/models/food.model';
 
 @Component({
   selector: 'app-add-food-page',
@@ -24,9 +27,11 @@ export class AddFoodPageComponent implements OnInit {
 
   patient: PatientModel | null = null;
 
+  date: Date = new Date();
+
   form!: FormGroup;
   edit: boolean = false;
-  recipe: RecipeModel | null = null;
+  food: FoodModel | null = null;
 
   links: Array<{id: number, url: string}> = [];
   ingredients: Array<{id: number, ingredient: IngredientRequestModel}> = [];
@@ -44,6 +49,7 @@ export class AddFoodPageComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly recipesService: RecipesService,
+    private readonly foodsService: FoodsService,
     private readonly optionalPipe: OptionalPipe,
     private readonly fb: FormBuilder,
     private readonly routerService: RouterService,
@@ -57,6 +63,8 @@ export class AddFoodPageComponent implements OnInit {
     .subscribe(
       res => {
         this.patient = res;
+        const params = this.activatedRoute.snapshot.params;
+        if (params["date"]) this.date = new Date(params["date"]);
         this.initForm();
       },
       err => {
@@ -70,17 +78,18 @@ export class AddFoodPageComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      title: [this.edit ? this.recipe!.title : null, [Validators.required]],
-      description: [this.edit ? this.recipe!.description : null],
+      title: [this.edit ? this.food!.title : null, [Validators.required]],
+      description: [this.edit ? this.food!.description : null],
+      comments: [this.edit ? this.food!.comments : null]
     });
     if (this.edit) {
-      this.mean = this.recipe!.mean;
+      this.mean = this.food!.mean;
       this.changeMean();
-      this.dish = this.recipe!.dish;
-      this.links = this.recipe!.links.map((url, id) => {
+      this.dish = this.food!.dish;
+      this.links = this.food!.links.map((url, id) => {
         return {id, url};
       });
-      this.ingredients = this.recipe!.ingredients.map((ingredient, id) => {
+      this.ingredients = this.food!.ingredients.map((ingredient, id) => {
         return {id, ingredient};
       });
     }
@@ -92,7 +101,11 @@ export class AddFoodPageComponent implements OnInit {
 
   get description (): string | null {
     return this.form.value.description;
-  } 
+  }
+
+  get comments (): string | null {
+    return this.form.value.comments;
+  }
 
   clearField (field: string): void {
     this.form.value[field] = null;
@@ -100,7 +113,7 @@ export class AddFoodPageComponent implements OnInit {
   }
 
   exit(): void {
-    this.routerService.goToRecipes();
+    this.routerService.goToFoods();
   }
 
   addLink(url: string): void {
@@ -146,18 +159,18 @@ export class AddFoodPageComponent implements OnInit {
     }
   }
 
-  addRecipe(): void {
+  addFood(): void {
     this.loaderService.isLoading.next(true);
-    const recipe = this.getRecipeRequest();
-    console.log(recipe);
-    this.recipesService.createRecipe(recipe)
+    const foodRequest = this.getFoodRequest();
+    console.log(foodRequest);
+    this.foodsService.createFood(foodRequest)
     .pipe(finalize(() => {
       this.loaderService.isLoading.next(false);
     }))
     .subscribe(
       res => {
         this.exit();
-        this.snackerService.showSuccessful("Receta creada con éxito");
+        this.snackerService.showSuccessful("Comida creada con éxito");
       },
       err => {
         console.log(err);
@@ -166,10 +179,11 @@ export class AddFoodPageComponent implements OnInit {
     );
   }
 
-  editRecipe(): void {
-    this.loaderService.isLoading.next(true);
-    const recipe = this.getRecipeRequest(true);
-    this.recipesService.updateRecipe(this.recipe!._id, recipe)
+  editFood(): void {
+    this.addFood();
+    /*this.loaderService.isLoading.next(true);
+    const recipe = this.getFoodRequest(true);
+    this.recipesService.updateRecipe(this.food!._id, recipe)
     .pipe(finalize(() => {
       this.loaderService.isLoading.next(false);
     }))
@@ -182,13 +196,16 @@ export class AddFoodPageComponent implements OnInit {
         console.log(err);
         this.snackerService.showError(err.error.message);
       }
-    );
+    );*/
   }
 
-  getRecipeRequest (edit: boolean = false): RecipeRequestModel {
+  getFoodRequest (edit: boolean = false): FoodRequestModel {
     const request = {
+      patient: this.patient?._id,
+      date: this.date,
       title: this.title,
       description: this.description,
+      comments: this.comments,
       mean: this.mean,
       dish: this.dish,
       links: this.links.map(link => {return link.url}),

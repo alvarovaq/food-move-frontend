@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PatientPipe } from './shared/pipes/patient.pipe';
+import { FoodPipe } from './shared/pipes/food.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PatientPipe
+    PatientPipe,
+    FoodPipe
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import { PatientPipe } from './shared/pipes/patient.pipe';
       useClass: AuthInterceptor,
       multi: true
     },
-    PatientPipe
+    PatientPipe,
+    FoodPipe
   ],
   bootstrap: [AppComponent]
 })

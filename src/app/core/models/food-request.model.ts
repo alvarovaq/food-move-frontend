@@ -4,6 +4,7 @@ import { IngredientModel } from './ingredient.model';
 import { Rating } from '@core/enums/rating';
 
 export interface FoodRequestModel {
+    patient: string;
     title: string;
     description?: string;
     mean: Mean;

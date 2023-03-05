@@ -29,7 +29,6 @@ export class AddFoodPageComponent implements OnInit {
 
   patient: PatientModel | null = null;
 
-  initDate: Date = new Date();
   date: Date = new Date();
 
   form!: FormGroup;
@@ -52,7 +51,6 @@ export class AddFoodPageComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly recipesService: RecipesService,
     private readonly foodsService: FoodsService,
     private readonly optionalPipe: OptionalPipe,
     private readonly fb: FormBuilder,
@@ -69,11 +67,28 @@ export class AddFoodPageComponent implements OnInit {
       res => {
         this.patient = res;
         const params = this.activatedRoute.snapshot.params;
+        console.log(params);
         if (params["date"]) {
           this.date = new Date(params["date"]);
-          this.initDate = new Date(params["date"]);
         }
-        this.initForm();
+        if (params["id"]) {
+          this.edit = true;
+          this.loaderService.isLoading.next(true);
+          this.foodsService.getFood(params["id"])
+          .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+          .subscribe(
+            res => {
+              this.food = res;
+              this.date = res.date;
+              this.initForm();
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        } else {
+          this.initForm();
+        }
       },
       err => {
         console.log(err);
@@ -121,7 +136,7 @@ export class AddFoodPageComponent implements OnInit {
   }
 
   exit(): void {
-    this.routerService.goToFoods(this.initDate);
+    this.routerService.goToFoods(this.date);
   }
 
   addLink(url: string): void {
@@ -215,23 +230,20 @@ export class AddFoodPageComponent implements OnInit {
   }
 
   editFood(): void {
-    this.addFood();
-    /*this.loaderService.isLoading.next(true);
-    const recipe = this.getFoodRequest(true);
-    this.recipesService.updateRecipe(this.food!._id, recipe)
-    .pipe(finalize(() => {
-      this.loaderService.isLoading.next(false);
-    }))
+    this.loaderService.isLoading.next(true);
+    const food = this.getFoodRequest(true);
+    this.foodsService.updateFood(this.food!._id, food)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe(
       res => {
         this.exit();
-        this.snackerService.showSuccessful("Receta editada con éxito");
+        this.snackerService.showSuccessful("Comida editada con éxito");
       },
       err => {
         console.log(err);
-        this.snackerService.showError(err.error.message);
+        this.snackerService.showError(err.err.message);
       }
-    );*/
+    );
   }
 
   getFoodRequest (edit: boolean = false): FoodRequestModel {

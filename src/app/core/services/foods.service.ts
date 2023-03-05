@@ -17,6 +17,14 @@ export class FoodsService {
     private readonly foodPipe: FoodPipe
   ) {}
 
+  getFood (id: string): Observable<FoodModel> {
+    return this.http.get<FoodModel>(`${environment.api}/foods/${id}`).pipe(
+      map((food) => {
+        return this.foodPipe.transform(food);
+      })
+    );
+  }
+
   getFoods (patient: string, dateRange: DateRange): Observable<FoodModel[]> {
     return this.http.post<FoodModel[]>(`${environment.api}/foods/findByPatient/${patient}`, dateRange).pipe(
       map((data) => {
@@ -29,6 +37,14 @@ export class FoodsService {
 
   createFood (foodRequest: FoodRequestModel): Observable<FoodModel> {
     return this.http.post<FoodModel>(`${environment.api}/foods/create`, foodRequest).pipe(
+      map((food) => {
+        return this.foodPipe.transform(food);
+      })
+    );
+  }
+
+  updateFood (id: string, foodRequest: FoodRequestModel): Observable<FoodModel> {
+    return this.http.patch<FoodModel>(`${environment.api}/foods/update/${id}`, foodRequest).pipe(
       map((food) => {
         return this.foodPipe.transform(food);
       })

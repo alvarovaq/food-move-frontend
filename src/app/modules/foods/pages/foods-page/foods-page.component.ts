@@ -66,7 +66,6 @@ export class FoodsPageComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly patientsService: PatientsService,
     private readonly foodsService: FoodsService,
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService,
@@ -134,68 +133,12 @@ export class FoodsPageComponent implements OnInit {
       }
     );
   }
-
-  /*getBackgroundFood (food: FoodModel): string {
-    if (food.mean == Mean.Desayuno) {
-      return 'rgba(255,0,0,0.2)';
-    } else if (food.mean == Mean.Comida) {
-      return 'rgba(0,255,0,0.2)';
-    } else {
-      return 'rgba(0,0,255,0.2)';
-    }
-  }
-
-  getIconFood (food: FoodModel): string {
-    if (food.mean == Mean.Desayuno) {
-      return 'coffee';
-    } else if (food.mean == Mean.Comida) {
-      return 'restaurant';
-    } else {
-      return 'fastfood';
-    }
-  }
-
-  sortFood (a: FoodModel, b: FoodModel): number {
-    const meanA: number = this.getPointsMean(a.mean);
-    const meanB: number = this.getPointsMean(b.mean); 
-    if (meanA < meanB) {
-      return -1;
-    } else if (meanA > meanB) {
-      return 1;
-    } else {
-      const dishA: number = this.getPointsDish(a.dish);
-      const dishB: number = this.getPointsDish(b.dish);
-      if (dishA < dishB) {
-        return -1;
-      } else if (dishA > dishB) {
-        return 1;
-      } else {
-        return 0;
-      }
-    }
-  }
-
-  getPointsMean (mean: Mean): number {
-    switch(mean) {
-      case Mean.Desayuno: return 0;
-      case Mean.Comida: return 1;
-      case Mean.Cena: return 2;
-      default: return 3;
-    }
-  }
-
-  getPointsDish (dish: Dish): number {
-    switch(dish) {
-      case Dish.Principal: return 0;
-      case Dish.Primero: return 1;
-      case Dish.Segundo: return 2;
-      case Dish.Postre: return 3;
-      default: return 4;
-    }
-  }*/
-
   addFood (date: Date): void {
     this.routerService.goToAddFood(date);
+  }
+
+  editFood (food: FoodModel): void {
+    this.routerService.goToEditFoods(food.date, food._id);
   }
 
   deleteFood (food: FoodModel): void {

@@ -19,8 +19,8 @@
                 </button>
             </div>
             <div class="day__main">
-                <div class="day__item" *ngFor="let food of weekday.items" [style.background]="getBackgroundFood(food)">
-                    <mat-icon class="item__icon">{{getIconFood(food)}}</mat-icon>
+                <div class="day__item" *ngFor="let food of weekday.items" [style.background]="foodToolService.getBackground(food.mean)">
+                    <mat-icon class="item__icon">{{foodToolService.getIcon(food.mean)}}</mat-icon>
                     <p class="item__title">{{food.title}}</p>
                     <a class="item__delete" (click)="deleteFood(food)"><mat-icon>close</mat-icon></a>
                 </div> 

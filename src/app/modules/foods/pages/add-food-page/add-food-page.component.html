@@ -5,11 +5,15 @@
                 <button type="button" mat-icon-button matTooltip="Volver" (click)="exit()">
                     <mat-icon>clear</mat-icon>
                 </button>
-                <p class="header__subtitle">{{edit ? "Editar " : "Agregar "}} Comnida</p>
+                <p class="header__subtitle">{{edit ? "Editar " : "Agregar "}} Comida</p>
             </div>
             <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid" tabindex="6">Guardar</button>
         </div>
         <mat-divider></mat-divider>
+        <div class="header__date">
+            <p class="form__date">{{this.date | date: 'dd/MM/yyyy'}}</p>
+            <button mat-stroked-button color="primary" type="button" (click)="importRecipe()">Importar Receta</button>
+        </div>
         <div class="form__main">
             <div class="form__box box__shadow">
                 <div class="main__primary">
@@ -61,11 +65,11 @@
                         <div class="fake__icon"></div>
                         <mat-form-field class="input__field">
                             <mat-label>Comentarios</mat-label>
-                            <textarea matInput type="text" matInput autocomplete="off" formControlName="description" tabindex="2" #comments maxlength="255"></textarea>
-                            <mat-hint align="end">{{description.value.length}}/255</mat-hint>
+                            <textarea matInput type="text" matInput autocomplete="off" formControlName="comments" tabindex="2" #comments maxlength="255"></textarea>
+                            <mat-hint align="end">{{comments.value.length}}/255</mat-hint>
                         </mat-form-field>
-                        <div class="fake__clear" *ngIf="!buttonClear.description"></div>
-                        <button type="button" mat-icon-button *ngIf="buttonClear.description" (click)="clearField('description')" class="btn__clear">
+                        <div class="fake__clear" *ngIf="!buttonClear.comments"></div>
+                        <button type="button" mat-icon-button *ngIf="buttonClear.comments" (click)="clearField('description')" class="btn__clear">
                             <mat-icon mat-list-icon>clear</mat-icon>
                         </button>
                     </div>

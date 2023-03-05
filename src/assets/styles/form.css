@@ -190,6 +190,22 @@
     overflow: auto;
 }
 
+/* Form Date */
+
+.header__date {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form__date {
+    margin: 0;
+    font-size: 24px;
+    margin-left: 20px;
+}
+
 @media(max-width: 959px) {
     .header__subtitle {
         font-size: 20px;

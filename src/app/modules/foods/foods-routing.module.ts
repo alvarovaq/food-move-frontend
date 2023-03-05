@@ -6,7 +6,7 @@ import { AddFoodPageComponent } from './pages/add-food-page/add-food-page.compon
 
 const routes: Routes = [
   {path: '', component: FoodsComponent, children: [
-    {path: '', component: FoodsPageComponent},
+    {path: ':date', component: FoodsPageComponent},
     {path: 'add-food/:date', component: AddFoodPageComponent},
     {path: '**', redirectTo: ''}
   ]}

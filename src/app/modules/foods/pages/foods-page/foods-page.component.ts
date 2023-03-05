@@ -14,6 +14,7 @@ import { ViewPatientService } from '../../../../core/services/view-patient.servi
 import { sequence } from '@angular/animations';
 import { DateRange } from '../../../../core/interfaces/date-range';
 import { DialogService } from '../../../../core/services/dialog.service';
+import { FoodToolService } from '../../services/food-tool.service';
 
 @Component({
   selector: 'app-foods-page',
@@ -22,46 +23,39 @@ import { DialogService } from '../../../../core/services/dialog.service';
 })
 export class FoodsPageComponent implements OnInit {
 
-  weekdays: {name: string; color: string; items: FoodModel[]; date: Date}[] = [
+  weekdays: {name: string; items: FoodModel[]; date: Date}[] = [
     {
       name: 'Lunes',
-      color: 'rgba(0, 255, 0, 0.2)',
       items: [],
       date: new Date()
     },
     {
       name: 'Martes',
-      color: 'rgba(255, 0, 0, 0.2)',
       items: [],
       date: new Date()
     },
     {
       name: 'Miércoles',
-      color: 'rgba(0, 0, 255, 0.2)',
       items: [],
       date: new Date()
     },
     {
       name: 'Jueves',
-      color: 'rgba(0, 255, 0, 0.2)',
       items: [],
       date: new Date()
     },
     {
       name: 'Viernes',
-      color: 'rgba(0, 255, 0, 0.2)',
       items: [],
       date: new Date()
     },
     {
       name: 'Sábado',
-      color: 'rgba(0, 255, 0, 0.2)',
       items: [],
       date: new Date()
     },
     {
       name: 'Domingo',
-      color: 'rgba(0, 255, 0, 0.2)',
       items: [],
       date: new Date()
     }
@@ -69,10 +63,6 @@ export class FoodsPageComponent implements OnInit {
 
   patient: PatientModel | null = null;
   dateRange: DateRange = this.getDateRange(new Date());
-
-  breakfast: FoodModel[] = [];
-  lunch: FoodModel[] = [];
-  dinner: FoodModel[] = [];
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -82,7 +72,8 @@ export class FoodsPageComponent implements OnInit {
     private readonly snackerService: SnackerService,
     private readonly loaderService: LoaderService,
     private readonly viewPatientService: ViewPatientService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    public readonly foodToolService: FoodToolService
   ) { }
 
   ngOnInit(): void {
@@ -90,6 +81,8 @@ export class FoodsPageComponent implements OnInit {
     .subscribe(
       res => {
         this.patient = res;
+        const params = this.activatedRoute.snapshot.params;
+        if (params["date"]) this.dateRange = this.getDateRange(new Date(params["date"]));
         this.loadFoods();
       },
       err => {
@@ -100,23 +93,27 @@ export class FoodsPageComponent implements OnInit {
     );
   }
 
-  getDates (date: Date): Array<Date> {
+  addDay (date: Date, days: number): Date {
     const cpy_date = new Date(date);
-    cpy_date.setDate(cpy_date.getDate() - cpy_date.getDay() + 1);
-    let dates = [];
-    for (let i = 0; i < 7; i++) {
-      dates.push(new Date(cpy_date));
-      cpy_date.setDate(cpy_date.getDate() + 1);
-    }
-    return dates;
+    return new Date(cpy_date.setDate(cpy_date.getDate() + days));
+  }
+
+  getDay (date: Date): number {
+    const day = date.getDay();
+    return day == 0 ? 7 : day;
   }
 
   getDateRange (date: Date): DateRange {
-    const cpy_date = new Date(date);
     return {
-      startDate: new Date(date.setDate(date.getDate() - date.getDay() + 1)),
-      endDate: new Date(cpy_date.setDate(cpy_date.getDate() + 7 - cpy_date.getDay()))
+      startDate: this.addDay(date, -1 * this.getDay(date) + 1),
+      endDate: this.addDay(date, 7 - this.getDay(date))
     }
+  }
+
+  changeDateRange (nWeeks: number): void {
+    const date = this.addDay(this.dateRange.startDate, 7 * nWeeks);
+    this.dateRange = this.getDateRange(date);
+    this.loadFoods();
   }
 
   loadFoods (): void {
@@ -125,14 +122,11 @@ export class FoodsPageComponent implements OnInit {
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe(
       res => {
-        console.log(res);
         this.weekdays.forEach((_, i) => {
           this.weekdays[i].items = res.filter(foodItem => {
-            const day = foodItem.date.getDay();
-            return day - 1 < 0 ? 6 : day - 1 == i;
-          });
-          const cpy_startDate = new Date(this.dateRange.startDate);
-          this.weekdays[i].date = new Date(cpy_startDate.setDate(cpy_startDate.getDate() + i));
+            return this.getDay(foodItem.date) - 1 == i;
+          }).sort((a,b) => this.foodToolService.sort(a,b));
+          this.weekdays[i].date = this.addDay(this.dateRange.startDate, i);
         });
       },
       err => {
@@ -141,7 +135,7 @@ export class FoodsPageComponent implements OnInit {
     );
   }
 
-  getBackgroundFood (food: FoodModel): string {
+  /*getBackgroundFood (food: FoodModel): string {
     if (food.mean == Mean.Desayuno) {
       return 'rgba(255,0,0,0.2)';
     } else if (food.mean == Mean.Comida) {
@@ -161,21 +155,32 @@ export class FoodsPageComponent implements OnInit {
     }
   }
 
-  changeDateRange (nWeeks: number): void {
-    const day = new Date(this.dateRange.startDate.setDate(this.dateRange.startDate.getDate() + 7 * nWeeks));
-    this.dateRange = this.getDateRange(day);
-    this.loadFoods();
-  }
-
   sortFood (a: FoodModel, b: FoodModel): number {
-    const pa: number = this.getPointsDish(a.dish);
-    const pb: number = this.getPointsDish(b.dish); 
-    if (pa < pb) {
+    const meanA: number = this.getPointsMean(a.mean);
+    const meanB: number = this.getPointsMean(b.mean); 
+    if (meanA < meanB) {
       return -1;
-    } else if (pa > pb) {
+    } else if (meanA > meanB) {
       return 1;
     } else {
-      return 0;
+      const dishA: number = this.getPointsDish(a.dish);
+      const dishB: number = this.getPointsDish(b.dish);
+      if (dishA < dishB) {
+        return -1;
+      } else if (dishA > dishB) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  }
+
+  getPointsMean (mean: Mean): number {
+    switch(mean) {
+      case Mean.Desayuno: return 0;
+      case Mean.Comida: return 1;
+      case Mean.Cena: return 2;
+      default: return 3;
     }
   }
 
@@ -187,7 +192,7 @@ export class FoodsPageComponent implements OnInit {
       case Dish.Postre: return 3;
       default: return 4;
     }
-  }
+  }*/
 
   addFood (date: Date): void {
     this.routerService.goToAddFood(date);

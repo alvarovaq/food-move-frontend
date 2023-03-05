@@ -6,21 +6,17 @@ import { FoodsComponent } from '../foods/foods.component';
 import { FoodsPageComponent } from './pages/foods-page/foods-page.component';
 import { MatModule } from '@shared/modules/mat/mat.module';
 import { SharedModule } from '@shared/shared.module';
-import { HeaderMeanComponent } from './components/header-mean/header-mean.component';
-import { MeanComponent } from './components/mean/mean.component';
-import { ItemFoodComponent } from './components/item-food/item-food.component';
 import { AddFoodPageComponent } from './pages/add-food-page/add-food-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImportRecipeComponent } from './components/import-recipe/import-recipe.component';
 
 
 @NgModule({
   declarations: [
     FoodsComponent,
     FoodsPageComponent,
-    HeaderMeanComponent,
-    MeanComponent,
-    ItemFoodComponent,
-    AddFoodPageComponent
+    AddFoodPageComponent,
+    ImportRecipeComponent
   ],
   imports: [
     CommonModule,

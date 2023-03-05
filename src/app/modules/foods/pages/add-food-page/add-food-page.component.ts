@@ -17,6 +17,8 @@ import { PatientModel } from '../../../../core/models/patient.model';
 import { FoodsService } from '../../../../core/services/foods.service';
 import { FoodRequestModel } from '@core/models/food-request.model';
 import { FoodModel } from '../../../../core/models/food.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ImportRecipeComponent } from '@modules/foods/components/import-recipe/import-recipe.component';
 
 @Component({
   selector: 'app-add-food-page',
@@ -27,6 +29,7 @@ export class AddFoodPageComponent implements OnInit {
 
   patient: PatientModel | null = null;
 
+  initDate: Date = new Date();
   date: Date = new Date();
 
   form!: FormGroup;
@@ -43,7 +46,8 @@ export class AddFoodPageComponent implements OnInit {
   
   buttonClear = {
     title: false,
-    description: false
+    description: false,
+    comments: false
   }
 
   constructor(
@@ -55,7 +59,8 @@ export class AddFoodPageComponent implements OnInit {
     private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService,
-    private readonly viewPatientService: ViewPatientService
+    private readonly viewPatientService: ViewPatientService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +69,10 @@ export class AddFoodPageComponent implements OnInit {
       res => {
         this.patient = res;
         const params = this.activatedRoute.snapshot.params;
-        if (params["date"]) this.date = new Date(params["date"]);
+        if (params["date"]) {
+          this.date = new Date(params["date"]);
+          this.initDate = new Date(params["date"]);
+        }
         this.initForm();
       },
       err => {
@@ -113,7 +121,7 @@ export class AddFoodPageComponent implements OnInit {
   }
 
   exit(): void {
-    this.routerService.goToFoods();
+    this.routerService.goToFoods(this.initDate);
   }
 
   addLink(url: string): void {
@@ -157,6 +165,33 @@ export class AddFoodPageComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  importRecipe (): void {
+    const dialogRef = this.dialog.open(ImportRecipeComponent, {
+      width: '800px'
+    });
+    dialogRef.afterClosed()
+    .subscribe(
+      res => {
+        if (res) {
+          const recipe = res as RecipeModel;
+          this.form.setValue({title: recipe.title, description: recipe.description ? recipe.description : '', comments: this.comments});
+          this.mean = recipe.mean;
+          this.changeMean();
+          this.dish = recipe.dish;
+          this.links = recipe.links.map((url, id) => {
+            return {id, url};
+          });
+          this.ingredients = recipe.ingredients.map((ingredient, id) => {
+            return {id, ingredient};
+          });
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   addFood(): void {

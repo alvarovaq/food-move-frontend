@@ -6,7 +6,7 @@ import { RoutinesService } from '@core/services/routines.service';
 @Component({
   selector: 'app-import-routine',
   templateUrl: './import-routine.component.html',
-  styleUrls: ['./import-routine.component.css']
+  styleUrls: ['./import-routine.component.css', '../../../../../assets/styles/import.css']
 })
 export class ImportRoutineComponent implements OnInit {
 

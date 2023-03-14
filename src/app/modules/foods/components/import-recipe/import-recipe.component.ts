@@ -7,7 +7,7 @@ import { FoodToolService } from '../../services/food-tool.service';
 @Component({
   selector: 'app-import-recipe',
   templateUrl: './import-recipe.component.html',
-  styleUrls: ['./import-recipe.component.css']
+  styleUrls: ['./import-recipe.component.css', '../../../../../assets/styles/import.css']
 })
 export class ImportRecipeComponent implements OnInit {
 

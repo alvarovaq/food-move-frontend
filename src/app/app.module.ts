@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PatientPipe } from './shared/pipes/patient.pipe';
 import { FoodPipe } from './shared/pipes/food.pipe';
+import { MovePipe } from '@shared/pipes/move.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FoodPipe } from './shared/pipes/food.pipe';
       multi: true
     },
     PatientPipe,
-    FoodPipe
+    FoodPipe,
+    MovePipe
   ],
   bootstrap: [AppComponent]
 })

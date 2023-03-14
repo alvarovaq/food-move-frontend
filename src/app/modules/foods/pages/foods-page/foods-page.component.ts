@@ -133,12 +133,13 @@ export class FoodsPageComponent implements OnInit {
       }
     );
   }
+
   addFood (date: Date): void {
     this.routerService.goToAddFood(date);
   }
 
   editFood (food: FoodModel): void {
-    this.routerService.goToEditFoods(food.date, food._id);
+    this.routerService.goToEditFood(food._id);
   }
 
   deleteFood (food: FoodModel): void {
@@ -159,7 +160,7 @@ export class FoodsPageComponent implements OnInit {
             console.log(err);
             this.snackerService.showError(err.error.message);
           }
-          );
+        );
       }
     });
   }

@@ -100,12 +100,20 @@ export class RouterService {
     await this.router.navigate(['patient/foods/add-food', date.toDateString()]);
   }
 
-  async goToEditFoods (date: Date, id: string): Promise<void> {
+  async goToEditFood (id: string): Promise<void> {
     await this.router.navigate(['patient/foods/edit-food', id]);
   }
 
-  async goToMoves (): Promise<void> {
-    await this.router.navigate(['patient/moves']);
+  async goToMoves (date?: Date): Promise<void> {
+    await this.router.navigate(['patient/moves', date ? date.toDateString() : new Date().toDateString()]);
+  }
+
+  async goToAddMove (date: Date): Promise<void> {
+    await this.router.navigate(['patient/moves/add-move', date.toDateString()]);
+  }
+
+  async goToEditMove (id: string): Promise<void> {
+    await this.router.navigate(['patient/moves/edit-move', id]);
   }
 
 }

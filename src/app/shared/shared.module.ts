@@ -18,6 +18,7 @@ import { InputProfileImageComponent } from './components/input-profile-image/inp
 import { EditProfileImageComponent } from './components/input-profile-image/components/edit-profile-image/edit-profile-image.component';
 import { AuthService } from '../core/services/auth.service';
 import { FoodPipe } from './pipes/food.pipe';
+import { MovePipe } from './pipes/move.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FoodPipe } from './pipes/food.pipe';
     AdminPipe,
     PhotoPipe,
     InputProfileImageComponent,
-    EditProfileImageComponent
+    EditProfileImageComponent,
+    MovePipe
   ],
   imports: [
     CommonModule,

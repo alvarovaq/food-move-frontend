@@ -67,10 +67,7 @@ export class AddFoodPageComponent implements OnInit {
       res => {
         this.patient = res;
         const params = this.activatedRoute.snapshot.params;
-        console.log(params);
-        if (params["date"]) {
-          this.date = new Date(params["date"]);
-        }
+        if (params["date"]) this.date = new Date(params["date"]);
         if (params["id"]) {
           this.edit = true;
           this.loaderService.isLoading.next(true);
@@ -96,7 +93,6 @@ export class AddFoodPageComponent implements OnInit {
         this.snackerService.showError("No se ha encontrado al paciente");
       }
     )
-
   }
 
   initForm(): void {

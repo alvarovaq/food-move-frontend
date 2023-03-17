@@ -125,8 +125,8 @@
                         <div class="fake__icon"></div>
                         <mat-form-field class="input__field">
                             <mat-label>Comentarios</mat-label>
-                            <textarea matInput type="text" matInput autocomplete="off" formControlName="comments" tabindex="10" #comments maxlength="255"></textarea>
-                            <mat-hint align="end">{{comments.value.length}}/255</mat-hint>
+                            <textarea matInput type="text" matInput autocomplete="off" formControlName="comments" tabindex="10" #comments maxlength="155"></textarea>
+                            <mat-hint align="end">{{comments.value.length}}/155</mat-hint>
                         </mat-form-field>
                         <div class="fake__clear" *ngIf="!buttonClear.comments"></div>
                         <button type="button" mat-icon-button *ngIf="buttonClear.comments" (click)="clearField('comments')" class="btn__clear">

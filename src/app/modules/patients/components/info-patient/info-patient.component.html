@@ -13,6 +13,10 @@
             <mat-icon class="icon">phone</mat-icon>
             <p class="text">{{patient.phone}}</p>
         </div>
+        <div class="item" *ngIf="patient.height">
+            <mat-icon class="icon">straighten</mat-icon>
+            <p class="text">{{patient.height}} cm</p>
+        </div>
         <div class="item" *ngIf="patient.birth">
             <mat-icon class="icon">cake</mat-icon>
             <p class="text">{{patient.birth ? (patient.birth | date: 'dd/MM/YYYY') : ""}}</p>

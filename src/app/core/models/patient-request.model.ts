@@ -5,4 +5,5 @@ export interface PatientRequestModel {
     password: string;
     phone?: string;
     birth?: Date;
+    height?: number;
 }

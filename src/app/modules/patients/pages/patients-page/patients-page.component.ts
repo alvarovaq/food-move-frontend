@@ -35,9 +35,10 @@ export class PatientsPageComponent implements OnInit {
     {index: 1, field: 'name', header: 'Nombre', sort: true, type: TypeValueTable.NAME},
     {index: 2, field: 'email', header: 'Email', sort: true},
     {index: 3, field: 'phone', header: 'Teléfono', sort: true},
-    {index: 4, field: 'birth', header: 'Nacimiento', sort: true, type :TypeValueTable.DATE}
+    {index: 4, field: 'birth', header: 'Nacimiento', sort: true, type :TypeValueTable.DATE},
+    {index: 5, field: 'height', header: 'Altura (cm)', sort: true}
   ];
-  indexDisplay: number = 4;
+  indexDisplay: number = 5;
 
   search: string = '';
   searchFields: string[] = ['name', 'surname', 'email', 'phone'];
@@ -101,6 +102,14 @@ export class PatientsPageComponent implements OnInit {
       }
     );
     this.breakpointObserver
+      .observe(['(max-width: 1000px)', '(min-width:901px)'])
+      .subscribe(result => {
+        if (result.matches) {
+          this.indexDisplay = 4;
+        }
+      }
+    );
+    this.breakpointObserver
       .observe(['(max-width: 900px)', '(min-width:651px)'])
       .subscribe(result => {
         if (result.matches) {
@@ -127,10 +136,10 @@ export class PatientsPageComponent implements OnInit {
       }
     );
     this.breakpointObserver
-      .observe(['(min-width: 901px)'])
+      .observe(['(min-width: 1001px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.indexDisplay = 4;
+          this.indexDisplay = 5;
         }
       }
     );

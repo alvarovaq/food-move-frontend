@@ -64,6 +64,17 @@
                             <mat-icon mat-list-icon>clear</mat-icon>
                         </button>
                     </div>
+                    <div class="form__input" (mouseenter)="buttonClear.height = true" (mouseleave)="buttonClear.height = false">
+                        <mat-icon mat-list-icon class="input__icon">straighten</mat-icon>
+                        <mat-form-field class="input__field">
+                            <mat-label>Altura (cm)</mat-label>
+                            <input type="number" matInput autocomplete="off" formControlName="height" tabindex="4">
+                        </mat-form-field>
+                        <div class="fake__clear" *ngIf="!buttonClear.height"></div>
+                        <button type="button" mat-icon-button *ngIf="buttonClear.height" (click)="clearField('height')" class="btn__clear">
+                            <mat-icon mat-list-icon>clear</mat-icon>
+                        </button>
+                    </div>
                     <div class="form__input" (mouseenter)="buttonClear.birth = true" (mouseleave)="buttonClear.birth = false">
                         <mat-icon mat-list-icon class="input__icon">cake</mat-icon>
                         <mat-form-field hintLabel="dd/mm/yyyy" class="input__field">

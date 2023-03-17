@@ -28,7 +28,8 @@ export class AddPatientPageComponent implements OnInit {
     surname: false,
     email: false,
     phone: false,
-    birth: false
+    birth: false,
+    height: false
   }
 
   imageFile?: string = "";
@@ -78,6 +79,7 @@ export class AddPatientPageComponent implements OnInit {
       email: [this.edit ? this.patient!.email : null, [Validators.required, Validators.email]],
       phone: [this.edit ? this.patient!.phone : null],
       birth: [this.edit ? this.patient!.birth ? this.datePipe.transform(this.patient!.birth, 'dd/MM/YYYY') : null : null, birthDateValidator()],
+      height: [this.edit ? this.patient!.height : null]
     });
   }
 
@@ -103,6 +105,10 @@ export class AddPatientPageComponent implements OnInit {
     const [day, month, year] = birth.split('/');
     const date = new Date(+year, +month - 1, +day);
     return date;
+  }
+
+  get height (): number | null {
+    return this.form.value.height;
   }
 
   clearField (field: string): void {
@@ -206,7 +212,8 @@ export class AddPatientPageComponent implements OnInit {
       email: this.email,
       password: '123456789',
       phone: this.phone,
-      birth: this.birth
+      birth: this.birth,
+      height: this.height
     };
     return edit ? request : this.optionalPipe.transform(request);
   }

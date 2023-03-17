@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { LoaderService } from '@core/services/loader.service';
 import { RouterService } from '@core/services/router.service';
+import { BehaviorSubject } from 'rxjs';
 import { EmployeeModel } from '../../../core/models/employee.model';
 
 @Component({
@@ -16,6 +17,8 @@ export class NavbarComponent implements OnInit {
   employee: EmployeeModel | null = null;
 
   showProfilePanel: boolean = false;
+
+  page: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
   @Output() public sidenavToggle = new EventEmitter();
 
@@ -54,18 +57,22 @@ export class NavbarComponent implements OnInit {
   }
 
   goToPatients (): void {
+    this.page.next(1);
     this.routerService.goToPatients();
   }
 
   goToEmployees (): void {
+    this.page.next(2);
     this.routerService.goToEmployees();
   }
 
   goToRecipes (): void {
+    this.page.next(3);
     this.routerService.goToRecipes();
   }
 
   goToRoutines (): void {
+    this.page.next(4);
     this.routerService.goToRoutines();
   }
 

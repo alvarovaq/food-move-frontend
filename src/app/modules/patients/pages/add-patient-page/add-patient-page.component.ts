@@ -76,8 +76,8 @@ export class AddPatientPageComponent implements OnInit {
     this.form = this.fb.group({
       name: [this.edit ? this.patient!.name : null, [Validators.required]],
       surname: [this.edit ? this.patient!.surname : null],
-      email: [this.edit ? this.patient!.email : null, [Validators.required, Validators.email]],
-      phone: [this.edit ? this.patient!.phone : null],
+      email: [this.edit ? this.patient!.email : null, [Validators.email]],
+      phone: [this.edit ? this.patient!.phone : null, [Validators.required]],
       birth: [this.edit ? this.patient!.birth ? this.datePipe.transform(this.patient!.birth, 'dd/MM/YYYY') : null : null, birthDateValidator()],
       height: [this.edit ? this.patient!.height : null]
     });

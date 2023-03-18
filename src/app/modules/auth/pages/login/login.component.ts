@@ -48,11 +48,7 @@ export class LoginComponent implements OnInit {
     .subscribe(
       res => {
         this.loading = true;
-        if (res.user.isEmployee) {
-          this.authService.login(res);
-        } else {
-          this.snacker.showError('No tienes acceso');
-        }
+        this.authService.login(res);
       },
       err => {
         console.log(err);

@@ -37,7 +37,7 @@
     font-size: 18px;
 }
 
-.profile .profile__text .profile__email {
+.profile .profile__text .profile__phone {
     font-size: 14px;
     color: var(--gray-text);
 }

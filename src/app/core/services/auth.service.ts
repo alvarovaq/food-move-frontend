@@ -23,7 +23,7 @@ export class AuthService {
     ) {}
 
     getNewToken (user: AuthRequestModel): Observable<AuthResponseModel> {
-        return this.http.post<AuthResponseModel>(`${environment.api}/auth/login`, user);
+        return this.http.post<AuthResponseModel>(`${environment.api}/auth/loginEmployee`, user);
     }
 
     setSession (): void {

@@ -33,8 +33,8 @@ export class PatientsPageComponent implements OnInit {
   tableStructure: TableStructure[] = [
     {index: 0, field: 'profile_image', header: '', sort: false},
     {index: 1, field: 'name', header: 'Nombre', sort: true, type: TypeValueTable.NAME},
-    {index: 2, field: 'email', header: 'Email', sort: true},
-    {index: 3, field: 'phone', header: 'Teléfono', sort: true},
+    {index: 2, field: 'phone', header: 'Teléfono', sort: true},
+    {index: 3, field: 'email', header: 'Email', sort: true},
     {index: 4, field: 'birth', header: 'Nacimiento', sort: true, type :TypeValueTable.DATE},
     {index: 5, field: 'height', header: 'Altura (cm)', sort: true}
   ];

@@ -16,6 +16,8 @@ import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { TableStructure } from '@shared/components/table/interfaces/table-structure';
 import { TypeValueTable } from '@shared/components/table/enums/type-value-table';
 import { ViewPatientService } from '../../../../core/services/view-patient.service';
+import { EmployeeModel } from '@core/models/employee.model';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-patients-page',
@@ -27,6 +29,7 @@ export class PatientsPageComponent implements OnInit {
   listPatients: PatientModel[] = [];
   isSmall: boolean = false;
   isLoadingResults: boolean = false;
+  user: EmployeeModel | null = null;
 
   dataSource!: MatTableDataSource<any>;
 
@@ -51,6 +54,7 @@ export class PatientsPageComponent implements OnInit {
   total: number = 0;
 
   constructor(
+    private readonly authService: AuthService,
     private readonly patientsService: PatientsService,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly routerService: RouterService,
@@ -62,8 +66,18 @@ export class PatientsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadPatients();
-    this.setColumnsBySize();
+    this.authService.user$.subscribe(
+      res => {
+        this.user = res;
+        this.loadPatients();
+        this.setColumnsBySize();
+      },
+      err => {
+        console.log(err);
+        this.authService.logout();
+        this.snackerService.showError("Algo no ha sucedido como se esperaba");
+      }
+    );
   }
 
   loadPatients (): void {
@@ -76,7 +90,9 @@ export class PatientsPageComponent implements OnInit {
       },
       sorting: sort,
       search: {search: this.search, fields: this.searchFields},
-      filter: {}
+      filter: {
+        employee: this.user?.admin ? undefined : this.user?._id
+      }
     })
     .pipe(finalize(() => {
       this.isLoadingResults = false;

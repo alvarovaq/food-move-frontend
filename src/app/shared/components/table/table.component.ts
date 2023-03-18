@@ -22,6 +22,10 @@ export class TableComponent implements OnInit {
   @Input() sortActive: string = "name";
   @Input() viewOption: boolean = false;
 
+  @Input() offItem: boolean = false;
+  @Input() keyOffItem: string = "";
+  @Input() valueOffItem: any = null;
+
   @Output() reset = new EventEmitter<boolean>();
   @Output() changePage = new EventEmitter<PageEvent>();
   @Output() changeSort = new EventEmitter<Sort>();
@@ -65,6 +69,10 @@ export class TableComponent implements OnInit {
 
   deleteElement (element: any) {
     this.delete.emit(element);
+  }
+
+  isOffItem (item: any): boolean {
+    return item[this.keyOffItem] != this.valueOffItem;
   }
 
 }

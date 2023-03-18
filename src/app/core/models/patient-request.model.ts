@@ -6,4 +6,5 @@ export interface PatientRequestModel {
     phone?: string;
     birth?: Date;
     height?: number;
+    employee: string;
 }

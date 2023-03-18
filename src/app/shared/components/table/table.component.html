@@ -11,7 +11,7 @@
                     <div mat-sort-header disableClear *ngSwitchCase="true">{{column.header}}</div>
                     <div *ngSwitchDefault>{{column.header}}</div>
                 </th>
-                <td mat-cell class="table__item" *matCellDef="let element" [ngSwitch]="column.index" [ngClass]="{column__photo: column.index == 0, column__primary: column.index == 1, column__secondary: column.index == 2}">
+                <td mat-cell class="table__item" *matCellDef="let element" [ngSwitch]="column.index" [ngClass]="{column__photo: column.index == 0, column__primary: column.index == 1, column__secondary: column.index == 2}" [style]="isOffItem(element) ? 'background: rgba(0,0,0,0.07);' : ''">
                     <app-profile-picture *ngSwitchCase="0" [url]="(element[column.field] | photo)" size="40px"></app-profile-picture>
                     <p class="table__text" *ngSwitchDefault>{{column.type == 'date' ? (element[column.field] | date: 'dd/MM/yyyy') : column.type == 'name' ? (element | name) : column.type == 'admin' ? (element[column.field] | admin) : element[column.field]}}</p>
                 </td>
@@ -25,7 +25,7 @@
                         </button>
                     </div>
                 </th>
-                <td mat-cell *matCellDef="let element; let i = index" style="text-align: right;">
+                <td mat-cell *matCellDef="let element; let i = index" style="text-align: right;" [style]="isOffItem(element) ? 'background: rgba(0,0,0,0.07);' : ''">
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                         <mat-icon>more_vert</mat-icon>
                     </button>

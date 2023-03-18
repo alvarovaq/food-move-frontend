@@ -26,6 +26,18 @@ export class PatientsService {
     );
   }
 
+  getMyPatients (customQuery: CustomQuery): Observable<CustomResponse> {
+    return this.http.post<CustomResponse>(`${environment.api}/patients/filter`, customQuery).pipe(
+      map((data) => {
+        let newData: CustomResponse = Object.assign({}, data);
+        newData.items.map((patient: PatientModel) => {
+          return this.patientPipe.transform(patient);
+        });
+        return newData;
+      })
+    )
+  }
+
   filter (customQuery: CustomQuery): Observable<CustomResponse> {
     return this.http.post<CustomResponse>(`${environment.api}/patients/filter`, customQuery).pipe(
       map((data) => {

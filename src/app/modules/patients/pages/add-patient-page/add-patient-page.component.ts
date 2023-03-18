@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PatientModel } from '@core/models/patient.model';
 import { DatePipe } from '@angular/common';
 import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
+import { AuthService } from '@core/services/auth.service';
+import { EmployeeModel } from '@core/models/employee.model';
 
 @Component({
   selector: 'app-add-patient-page',
@@ -22,6 +24,7 @@ export class AddPatientPageComponent implements OnInit {
   form!: FormGroup;
   edit: boolean = false;
   patient: PatientModel | null = null;
+  user: EmployeeModel | null = null;
   
   buttonClear = {
     name: false,
@@ -37,6 +40,7 @@ export class AddPatientPageComponent implements OnInit {
   removeProfileImage: boolean = false;
 
   constructor(
+    private readonly authService: AuthService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly datePipe: DatePipe,
     private readonly fb: FormBuilder,
@@ -49,27 +53,38 @@ export class AddPatientPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loaderService.isLoading.next(true);
-    const params = this.activatedRoute.snapshot.params;
-    if (params["id"]) {
-      this.patientsService.getPatient(params['id'])
-      .pipe(finalize(() => {
-        this.loaderService.isLoading.next(false);
-      }))
-      .subscribe(
-        res => {
-          this.edit = true;
-          this.patient = res;
+    this.authService.user$.subscribe(
+      res => {
+        this.user = res;
+        const params = this.activatedRoute.snapshot.params;
+        if (params["id"]) {
+          this.patientsService.getPatient(params['id'])
+          .pipe(finalize(() => {
+            this.loaderService.isLoading.next(false);
+          }))
+          .subscribe(
+            res => {
+              this.edit = true;
+              this.patient = res;
+              this.initForm();
+            },
+            err => {
+              console.log(err);
+              this.exit();
+              this.snackerService.showError("Algo no ha sucedido como se esperaba");
+            }
+          );
+        } else {
           this.initForm();
-        },
-        err => {
-          this.exit();
-          this.snackerService.showError("Algo no ha sucedido como se esperaba");
+          this.loaderService.isLoading.next(false);
         }
-      );
-    } else {
-      this.initForm();
-      this.loaderService.isLoading.next(false);
-    }
+      },
+      err => {
+        console.log(err);
+        this.authService.logout();
+        this.snackerService.showError("Algo no ha sucedido como se esperaba");
+      }
+    );
   }
 
   initForm(): void {
@@ -79,7 +94,8 @@ export class AddPatientPageComponent implements OnInit {
       email: [this.edit ? this.patient!.email : null, [Validators.email]],
       phone: [this.edit ? this.patient!.phone : null, [Validators.required]],
       birth: [this.edit ? this.patient!.birth ? this.datePipe.transform(this.patient!.birth, 'dd/MM/YYYY') : null : null, birthDateValidator()],
-      height: [this.edit ? this.patient!.height : null]
+      height: [this.edit ? this.patient!.height : null],
+      employee: [this.edit ? this.patient!.employee : this.user?._id]
     });
   }
 
@@ -109,6 +125,10 @@ export class AddPatientPageComponent implements OnInit {
 
   get height (): number | null {
     return this.form.value.height;
+  }
+
+  get employee (): string {
+    return this.form.value.employee;
   }
 
   clearField (field: string): void {
@@ -213,7 +233,8 @@ export class AddPatientPageComponent implements OnInit {
       password: '123456789',
       phone: this.phone,
       birth: this.birth,
-      height: this.height
+      height: this.height,
+      employee: this.employee
     };
     return edit ? request : this.optionalPipe.transform(request);
   }

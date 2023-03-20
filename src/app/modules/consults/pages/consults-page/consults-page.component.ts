@@ -37,12 +37,13 @@ export class ConsultsPageComponent implements OnInit {
 
   tableStructure: TableStructure[] = [
     {index: 1, field: 'created_at', header: 'Fecha', sort: true, type: TypeValueTable.DATE},
-    {index: 2, field: 'masa', header: 'Masa [Kg]', sort: true},
-    {index: 3, field: 'imc', header: 'IMC [Kg/m2]', sort: true},
-    {index: 4, field: 'per_abdominal', header: 'Perímetro abdominal [cm]', sort: true},
-    {index: 5, field: 'tension', header: 'Tensión Arterial [mmHg]', sort: true}
+    {index: 2, field: 'comments', header: 'Comentario', sort: false},
+    {index: 3, field: 'masa', header: 'Masa [Kg]', sort: true},
+    {index: 4, field: 'imc', header: 'IMC [Kg/m2]', sort: true},
+    {index: 5, field: 'per_abdominal', header: 'Perímetro abdominal [cm]', sort: true},
+    {index: 6, field: 'tension', header: 'Tensión Arterial [mmHg]', sort: true}
   ];
-  indexDisplay: number = 5;
+  indexDisplay: number = 6;
 
   sortField: string = 'created_at';
   sortDirection: string = 'asc';
@@ -109,6 +110,13 @@ export class ConsultsPageComponent implements OnInit {
         if (result.matches) {
           this.isSmall = true;
         }
+    });
+    this.breakpointObserver
+      .observe(['(max-width: 1100px)', '(min-width: 901px)'])
+      .subscribe(result => {
+        if (result.matches) {
+          this.indexDisplay = 5;
+        }
       });
     this.breakpointObserver
       .observe(['(max-width: 900px)', '(min-width:651px)'])
@@ -139,10 +147,10 @@ export class ConsultsPageComponent implements OnInit {
         }
       });
     this.breakpointObserver
-      .observe(['(min-width: 901px)'])
+      .observe(['(min-width: 1101px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.indexDisplay = 5;
+          this.indexDisplay = 6;
         }
       });
   }

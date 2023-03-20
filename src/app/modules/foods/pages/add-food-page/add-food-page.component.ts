@@ -38,9 +38,9 @@ export class AddFoodPageComponent implements OnInit {
   links: Array<{id: number, url: string}> = [];
   ingredients: Array<{id: number, ingredient: IngredientRequestModel}> = [];
 
-  availableMean = [Mean.Desayuno, Mean.Comida, Mean.Cena];
+  availableMean = [Mean.Desayuno, Mean.Almuerzo, Mean.Merienda, Mean.Cena];
   availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
-  mean: Mean = Mean.Comida;
+  mean: Mean = Mean.Almuerzo;
   dish: Dish = Dish.Primero;
   
   buttonClear = {
@@ -165,9 +165,13 @@ export class AddFoodPageComponent implements OnInit {
         this.availableDish = [Dish.Principal];
         this.dish = Dish.Principal;
         break;
-      case Mean.Comida:
+      case Mean.Almuerzo:
         this.availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
         this.dish = Dish.Primero;
+        break;
+      case Mean.Merienda:
+        this.availableDish = [Dish.Principal];
+        this.dish = Dish.Principal;
         break;
       case Mean.Cena:
         this.availableDish = [Dish.Principal, Dish.Postre];

@@ -14,7 +14,8 @@ export class FoodToolService {
   getBackground (mean: Mean): string {
     switch(mean) {
       case Mean.Desayuno: return 'rgba(255,0,0,0.2)';
-      case Mean.Comida: return 'rgba(0,255,0,0.2)';
+      case Mean.Almuerzo: return 'rgba(0,255,0,0.2)';
+      case Mean.Merienda: return 'rgba(255,255,0,0.2)';
       case Mean.Cena: return 'rgba(0,0,255,0.2)';
       default: return 'rgba(0,0,0,0)';
     }
@@ -23,7 +24,8 @@ export class FoodToolService {
   getIcon (mean: Mean): string {
     switch(mean) {
       case Mean.Desayuno: return 'coffee';
-      case Mean.Comida: return 'restaurant';
+      case Mean.Almuerzo: return 'restaurant';
+      case Mean.Merienda: return 'kitchen';
       case Mean.Cena: return 'fastfood';
       default: return 'restaurant';
     }
@@ -52,9 +54,10 @@ export class FoodToolService {
   getPointsMean (mean: Mean): number {
     switch(mean) {
       case Mean.Desayuno: return 0;
-      case Mean.Comida: return 1;
-      case Mean.Cena: return 2;
-      default: return 3;
+      case Mean.Almuerzo: return 1;
+      case Mean.Merienda: return 2;
+      case Mean.Cena: return 3;
+      default: return 4;
     }
   }
 

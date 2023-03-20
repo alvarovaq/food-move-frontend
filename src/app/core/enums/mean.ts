@@ -1,5 +1,6 @@
 export enum Mean {
     Desayuno = "Desayuno",
-    Comida = "Comida",
+    Almuerzo = "Almuerzo",
+    Merienda = "Merienda",
     Cena = "Cena"
 }

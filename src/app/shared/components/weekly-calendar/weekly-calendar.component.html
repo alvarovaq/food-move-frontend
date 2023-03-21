@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="day" *ngFor="let weekday of weekdays">
+        <div class="day__header">
+            <p>{{weekday.date | date: 'dd/MM/yy'}}</p>
+            <p class="weekday">{{weekday.name}}</p>
+            <button mat-icon-button color="primary" (click)="addItem(weekday)">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div class="day__main" *ngIf="type == weekdayType.Food">
+            <div class="day__item" *ngFor="let food of weekday.items" [style.background]="foodToolService.getBackground(food.mean)">
+                <mat-icon class="item__icon">{{foodToolService.getIcon(food.mean)}}</mat-icon>
+                <a class="item__title" (click)="editItem(food)">{{food.title}}</a>
+                <a class="item__delete" (click)="deleteItem(food)"><mat-icon>close</mat-icon></a>
+            </div> 
+            <div class="add__day" *ngIf="weekday.items.length == 0">
+                <button mat-stroked-button color="primary" (click)="addItem(weekday)">Agregar Comida</button>
+            </div>
+        </div>
+        <div class="day__main" *ngIf="type == weekdayType.Move">
+            <div class="day__item" *ngFor="let move of weekday.items">
+                <mat-icon class="item__icon">fitness_center</mat-icon>
+                <a class="item__title" (click)="editItem(move)">{{move.title}}</a>
+                <a class="item__delete" (click)="deleteItem(move)"><mat-icon>close</mat-icon></a>
+            </div> 
+            <div class="add__day" *ngIf="weekday.items.length == 0">
+                <button mat-stroked-button color="primary" (click)="addItem(weekday)">Agregar Ejercicio</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RecipeModel } from '@core/models/recipe.model';
 import { RecipesService } from '../../../../core/services/recipes.service';
-import { FoodToolService } from '../../services/food-tool.service';
+import { FoodToolService } from '../../../../core/services/food-tool.service';
 
 @Component({
   selector: 'app-import-recipe',

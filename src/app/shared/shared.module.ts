@@ -16,9 +16,8 @@ import { AdminPipe } from './pipes/admin.pipe';
 import { PhotoPipe } from './pipes/photo.pipe';
 import { InputProfileImageComponent } from './components/input-profile-image/input-profile-image.component';
 import { EditProfileImageComponent } from './components/input-profile-image/components/edit-profile-image/edit-profile-image.component';
-import { AuthService } from '../core/services/auth.service';
-import { FoodPipe } from './pipes/food.pipe';
 import { MovePipe } from './pipes/move.pipe';
+import { WeeklyCalendarComponent } from './components/weekly-calendar/weekly-calendar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,8 @@ import { MovePipe } from './pipes/move.pipe';
     PhotoPipe,
     InputProfileImageComponent,
     EditProfileImageComponent,
-    MovePipe
+    MovePipe,
+    WeeklyCalendarComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +48,7 @@ import { MovePipe } from './pipes/move.pipe';
     ProfilePictureComponent,
     InputProfileImageComponent,
     TableComponent,
+    WeeklyCalendarComponent,
     NamePipe,
     OptionalPipe,
     PhotoPipe

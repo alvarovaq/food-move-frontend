@@ -11,6 +11,9 @@ import { ViewPatientService } from '../../../../core/services/view-patient.servi
 import { MoveModel } from '../../../../core/models/move.model';
 import { DialogService } from '../../../../core/services/dialog.service';
 import { MovesService } from '@core/services/moves.service';
+import { Weekday } from '@shared/components/weekly-calendar/interfaces/weekday.interface';
+import { weekdaysInit } from '@shared/components/weekly-calendar/constant/weekdays-init';
+import { WeekdayType } from '@shared/components/weekly-calendar/enums/weekday-type';
 
 @Component({
   selector: 'app-moves-page',
@@ -19,43 +22,8 @@ import { MovesService } from '@core/services/moves.service';
 })
 export class MovesPageComponent implements OnInit {
 
-  weekdays: {name: string; items: MoveModel[]; date: Date}[] = [
-    {
-      name: 'Lunes',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Martes',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Miércoles',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Jueves',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Viernes',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Sábado',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Domingo',
-      items: [],
-      date: new Date()
-    }
-  ];
+  weekdays: Weekday[] = weekdaysInit;
+  weekdayType = WeekdayType;
 
   patient: PatientModel | null = null;
   dateRange: DateRange = this.getDateRange(new Date());

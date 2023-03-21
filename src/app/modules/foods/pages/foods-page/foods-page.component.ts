@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoaderService } from '@core/services/loader.service';
-import { PatientsService } from '@core/services/patients.service';
-import { PatientModel } from '../../../../core/models/patient.model';
+import { PatientModel } from '@core/models/patient.model';
 import { finalize } from 'rxjs/operators';
-import { RouterService } from '../../../../core/services/router.service';
-import { SnackerService } from '../../../../core/services/snacker.service';
-import { FoodModel } from '../../../../core/models/food.model';
+import { RouterService } from '@core/services/router.service';
+import { SnackerService } from '@core/services/snacker.service';
+import { FoodModel } from '@core/models/food.model';
 import { FoodsService } from '@core/services/foods.service';
-import { Mean } from '@core/enums/mean';
-import { Dish } from '../../../../core/enums/dish';
-import { ViewPatientService } from '../../../../core/services/view-patient.service';
-import { sequence } from '@angular/animations';
-import { DateRange } from '../../../../core/interfaces/date-range';
-import { DialogService } from '../../../../core/services/dialog.service';
-import { FoodToolService } from '../../services/food-tool.service';
+import { ViewPatientService } from '@core/services/view-patient.service';
+import { DateRange } from '@core/interfaces/date-range';
+import { DialogService } from '@core/services/dialog.service';
+import { FoodToolService } from '@core/services/food-tool.service';
+import { WeekdayType } from '@shared/components/weekly-calendar/enums/weekday-type';
+import { Weekday } from '@shared/components/weekly-calendar/interfaces/weekday.interface';
+import { weekdaysInit } from '@shared/components/weekly-calendar/constant/weekdays-init';
 
 @Component({
   selector: 'app-foods-page',
@@ -23,43 +22,8 @@ import { FoodToolService } from '../../services/food-tool.service';
 })
 export class FoodsPageComponent implements OnInit {
 
-  weekdays: {name: string; items: FoodModel[]; date: Date}[] = [
-    {
-      name: 'Lunes',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Martes',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Miércoles',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Jueves',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Viernes',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Sábado',
-      items: [],
-      date: new Date()
-    },
-    {
-      name: 'Domingo',
-      items: [],
-      date: new Date()
-    }
-  ];
+  weekdays: Weekday[] = weekdaysInit;
+  weekdayType = WeekdayType;
 
   patient: PatientModel | null = null;
   dateRange: DateRange = this.getDateRange(new Date());

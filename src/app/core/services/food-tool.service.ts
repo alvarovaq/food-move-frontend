@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Dish } from '@core/enums/dish';
 import { Mean } from '@core/enums/mean';
 import { FoodModel } from '@core/models/food.model';
-import { RecipeModel } from '../../../core/models/recipe.model';
+import { RecipeModel } from '../models/recipe.model';
 
 @Injectable({
   providedIn: 'root'

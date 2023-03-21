@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: 'employees', loadChildren: () => import('@modules/employees/employees.module').then(x => x.EmployeesModule), canActivate: [AdminGuard]},
   {path: 'recipes', loadChildren: () => import('@modules/recipes/recipes.module').then(x => x.RecipesModule)},
   {path: 'routines', loadChildren: () => import('@modules/routines/routines.module').then(x => x.RoutinesModule)},
+  {path: 'weekly-diets', loadChildren: () => import('@modules/weekly-diets/weekly-diets.module').then(x => x.WeeklyDietsModule)},
   {path: 'patient', loadChildren: () => import('@modules/patient/patient.module').then(x => x.PatientModule)},
 ];
 

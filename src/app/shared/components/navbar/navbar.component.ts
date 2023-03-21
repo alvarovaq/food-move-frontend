@@ -71,8 +71,13 @@ export class NavbarComponent implements OnInit {
     this.routerService.goToRecipes();
   }
 
-  goToRoutines (): void {
+  goToWeeklyDiets (): void {
     this.page.next(4);
+    this.routerService.goToWeeklyDiet();
+  }
+
+  goToRoutines (): void {
+    this.page.next(5);
     this.routerService.goToRoutines();
   }
 

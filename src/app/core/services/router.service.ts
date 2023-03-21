@@ -74,6 +74,12 @@ export class RouterService {
     await this.router.navigate(['routines/edit-routine', id]);
   }
 
+  // WeeklyDiets
+
+  async goToWeeklyDiet (): Promise<void> {
+    await this.router.navigate(['weekly-diets']);
+  }
+
   // Patient
 
   async goToGraphics (): Promise<void> {

@@ -9,12 +9,14 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PatientPipe } from './shared/pipes/patient.pipe';
 import { FoodPipe } from './shared/pipes/food.pipe';
 import { MovePipe } from '@shared/pipes/move.pipe';
+import { WeeklyDietsComponent } from './modules/weekly-diets/weekly-diets.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientPipe,
-    FoodPipe
+    FoodPipe,
+    WeeklyDietsComponent
   ],
   imports: [
     BrowserModule,

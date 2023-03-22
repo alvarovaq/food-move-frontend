@@ -131,7 +131,7 @@ export class WeeklyDietsPageComponent implements OnInit {
 
   addWeeklyDiet(): void {
     const dialogRef = this.dialog.open(AddWeeklyDietComponent, {
-      width: '500px'
+      width: '400px'
     });
     dialogRef.afterClosed();
   }

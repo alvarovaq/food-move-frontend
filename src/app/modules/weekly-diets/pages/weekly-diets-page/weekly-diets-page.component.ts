@@ -8,6 +8,11 @@ import { TableStructure } from '@shared/components/table/interfaces/table-struct
 import { finalize } from 'rxjs';
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { WeeklyDietModel } from '@core/models/weekly-diet';
+import { MatDialog } from '@angular/material/dialog';
+import { AddWeeklyDietComponent } from '@modules/weekly-diets/components/add-weekly-diet/add-weekly-diet.component';
+import { SnackerService } from '@core/services/snacker.service';
+import { LoaderService } from '@core/services/loader.service';
+import { DialogService } from '@core/services/dialog.service';
 
 @Component({
   selector: 'app-weekly-diets-page',
@@ -40,7 +45,11 @@ export class WeeklyDietsPageComponent implements OnInit {
 
   constructor(
     private readonly weeklyDietsService: WeeklyDietsService,
-    private readonly breakpointObserver: BreakpointObserver
+    private readonly breakpointObserver: BreakpointObserver,
+    private readonly dialog: MatDialog,
+    private readonly snackerService: SnackerService,
+    private readonly loaderService: LoaderService,
+    private readonly dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -120,11 +129,37 @@ export class WeeklyDietsPageComponent implements OnInit {
     this.loadWeeklyDiets();
   }
 
-  addWeeklyDiet(): void {}
+  addWeeklyDiet(): void {
+    const dialogRef = this.dialog.open(AddWeeklyDietComponent, {
+      width: '500px'
+    });
+    dialogRef.afterClosed();
+  }
 
   editWeeklyDiet(weeklyDiet: WeeklyDietModel) {}
 
-  deleteWeeklyDiet(weeklyDiet: WeeklyDietModel) {}
+  deleteWeeklyDiet(weeklyDiet: WeeklyDietModel) {
+    this.dialogService.openConfirmDialog('Eliminar dieta semanal', 'Seguro que quieres eliminar ' + weeklyDiet.title + '?')
+    .subscribe(res => {
+      if (res) {
+        this.loaderService.isLoading.next(true);
+        this.weeklyDietsService.removeWeeklyDiet(weeklyDiet._id)
+        .pipe(finalize(() => {
+          this.loaderService.isLoading.next(false);
+        }))
+        .subscribe(
+          res => {
+            this.snackerService.showSuccessful("Dieta semanal eliminada con éxito");
+            this.loadWeeklyDiets();
+          },
+          err => {
+            console.log(err);
+            this.snackerService.showError(err.error.message);
+          }
+        );
+      }
+    });
+  }
 
   openInfoWeeklyDiet(weeklyDiet: WeeklyDietModel) {}
 

@@ -16,7 +16,7 @@ export class WeeklyDietsService {
     private readonly http: HttpClient
   ) { }
 
-  getRoutine (id: string): Observable<WeeklyDietModel> {
+  getWeeklyDiet (id: string): Observable<WeeklyDietModel> {
     return this.http.get<WeeklyDietModel>(`${environment.api}/weekly-diet/${id}`);
   }
 
@@ -24,15 +24,15 @@ export class WeeklyDietsService {
     return this.http.post<CustomResponse>(`${environment.api}/weekly-diet/filter`, customQuery);
   }
 
-  createRoutine (weeklyDietRequest: WeeklyDietRequest): Observable<WeeklyDietModel> {
+  createWeeklyDiet (weeklyDietRequest: WeeklyDietRequest): Observable<WeeklyDietModel> {
     return this.http.post<WeeklyDietModel>(`${environment.api}/weekly-diet/create`, weeklyDietRequest);
   } 
 
-  updateRoutine (id: string, weeklyDietRequest: WeeklyDietRequest): Observable<WeeklyDietModel> {
+  updateWeeklyDiet (id: string, weeklyDietRequest: WeeklyDietRequest): Observable<WeeklyDietModel> {
     return this.http.patch<WeeklyDietModel>(`${environment.api}/weekly-diet/update/${id}`, weeklyDietRequest);
   }
 
-  removeRoutine (id: string): Observable<WeeklyDietModel> {
+  removeWeeklyDiet (id: string): Observable<WeeklyDietModel> {
     return this.http.delete<WeeklyDietModel>(`${environment.api}/weekly-diet/remove/${id}`);
   }  
   

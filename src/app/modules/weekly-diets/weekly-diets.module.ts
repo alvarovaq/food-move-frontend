@@ -6,11 +6,13 @@ import { WeeklyDietsPageComponent } from './pages/weekly-diets-page/weekly-diets
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from '@shared/modules/mat/mat.module';
+import { AddWeeklyDietComponent } from './components/add-weekly-diet/add-weekly-diet.component';
 
 
 @NgModule({
   declarations: [
-    WeeklyDietsPageComponent
+    WeeklyDietsPageComponent,
+    AddWeeklyDietComponent
   ],
   imports: [
     CommonModule,

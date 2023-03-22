@@ -1,10 +1,10 @@
 import { RecipeModel } from "./recipe.model";
 
 export interface WeeklyDietRequest {
-    name: string;
+    title: string;
     description?: string;
     monday: RecipeModel[];
-    thuesday: RecipeModel[];
+    tuesday: RecipeModel[];
     wednesday: RecipeModel[];
     thursday: RecipeModel[];
     friday: RecipeModel[];

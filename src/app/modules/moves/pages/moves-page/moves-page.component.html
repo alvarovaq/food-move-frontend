@@ -9,5 +9,5 @@
             <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
     </div>
-    <app-weekly-calendar [weekdays]="weekdays" [type]="weekdayType.Move" (add)="addMove($event.date)" (edit)="editMove($event)" (delete)="deleteMove($event)"></app-weekly-calendar>
+    <app-weekly-calendar [days]="days" [type]="weeklyCalendarType.Move" (add)="addMove($event.date)" (edit)="editMove($event)" (delete)="deleteMove($event)"></app-weekly-calendar>
 </div>

@@ -1,4 +1,4 @@
-export enum WeekdayType {
+export enum WeeklyCalendarType {
     Food = "Food",
     Move = "Move"
 }

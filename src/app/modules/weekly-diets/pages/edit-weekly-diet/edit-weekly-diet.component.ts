@@ -5,10 +5,10 @@ import { LoaderService } from '@core/services/loader.service';
 import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { WeeklyDietsService } from '@core/services/weekly-diets.service';
-import { weekdaysInit } from '@shared/components/weekly-calendar/constant/weekdays-init';
-import { WeekdaySpn } from '@shared/components/weekly-calendar/enums/weekday';
-import { WeekdayType } from '@shared/components/weekly-calendar/enums/weekday-type';
-import { WeekdayItem } from '@shared/components/weekly-calendar/interfaces/weekday-item.interface';
+import { daysInit } from '@shared/components/weekly-calendar/constant/days-init';
+import { DayOfWeek } from '@shared/components/weekly-calendar/enums/day-of-week';
+import { WeeklyCalendarType } from '@shared/components/weekly-calendar/enums/weekly-calendar-type';
+import { Day } from '@shared/components/weekly-calendar/interfaces/day';
 import { finalize } from 'rxjs';
 import { WeeklyDietModel } from '../../../../core/models/weekly-diet';
 
@@ -19,8 +19,8 @@ import { WeeklyDietModel } from '../../../../core/models/weekly-diet';
 })
 export class EditWeeklyDietComponent implements OnInit {
 
-  weekdays: WeekdayItem[] = weekdaysInit;
-  weekdayType = WeekdayType;
+  days: Day[] = daysInit;
+  weeklyCalendarType = WeeklyCalendarType;
 
   weeklyDiet: WeeklyDietModel | null = null;
 
@@ -41,7 +41,7 @@ export class EditWeeklyDietComponent implements OnInit {
       .subscribe(
         res => {
           this.weeklyDiet = res;
-          this.initWeekdays();
+          this.initDays();
         },
         err => {
           console.log(err);
@@ -55,40 +55,40 @@ export class EditWeeklyDietComponent implements OnInit {
     }
   }
 
-  initWeekdays (): void {
-    this.weekdays = [
+  initDays (): void {
+    this.days = [
       {
-        day: WeekdaySpn.Lunes,
+        day: DayOfWeek.Lunes,
         items: this.weeklyDiet!.monday,
         date: new Date()
       },
       {
-        day: WeekdaySpn.Martes,
+        day: DayOfWeek.Martes,
         items: this.weeklyDiet!.tuesday,
         date: new Date()
       },
       {
-        day: WeekdaySpn.Miercoles,
+        day: DayOfWeek.Miercoles,
         items: this.weeklyDiet!.wednesday,
         date: new Date()
       },
       {
-        day: WeekdaySpn.Jueves,
+        day: DayOfWeek.Jueves,
         items: this.weeklyDiet!.thursday,
         date: new Date()
       },
       {
-        day: WeekdaySpn.Viernes,
+        day: DayOfWeek.Viernes,
         items: this.weeklyDiet!.friday,
         date: new Date()
       },
       {
-        day: WeekdaySpn.Sabado,
+        day: DayOfWeek.Sabado,
         items: this.weeklyDiet!.saturday,
         date: new Date()
       },
       {
-        day: WeekdaySpn.Domingo,
+        day: DayOfWeek.Domingo,
         items: this.weeklyDiet!.sunday,
         date: new Date()
       }
@@ -99,7 +99,7 @@ export class EditWeeklyDietComponent implements OnInit {
     this.routerService.goToWeeklyDiet();
   }
 
-  addRecipe (weekday: WeekdayItem): void {}
+  addRecipe (weekday: Day): void {}
 
   editRecipe (recipe: RecipeModel): void {}
 

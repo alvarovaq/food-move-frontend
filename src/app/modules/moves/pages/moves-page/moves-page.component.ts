@@ -11,9 +11,9 @@ import { ViewPatientService } from '../../../../core/services/view-patient.servi
 import { MoveModel } from '../../../../core/models/move.model';
 import { DialogService } from '../../../../core/services/dialog.service';
 import { MovesService } from '@core/services/moves.service';
-import { WeekdayItem } from '@shared/components/weekly-calendar/interfaces/weekday-item.interface';
-import { weekdaysInit } from '@shared/components/weekly-calendar/constant/weekdays-init';
-import { WeekdayType } from '@shared/components/weekly-calendar/enums/weekday-type';
+import { Day } from '@shared/components/weekly-calendar/interfaces/day';
+import { daysInit } from '@shared/components/weekly-calendar/constant/days-init';
+import { WeeklyCalendarType } from '@shared/components/weekly-calendar/enums/weekly-calendar-type';
 
 @Component({
   selector: 'app-moves-page',
@@ -22,8 +22,8 @@ import { WeekdayType } from '@shared/components/weekly-calendar/enums/weekday-ty
 })
 export class MovesPageComponent implements OnInit {
 
-  weekdays: WeekdayItem[] = weekdaysInit;
-  weekdayType = WeekdayType;
+  days: Day[] = daysInit;
+  weeklyCalendarType = WeeklyCalendarType;
 
   patient: PatientModel | null = null;
   dateRange: DateRange = this.getDateRange(new Date());
@@ -84,11 +84,11 @@ export class MovesPageComponent implements OnInit {
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe(
       res => {
-        this.weekdays.forEach((_, i) => {
-          this.weekdays[i].items = res.filter(moveItem => {
+        this.days.forEach((_, i) => {
+          this.days[i].items = res.filter(moveItem => {
             return this.getDay(moveItem.date) - 1 == i;
           });
-          this.weekdays[i].date = this.addDay(this.dateRange.startDate, i);
+          this.days[i].date = this.addDay(this.dateRange.startDate, i);
         });
       },
       err => {

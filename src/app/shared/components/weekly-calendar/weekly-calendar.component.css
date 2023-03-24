@@ -32,7 +32,7 @@
     margin: 0;
 }
 
-.day__header .weekday {
+.day__header .day_of_week {
     font-size: 18px;
     width: 100%;
 }

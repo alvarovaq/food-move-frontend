@@ -11,9 +11,9 @@ import { ViewPatientService } from '@core/services/view-patient.service';
 import { DateRange } from '@core/interfaces/date-range';
 import { DialogService } from '@core/services/dialog.service';
 import { FoodToolService } from '@core/services/food-tool.service';
-import { WeekdayType } from '@shared/components/weekly-calendar/enums/weekday-type';
-import { WeekdayItem } from '@shared/components/weekly-calendar/interfaces/weekday-item.interface';
-import { weekdaysInit } from '@shared/components/weekly-calendar/constant/weekdays-init';
+import { WeeklyCalendarType } from '@shared/components/weekly-calendar/enums/weekly-calendar-type';
+import { Day } from '@shared/components/weekly-calendar/interfaces/day';
+import { daysInit } from '@shared/components/weekly-calendar/constant/days-init';
 
 @Component({
   selector: 'app-foods-page',
@@ -22,8 +22,8 @@ import { weekdaysInit } from '@shared/components/weekly-calendar/constant/weekda
 })
 export class FoodsPageComponent implements OnInit {
 
-  weekdays: WeekdayItem[] = weekdaysInit;
-  weekdayType = WeekdayType;
+  days: Day[] = daysInit;
+  weeklyCalendarType = WeeklyCalendarType;
 
   patient: PatientModel | null = null;
   dateRange: DateRange = this.getDateRange(new Date());
@@ -85,11 +85,11 @@ export class FoodsPageComponent implements OnInit {
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe(
       res => {
-        this.weekdays.forEach((_, i) => {
-          this.weekdays[i].items = res.filter(foodItem => {
+        this.days.forEach((_, i) => {
+          this.days[i].items = res.filter(foodItem => {
             return this.getDay(foodItem.date) - 1 == i;
           }).sort((a,b) => this.foodToolService.sort(a,b));
-          this.weekdays[i].date = this.addDay(this.dateRange.startDate, i);
+          this.days[i].date = this.addDay(this.dateRange.startDate, i);
         });
       },
       err => {

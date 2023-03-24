@@ -7,6 +7,6 @@
     </div>
     <mat-divider></mat-divider>
     <div class="main">
-        <app-weekly-calendar [weekdays]="weekdays" [showDate]="false" [type]="weekdayType.Food" (add)="addRecipe($event)" (edit)="editRecipe($event)" (delete)="deleteRecipe($event)"></app-weekly-calendar>
+        <app-weekly-calendar [days]="days" [showDate]="false" [type]="weeklyCalendarType.Food" (add)="addRecipe($event)" (edit)="editRecipe($event)" (delete)="deleteRecipe($event)"></app-weekly-calendar>
     </div>
 </div>

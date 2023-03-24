@@ -1,4 +1,4 @@
-export enum WeekdaySpn {
+export enum DayOfWeek {
     Lunes = "Lunes",
     Martes = "Martes",
     Miercoles = "Miércoles",

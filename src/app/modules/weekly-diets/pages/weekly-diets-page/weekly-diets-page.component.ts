@@ -14,7 +14,7 @@ import { SnackerService } from '@core/services/snacker.service';
 import { LoaderService } from '@core/services/loader.service';
 import { DialogService } from '@core/services/dialog.service';
 import { RouterService } from '@core/services/router.service';
-import { WeekdaySpn } from '@shared/components/weekly-calendar/enums/weekday';
+import { DayOfWeek } from '@shared/components/weekly-calendar/enums/day-of-week';
 
 @Component({
   selector: 'app-weekly-diets-page',
@@ -56,7 +56,7 @@ export class WeeklyDietsPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(WeekdaySpn.Sabado);
+    console.log(DayOfWeek.Sabado);
     this.loadWeeklyDiets();
     this.setColumnsBySize();
   }

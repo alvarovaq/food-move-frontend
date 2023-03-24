@@ -12,7 +12,7 @@ import { DateRange } from '@core/interfaces/date-range';
 import { DialogService } from '@core/services/dialog.service';
 import { FoodToolService } from '@core/services/food-tool.service';
 import { WeekdayType } from '@shared/components/weekly-calendar/enums/weekday-type';
-import { Weekday } from '@shared/components/weekly-calendar/interfaces/weekday.interface';
+import { WeekdayItem } from '@shared/components/weekly-calendar/interfaces/weekday-item.interface';
 import { weekdaysInit } from '@shared/components/weekly-calendar/constant/weekdays-init';
 
 @Component({
@@ -22,7 +22,7 @@ import { weekdaysInit } from '@shared/components/weekly-calendar/constant/weekda
 })
 export class FoodsPageComponent implements OnInit {
 
-  weekdays: Weekday[] = weekdaysInit;
+  weekdays: WeekdayItem[] = weekdaysInit;
   weekdayType = WeekdayType;
 
   patient: PatientModel | null = null;

@@ -7,7 +7,7 @@ import { WeeklyDietsComponent } from './weekly-diets.component';
 const routes: Routes = [
   { path: '', component: WeeklyDietsComponent, children: [
     { path: '', component: WeeklyDietsPageComponent},
-    { path: 'edit-weekly-diet', component: EditWeeklyDietComponent},
+    { path: 'edit-weekly-diet/:id', component: EditWeeklyDietComponent},
     { path: '**', redirectTo: ''}
   ]}
 ];

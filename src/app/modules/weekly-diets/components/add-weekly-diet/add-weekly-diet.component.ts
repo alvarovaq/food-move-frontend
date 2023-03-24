@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { WeeklyDietRequest } from '@core/models/weekly-diet-request.model';
 import { LoaderService } from '@core/services/loader.service';
+import { RouterService } from '@core/services/router.service';
 import { WeeklyDietsService } from '@core/services/weekly-diets.service';
 import { OptionalPipe } from '@shared/pipes/optional.pipe';
 import { finalize } from 'rxjs';
@@ -22,7 +23,8 @@ export class AddWeeklyDietComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly optionalPipe: OptionalPipe,
     private readonly weeklyDietService: WeeklyDietsService,
-    private readonly loaderService: LoaderService
+    private readonly loaderService: LoaderService,
+    private readonly routerService: RouterService
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class AddWeeklyDietComponent implements OnInit {
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe(
       res => {
-        console.log(res);
+        this.routerService.goToEditWeeklyDiet(res._id);
       },
       err => {
         console.log(err);

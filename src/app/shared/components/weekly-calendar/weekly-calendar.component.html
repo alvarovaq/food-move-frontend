@@ -1,8 +1,8 @@
 <div class="container">
     <div class="day" *ngFor="let weekday of weekdays">
         <div class="day__header">
-            <p>{{weekday.date | date: 'dd/MM/yy'}}</p>
-            <p class="weekday">{{weekday.name}}</p>
+            <p *ngIf="showDate">{{weekday.date | date: 'dd/MM/yy'}}</p>
+            <p class="weekday">{{weekday.day}}</p>
             <button mat-icon-button color="primary" (click)="addItem(weekday)">
                 <mat-icon>add</mat-icon>
             </button>

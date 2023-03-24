@@ -1,38 +1,39 @@
-import { Weekday } from "../interfaces/weekday.interface";
+import { WeekdaySpn } from "../enums/weekday";
+import { WeekdayItem } from "../interfaces/weekday-item.interface";
 
-export const weekdaysInit: Weekday[] = [
+export const weekdaysInit: WeekdayItem[] = [
     {
-      name: 'Lunes',
+      day: WeekdaySpn.Lunes,
       items: [],
       date: new Date()
     },
     {
-      name: 'Martes',
+      day: WeekdaySpn.Martes,
       items: [],
       date: new Date()
     },
     {
-      name: 'Miércoles',
+      day: WeekdaySpn.Miercoles,
       items: [],
       date: new Date()
     },
     {
-      name: 'Jueves',
+      day: WeekdaySpn.Jueves,
       items: [],
       date: new Date()
     },
     {
-      name: 'Viernes',
+      day: WeekdaySpn.Viernes,
       items: [],
       date: new Date()
     },
     {
-      name: 'Sábado',
+      day: WeekdaySpn.Sabado,
       items: [],
       date: new Date()
     },
     {
-      name: 'Domingo',
+      day:  WeekdaySpn.Domingo,
       items: [],
       date: new Date()
     }

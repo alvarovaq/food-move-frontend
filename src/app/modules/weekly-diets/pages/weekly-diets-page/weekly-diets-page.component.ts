@@ -13,6 +13,8 @@ import { AddWeeklyDietComponent } from '@modules/weekly-diets/components/add-wee
 import { SnackerService } from '@core/services/snacker.service';
 import { LoaderService } from '@core/services/loader.service';
 import { DialogService } from '@core/services/dialog.service';
+import { RouterService } from '@core/services/router.service';
+import { WeekdaySpn } from '@shared/components/weekly-calendar/enums/weekday';
 
 @Component({
   selector: 'app-weekly-diets-page',
@@ -49,10 +51,12 @@ export class WeeklyDietsPageComponent implements OnInit {
     private readonly dialog: MatDialog,
     private readonly snackerService: SnackerService,
     private readonly loaderService: LoaderService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private readonly routerService: RouterService
   ) { }
 
   ngOnInit(): void {
+    console.log(WeekdaySpn.Sabado);
     this.loadWeeklyDiets();
     this.setColumnsBySize();
   }
@@ -136,7 +140,9 @@ export class WeeklyDietsPageComponent implements OnInit {
     dialogRef.afterClosed();
   }
 
-  editWeeklyDiet(weeklyDiet: WeeklyDietModel) {}
+  editWeeklyDiet(weeklyDiet: WeeklyDietModel) {
+    this.routerService.goToEditWeeklyDiet(weeklyDiet._id);
+  }
 
   deleteWeeklyDiet(weeklyDiet: WeeklyDietModel) {
     this.dialogService.openConfirmDialog('Eliminar dieta semanal', 'Seguro que quieres eliminar ' + weeklyDiet.title + '?')

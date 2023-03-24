@@ -1,1 +1,12 @@
-<p>edit-weekly-diet works!</p>
+<div class="container">
+    <div class="header">
+        <button type="button" mat-icon-button matTooltip="Volver" (click)="exit()">
+            <mat-icon>clear</mat-icon>
+        </button>
+        <p class="title">{{weeklyDiet?.title}}</p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="main">
+        <app-weekly-calendar [weekdays]="weekdays" [showDate]="false" [type]="weekdayType.Food" (add)="addRecipe($event)" (edit)="editRecipe($event)" (delete)="deleteRecipe($event)"></app-weekly-calendar>
+    </div>
+</div>

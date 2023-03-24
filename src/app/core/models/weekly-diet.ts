@@ -10,5 +10,5 @@ export interface WeeklyDietModel {
     thursday: RecipeModel[];
     friday: RecipeModel[];
     saturday: RecipeModel[];
-    sundays: RecipeModel[];
+    sunday: RecipeModel[];
 }

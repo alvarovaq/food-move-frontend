@@ -80,6 +80,10 @@ export class RouterService {
     await this.router.navigate(['weekly-diets']);
   }
 
+  async goToEditWeeklyDiet (id: string): Promise<void> {
+    await this.router.navigate(['weekly-diets/edit-weekly-diet', id]);
+  }
+
   // Patient
 
   async goToGraphics (): Promise<void> {

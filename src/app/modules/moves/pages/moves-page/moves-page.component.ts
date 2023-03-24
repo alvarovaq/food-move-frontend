@@ -11,7 +11,7 @@ import { ViewPatientService } from '../../../../core/services/view-patient.servi
 import { MoveModel } from '../../../../core/models/move.model';
 import { DialogService } from '../../../../core/services/dialog.service';
 import { MovesService } from '@core/services/moves.service';
-import { Weekday } from '@shared/components/weekly-calendar/interfaces/weekday.interface';
+import { WeekdayItem } from '@shared/components/weekly-calendar/interfaces/weekday-item.interface';
 import { weekdaysInit } from '@shared/components/weekly-calendar/constant/weekdays-init';
 import { WeekdayType } from '@shared/components/weekly-calendar/enums/weekday-type';
 
@@ -22,7 +22,7 @@ import { WeekdayType } from '@shared/components/weekly-calendar/enums/weekday-ty
 })
 export class MovesPageComponent implements OnInit {
 
-  weekdays: Weekday[] = weekdaysInit;
+  weekdays: WeekdayItem[] = weekdaysInit;
   weekdayType = WeekdayType;
 
   patient: PatientModel | null = null;

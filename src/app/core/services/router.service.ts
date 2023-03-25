@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { DayOfWeek } from '@core/enums/day-of-week';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,10 @@ export class RouterService {
 
   async goToEditWeeklyDiet (id: string): Promise<void> {
     await this.router.navigate(['weekly-diets/edit-weekly-diet', id]);
+  }
+
+  async goToAddDietRecipe (dietId: string, day: DayOfWeek): Promise<void> {
+    await this.router.navigate(['weekly-diets/edit-weekly-diet', dietId, 'add-recipe', day]);
   }
 
   // Patient

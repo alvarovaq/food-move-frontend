@@ -15,8 +15,8 @@ export class WeeklyCalendarComponent implements OnInit {
   @Input() showDate: boolean = true;
 
   @Output() add = new EventEmitter<Day>();
-  @Output() edit = new EventEmitter<any>();
-  @Output() delete = new EventEmitter<any>();
+  @Output() edit = new EventEmitter<{day: Day, item: any}>();
+  @Output() delete = new EventEmitter<{day: Day, item: any}>();
   
   weeklyCalendarType = WeeklyCalendarType;
 
@@ -31,12 +31,12 @@ export class WeeklyCalendarComponent implements OnInit {
     this.add.emit(weekday);
   }
 
-  editItem (item: any) {
-    this.edit.emit(item);
+  editItem (day: Day, item: any) {
+    this.edit.emit({day, item});
   }
 
-  deleteItem (item: any) {
-    this.delete.emit(item);
+  deleteItem (day: Day, item: any) {
+    this.delete.emit({day, item});
   }
 
 }

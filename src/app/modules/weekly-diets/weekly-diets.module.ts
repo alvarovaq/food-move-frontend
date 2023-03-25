@@ -8,13 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from '@shared/modules/mat/mat.module';
 import { AddWeeklyDietComponent } from './components/add-weekly-diet/add-weekly-diet.component';
 import { EditWeeklyDietComponent } from './pages/edit-weekly-diet/edit-weekly-diet.component';
+import { AddDietRecipePageComponent } from './pages/add-diet-recipe-page/add-diet-recipe-page.component';
 
 
 @NgModule({
   declarations: [
     WeeklyDietsPageComponent,
     AddWeeklyDietComponent,
-    EditWeeklyDietComponent
+    EditWeeklyDietComponent,
+    AddDietRecipePageComponent
   ],
   imports: [
     CommonModule,

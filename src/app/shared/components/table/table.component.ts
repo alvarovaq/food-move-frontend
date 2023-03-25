@@ -20,11 +20,15 @@ export class TableComponent implements OnInit {
   @Input() total: number = 0;
   @Input() page: number = 0;
   @Input() sortActive: string = "name";
-  @Input() viewOption: boolean = false;
 
   @Input() offItem: boolean = false;
   @Input() keyOffItem: string = "";
   @Input() valueOffItem: any = null;
+
+  @Input() viewShow: boolean = false;
+  @Input() viewInfo: boolean = true;
+  @Input() viewEdit: boolean = true;
+  @Input() viewDelete: boolean = true;
 
   @Output() reset = new EventEmitter<boolean>();
   @Output() changePage = new EventEmitter<PageEvent>();

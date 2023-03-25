@@ -1,6 +1,6 @@
 import { RecipeModel } from "./recipe.model";
 
-export interface WeeklyDietModel {
+export interface DietModel {
     _id: string;
     title: string;
     description?: string;

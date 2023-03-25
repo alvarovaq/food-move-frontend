@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DayOfWeek } from '@core/enums/day-of-week';
+import { DietModel } from '@core/models/diet';
 import { RecipeModel } from '@core/models/recipe.model';
+import { DietsService } from '@core/services/diets.service';
 import { LoaderService } from '@core/services/loader.service';
 import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
-import { WeeklyDietsService } from '@core/services/weekly-diets.service';
 import { daysInit } from '@shared/components/weekly-calendar/constant/days-init';
-import { DayOfWeek } from '@core/enums/day-of-week';
 import { WeeklyCalendarType } from '@shared/components/weekly-calendar/enums/weekly-calendar-type';
 import { Day } from '@shared/components/weekly-calendar/interfaces/day';
 import { finalize } from 'rxjs';
-import { WeeklyDietModel } from '../../../../core/models/weekly-diet';
 
 @Component({
-  selector: 'app-edit-weekly-diet',
-  templateUrl: './edit-weekly-diet.component.html',
-  styleUrls: ['./edit-weekly-diet.component.css']
+  selector: 'app-edit-diet-page',
+  templateUrl: './edit-diet-page.component.html',
+  styleUrls: ['./edit-diet-page.component.css']
 })
-export class EditWeeklyDietComponent implements OnInit {
+export class EditDietPageComponent implements OnInit {
 
   days: Day[] = daysInit;
   weeklyCalendarType = WeeklyCalendarType;
 
-  weeklyDiet: WeeklyDietModel | null = null;
+  diet: DietModel | null = null;
 
   constructor(
-    private readonly weeklyDietsService: WeeklyDietsService,
+    private readonly dietsService: DietsService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService,
@@ -36,11 +36,11 @@ export class EditWeeklyDietComponent implements OnInit {
     const params = this.activatedRoute.snapshot.params;
     if (params["dietId"]) {
       this.loaderService.isLoading.next(true);
-      this.weeklyDietsService.getWeeklyDiet(params["dietId"])
+      this.dietsService.getDiet(params["dietId"])
       .pipe(finalize(() => {this.loaderService.isLoading.next(false)}))
       .subscribe(
         res => {
-          this.weeklyDiet = res;
+          this.diet = res;
           this.initDays();
         },
         err => {
@@ -59,48 +59,48 @@ export class EditWeeklyDietComponent implements OnInit {
     this.days = [
       {
         day: DayOfWeek.Lunes,
-        items: this.weeklyDiet!.monday,
+        items: this.diet!.monday,
         date: new Date()
       },
       {
         day: DayOfWeek.Martes,
-        items: this.weeklyDiet!.tuesday,
+        items: this.diet!.tuesday,
         date: new Date()
       },
       {
         day: DayOfWeek.Miercoles,
-        items: this.weeklyDiet!.wednesday,
+        items: this.diet!.wednesday,
         date: new Date()
       },
       {
         day: DayOfWeek.Jueves,
-        items: this.weeklyDiet!.thursday,
+        items: this.diet!.thursday,
         date: new Date()
       },
       {
         day: DayOfWeek.Viernes,
-        items: this.weeklyDiet!.friday,
+        items: this.diet!.friday,
         date: new Date()
       },
       {
         day: DayOfWeek.Sabado,
-        items: this.weeklyDiet!.saturday,
+        items: this.diet!.saturday,
         date: new Date()
       },
       {
         day: DayOfWeek.Domingo,
-        items: this.weeklyDiet!.sunday,
+        items: this.diet!.sunday,
         date: new Date()
       }
     ];
   }
 
   exit (): void {
-    this.routerService.goToWeeklyDiet();
+    this.routerService.goToDiet();
   }
 
   addRecipe (day: Day): void {
-    this.routerService.goToAddDietRecipe(this.weeklyDiet!._id, day.day);
+    this.routerService.goToAddRecipeForDiet(this.diet!._id, day.day);
   }
 
   editRecipe (day: Day, recipe: RecipeModel): void {}

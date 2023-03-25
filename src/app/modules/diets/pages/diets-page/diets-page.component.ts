@@ -1,29 +1,28 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { WeeklyDietsService } from '@core/services/weekly-diets.service';
+import { DietModel } from '@core/models/diet';
+import { DialogService } from '@core/services/dialog.service';
+import { DietsService } from '@core/services/diets.service';
+import { LoaderService } from '@core/services/loader.service';
+import { RouterService } from '@core/services/router.service';
+import { SnackerService } from '@core/services/snacker.service';
+import { AddDietComponent } from '@modules/diets/components/add-diet/add-diet.component';
 import { TableStructure } from '@shared/components/table/interfaces/table-structure';
 import { finalize } from 'rxjs';
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
-import { WeeklyDietModel } from '@core/models/weekly-diet';
-import { MatDialog } from '@angular/material/dialog';
-import { AddWeeklyDietComponent } from '@modules/weekly-diets/components/add-weekly-diet/add-weekly-diet.component';
-import { SnackerService } from '@core/services/snacker.service';
-import { LoaderService } from '@core/services/loader.service';
-import { DialogService } from '@core/services/dialog.service';
-import { RouterService } from '@core/services/router.service';
-import { DayOfWeek } from '@core/enums/day-of-week';
 
 @Component({
-  selector: 'app-weekly-diets-page',
-  templateUrl: './weekly-diets-page.component.html',
-  styleUrls: ['./weekly-diets-page.component.css', '../../../../../assets/styles/crud.css']
+  selector: 'app-diets-page',
+  templateUrl: './diets-page.component.html',
+  styleUrls: ['./diets-page.component.css', '../../../../../assets/styles/crud.css']
 })
-export class WeeklyDietsPageComponent implements OnInit {
+export class DietsPageComponent implements OnInit {
 
-  listWeeklyDiets: WeeklyDietModel[] = [];
+  listDiets: DietModel[] = [];
   isSmall: boolean = false;
   isLoadingResults: boolean = false;
   
@@ -46,7 +45,7 @@ export class WeeklyDietsPageComponent implements OnInit {
   total = 0;
 
   constructor(
-    private readonly weeklyDietsService: WeeklyDietsService,
+    private readonly dietsService: DietsService,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly dialog: MatDialog,
     private readonly snackerService: SnackerService,
@@ -56,13 +55,13 @@ export class WeeklyDietsPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadWeeklyDiets();
+    this.loadDiets();
     this.setColumnsBySize();
   }
 
-  loadWeeklyDiets (): void {
+  loadDiets (): void {
     this.isLoadingResults = true;
-    this.weeklyDietsService.filter({
+    this.dietsService.filter({
       paging: {
         page: this.page + 1,
         limit: this.limit
@@ -77,8 +76,8 @@ export class WeeklyDietsPageComponent implements OnInit {
     .subscribe(
       res => {
         this.total = res.total;
-        this.listWeeklyDiets = [...res.items];
-        this.dataSource = new MatTableDataSource(this.listWeeklyDiets);     
+        this.listDiets = [...res.items];
+        this.dataSource = new MatTableDataSource(this.listDiets);     
       },
       err => console.log(err)
     );
@@ -113,49 +112,49 @@ export class WeeklyDietsPageComponent implements OnInit {
     this.sortDirection = sort.direction;
     this.sortField = sort.active;
     this.page = 0;
-    this.loadWeeklyDiets();
+    this.loadDiets();
   }
 
   changePage (e: PageEvent) {
     this.page = e.pageIndex;
-    this.loadWeeklyDiets();
+    this.loadDiets();
   }
 
   applyFilter(): void {
     this.page = 0;
-    this.loadWeeklyDiets();
+    this.loadDiets();
   }
 
   resetTable (): void {
     this.search = '';
     this.page = 0;
-    this.loadWeeklyDiets();
+    this.loadDiets();
   }
 
-  addWeeklyDiet(): void {
-    const dialogRef = this.dialog.open(AddWeeklyDietComponent, {
+  addDiet(): void {
+    const dialogRef = this.dialog.open(AddDietComponent, {
       width: '400px'
     });
     dialogRef.afterClosed();
   }
 
-  editWeeklyDiet(weeklyDiet: WeeklyDietModel) {
-    this.routerService.goToEditWeeklyDiet(weeklyDiet._id);
+  editDiet(diet: DietModel) {
+    this.routerService.goToEditDiet(diet._id);
   }
 
-  deleteWeeklyDiet(weeklyDiet: WeeklyDietModel) {
-    this.dialogService.openConfirmDialog('Eliminar dieta semanal', 'Seguro que quieres eliminar ' + weeklyDiet.title + '?')
+  deleteDiet(diet: DietModel) {
+    this.dialogService.openConfirmDialog('Eliminar dieta semanal', 'Seguro que quieres eliminar ' + diet.title + '?')
     .subscribe(res => {
       if (res) {
         this.loaderService.isLoading.next(true);
-        this.weeklyDietsService.removeWeeklyDiet(weeklyDiet._id)
+        this.dietsService.removeDiet(diet._id)
         .pipe(finalize(() => {
           this.loaderService.isLoading.next(false);
         }))
         .subscribe(
           res => {
             this.snackerService.showSuccessful("Dieta semanal eliminada con éxito");
-            this.loadWeeklyDiets();
+            this.loadDiets();
           },
           err => {
             console.log(err);
@@ -166,6 +165,6 @@ export class WeeklyDietsPageComponent implements OnInit {
     });
   }
 
-  openInfoWeeklyDiet(weeklyDiet: WeeklyDietModel) {}
+  openInfoDiet(diet: DietModel) {}
 
 }

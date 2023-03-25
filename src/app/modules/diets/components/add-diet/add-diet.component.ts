@@ -46,9 +46,9 @@ export class AddDietComponent implements OnInit {
   }
 
   addDiet (): void {
-    const weeklyDiet = this.getWeeklyDietRequest();
+    const diet = this.getDietRequest();
     this.loaderService.isLoading.next(true);
-    this.dietsService.createDiet(weeklyDiet)
+    this.dietsService.createDiet(diet)
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe(
       res => {
@@ -60,7 +60,7 @@ export class AddDietComponent implements OnInit {
     );
   }
 
-  getWeeklyDietRequest (): DietRequest {
+  getDietRequest (): DietRequest {
     const request = {
       title: this.title,
       description: this.description,

@@ -7,7 +7,7 @@ import { RecipesService } from '@core/services/recipes.service';
 import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { finalize, max } from 'rxjs/operators';
-import { Mean } from '@core/enums/mean';
+import { Meal } from '@core/enums/meal';
 import { Dish } from '@core/enums/dish';
 import { IngredientRequestModel } from '@core/models/ingredient-request.model';
 import { RecipeRequestModel } from '@core/models/recipe-request.model';
@@ -27,9 +27,9 @@ export class AddRecipePageComponent implements OnInit {
   links: Array<{id: number, url: string}> = [];
   ingredients: Array<{id: number, ingredient: IngredientRequestModel}> = [];
 
-  availableMean = [Mean.Desayuno, Mean.Almuerzo, Mean.Merienda, Mean.Cena];
+  availableMeal = [Meal.Desayuno, Meal.Almuerzo, Meal.Merienda, Meal.Cena];
   availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
-  mean: Mean = Mean.Almuerzo;
+  meal: Meal = Meal.Almuerzo;
   dish: Dish = Dish.Primero;
   
   buttonClear = {
@@ -78,8 +78,8 @@ export class AddRecipePageComponent implements OnInit {
       description: [this.edit ? this.recipe!.description : null],
     });
     if (this.edit) {
-      this.mean = this.recipe!.mean;
-      this.changeMean();
+      this.meal = this.recipe!.meal;
+      this.changeMeal();
       this.dish = this.recipe!.dish;
       this.links = this.recipe!.links.map((url, id) => {
         return {id, url};
@@ -131,21 +131,21 @@ export class AddRecipePageComponent implements OnInit {
     });
   }
 
-  changeMean (): void {
-    switch (this.mean) {
-      case Mean.Desayuno:
+  changeMeal (): void {
+    switch (this.meal) {
+      case Meal.Desayuno:
         this.availableDish = [Dish.Principal];
         this.dish = Dish.Principal;
         break;
-      case Mean.Almuerzo:
+      case Meal.Almuerzo:
         this.availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
         this.dish = Dish.Primero;
         break;
-      case Mean.Merienda:
+      case Meal.Merienda:
           this.availableDish = [Dish.Principal];
           this.dish = Dish.Principal;
           break;
-      case Mean.Cena:
+      case Meal.Cena:
         this.availableDish = [Dish.Principal, Dish.Postre];
         this.dish = Dish.Principal;
         break;
@@ -197,7 +197,7 @@ export class AddRecipePageComponent implements OnInit {
     const request = {
       title: this.title,
       description: this.description,
-      mean: this.mean,
+      meal: this.meal,
       dish: this.dish,
       links: this.links.map(link => {return link.url}),
       ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient})

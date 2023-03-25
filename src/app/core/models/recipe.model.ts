@@ -1,12 +1,12 @@
 import { Dish } from "../enums/dish";
-import { Mean } from "../enums/mean";
+import { Meal } from "../enums/meal";
 import { IngredientModel } from "./ingredient.model";
 
 export interface RecipeModel {
     _id: string;
     title: string;
     description?: string;
-    mean: Mean;
+    meal: Meal;
     dish: Dish;
     links: string[];
     ingredients: IngredientModel[];

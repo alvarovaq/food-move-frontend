@@ -1,5 +1,5 @@
 import { Dish } from '@core/enums/dish';
-import { Mean } from '@core/enums/mean';
+import { Meal } from '@core/enums/meal';
 import { IngredientModel } from './ingredient.model';
 import { Rating } from '../enums/rating';
 
@@ -8,7 +8,7 @@ export interface FoodModel {
     patient: string;
     title: string;
     description?: string;
-    mean: Mean;
+    meal: Meal;
     dish: Dish;
     links: string[];
     ingredients: IngredientModel[];

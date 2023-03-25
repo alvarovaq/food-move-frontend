@@ -8,8 +8,8 @@
             </button>
         </div>
         <div class="day__main" *ngIf="type == weeklyCalendarType.Food">
-            <div class="day__item" *ngFor="let food of day.items" [style.background]="foodToolService.getBackground(food.mean)">
-                <mat-icon class="item__icon">{{foodToolService.getIcon(food.mean)}}</mat-icon>
+            <div class="day__item" *ngFor="let food of day.items" [style.background]="foodToolService.getBackground(food.meal)">
+                <mat-icon class="item__icon">{{foodToolService.getIcon(food.meal)}}</mat-icon>
                 <a class="item__title" (click)="editItem(day, food)">{{food.title}}</a>
                 <a class="item__delete" (click)="deleteItem(day, food)"><mat-icon>close</mat-icon></a>
             </div> 

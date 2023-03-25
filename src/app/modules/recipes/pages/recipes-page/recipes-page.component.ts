@@ -30,14 +30,14 @@ export class RecipesPageComponent implements OnInit {
 
   tableStructure: TableStructure[] = [
     {index: 1, field: 'title', header: 'Título', sort: true},
-    {index: 2, field: 'mean', header: 'Tipo de Comida', sort: true},
+    {index: 2, field: 'meal', header: 'Tipo de Comida', sort: true},
     {index: 3, field: 'dish', header: 'Plato', sort: true},
     {index: 4, field: 'description', header: 'Descripción', sort: true},
   ];
   indexDisplay: number = 4;
 
   search: string = '';
-  searchFields: string[] = ['title', 'mean', 'dish'];
+  searchFields: string[] = ['title', 'meal', 'dish'];
 
   sortField: string = "title";
   sortDirection: string = 'asc';

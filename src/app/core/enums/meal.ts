@@ -1,4 +1,4 @@
-export enum Mean {
+export enum Meal {
     Desayuno = "Desayuno",
     Almuerzo = "Almuerzo",
     Merienda = "Merienda",

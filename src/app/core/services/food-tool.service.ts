@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Dish } from '@core/enums/dish';
-import { Mean } from '@core/enums/mean';
+import { Meal } from '@core/enums/meal';
 import { FoodModel } from '@core/models/food.model';
 import { RecipeModel } from '../models/recipe.model';
 
@@ -11,32 +11,32 @@ export class FoodToolService {
 
   constructor() { }
 
-  getBackground (mean: Mean): string {
-    switch(mean) {
-      case Mean.Desayuno: return 'rgba(255,0,0,0.2)';
-      case Mean.Almuerzo: return 'rgba(0,255,0,0.2)';
-      case Mean.Merienda: return 'rgba(255,255,0,0.2)';
-      case Mean.Cena: return 'rgba(0,0,255,0.2)';
+  getBackground (meal: Meal): string {
+    switch(meal) {
+      case Meal.Desayuno: return 'rgba(255,0,0,0.2)';
+      case Meal.Almuerzo: return 'rgba(0,255,0,0.2)';
+      case Meal.Merienda: return 'rgba(255,255,0,0.2)';
+      case Meal.Cena: return 'rgba(0,0,255,0.2)';
       default: return 'rgba(0,0,0,0)';
     }
   }
 
-  getIcon (mean: Mean): string {
-    switch(mean) {
-      case Mean.Desayuno: return 'coffee';
-      case Mean.Almuerzo: return 'restaurant';
-      case Mean.Merienda: return 'kitchen';
-      case Mean.Cena: return 'fastfood';
+  getIcon (meal: Meal): string {
+    switch(meal) {
+      case Meal.Desayuno: return 'coffee';
+      case Meal.Almuerzo: return 'restaurant';
+      case Meal.Merienda: return 'kitchen';
+      case Meal.Cena: return 'fastfood';
       default: return 'restaurant';
     }
   }
 
   sort (a: FoodModel | RecipeModel, b: FoodModel | RecipeModel): number {
-    const meanA: number = this.getPointsMean(a.mean);
-    const meanB: number = this.getPointsMean(b.mean); 
-    if (meanA < meanB) {
+    const mealA: number = this.getPointsMeal(a.meal);
+    const mealB: number = this.getPointsMeal(b.meal); 
+    if (mealA < mealB) {
       return -1;
-    } else if (meanA > meanB) {
+    } else if (mealA > mealB) {
       return 1;
     } else {
       const dishA: number = this.getPointsDish(a.dish);
@@ -51,12 +51,12 @@ export class FoodToolService {
     }
   }
 
-  getPointsMean (mean: Mean): number {
-    switch(mean) {
-      case Mean.Desayuno: return 0;
-      case Mean.Almuerzo: return 1;
-      case Mean.Merienda: return 2;
-      case Mean.Cena: return 3;
+  getPointsMeal (meal: Meal): number {
+    switch(meal) {
+      case Meal.Desayuno: return 0;
+      case Meal.Almuerzo: return 1;
+      case Meal.Merienda: return 2;
+      case Meal.Cena: return 3;
       default: return 4;
     }
   }

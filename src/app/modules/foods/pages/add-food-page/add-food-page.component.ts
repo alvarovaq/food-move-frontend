@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Dish } from '@core/enums/dish';
-import { Mean } from '@core/enums/mean';
+import { Meal } from '@core/enums/meal';
 import { IngredientRequestModel } from '@core/models/ingredient-request.model';
 import { RecipeRequestModel } from '@core/models/recipe-request.model';
 import { RecipeModel } from '@core/models/recipe.model';
@@ -38,9 +38,9 @@ export class AddFoodPageComponent implements OnInit {
   links: Array<{id: number, url: string}> = [];
   ingredients: Array<{id: number, ingredient: IngredientRequestModel}> = [];
 
-  availableMean = [Mean.Desayuno, Mean.Almuerzo, Mean.Merienda, Mean.Cena];
+  availableMeal = [Meal.Desayuno, Meal.Almuerzo, Meal.Merienda, Meal.Cena];
   availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
-  mean: Mean = Mean.Almuerzo;
+  meal: Meal = Meal.Almuerzo;
   dish: Dish = Dish.Primero;
   
   buttonClear = {
@@ -102,8 +102,8 @@ export class AddFoodPageComponent implements OnInit {
       comments: [this.edit ? this.food!.comments : null]
     });
     if (this.edit) {
-      this.mean = this.food!.mean;
-      this.changeMean();
+      this.meal = this.food!.meal;
+      this.changeMeal();
       this.dish = this.food!.dish;
       this.links = this.food!.links.map((url, id) => {
         return {id, url};
@@ -159,21 +159,21 @@ export class AddFoodPageComponent implements OnInit {
     });
   }
 
-  changeMean (): void {
-    switch (this.mean) {
-      case Mean.Desayuno:
+  changeMeal (): void {
+    switch (this.meal) {
+      case Meal.Desayuno:
         this.availableDish = [Dish.Principal];
         this.dish = Dish.Principal;
         break;
-      case Mean.Almuerzo:
+      case Meal.Almuerzo:
         this.availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
         this.dish = Dish.Primero;
         break;
-      case Mean.Merienda:
+      case Meal.Merienda:
         this.availableDish = [Dish.Principal];
         this.dish = Dish.Principal;
         break;
-      case Mean.Cena:
+      case Meal.Cena:
         this.availableDish = [Dish.Principal, Dish.Postre];
         this.dish = Dish.Principal;
         break;
@@ -192,8 +192,8 @@ export class AddFoodPageComponent implements OnInit {
         if (res) {
           const recipe = res as RecipeModel;
           this.form.setValue({title: recipe.title, description: recipe.description ? recipe.description : '', comments: this.comments});
-          this.mean = recipe.mean;
-          this.changeMean();
+          this.meal = recipe.meal;
+          this.changeMeal();
           this.dish = recipe.dish;
           this.links = recipe.links.map((url, id) => {
             return {id, url};
@@ -253,7 +253,7 @@ export class AddFoodPageComponent implements OnInit {
       title: this.title,
       description: this.description,
       comments: this.comments,
-      mean: this.mean,
+      meal: this.meal,
       dish: this.dish,
       links: this.links.map(link => {return link.url}),
       ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient})

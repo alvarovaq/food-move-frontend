@@ -89,6 +89,10 @@ export class RouterService {
     await this.router.navigate(['diets/edit-diet', dietId, 'add-recipe', day]);
   }
 
+  async goToEditRecipeForDiet (dietId: string, day: DayOfWeek, recipeId: string): Promise<void> {
+    await this.router.navigate(['diets/edit-diet', dietId, 'edit-recipe', day, recipeId]);
+  }
+
   // Patient
 
   async goToGraphics (): Promise<void> {

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DayOfWeek } from '@core/enums/day-of-week';
 import { DietModel } from '@core/models/diet';
 import { RecipeModel } from '@core/models/recipe.model';
+import { DialogService } from '@core/services/dialog.service';
 import { DietsService } from '@core/services/diets.service';
 import { LoaderService } from '@core/services/loader.service';
 import { RouterService } from '@core/services/router.service';
@@ -29,7 +30,8 @@ export class EditDietPageComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService,
-    private readonly loaderService: LoaderService
+    private readonly loaderService: LoaderService,
+    private readonly dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -103,8 +105,32 @@ export class EditDietPageComponent implements OnInit {
     this.routerService.goToAddRecipeForDiet(this.diet!._id, day.day);
   }
 
-  editRecipe (day: Day, recipe: RecipeModel): void {}
+  editRecipe (day: Day, recipe: RecipeModel): void {
+    this.routerService.goToEditRecipeForDiet(this.diet!._id, day.day, recipe._id);
+  }
 
-  deleteRecipe (day: Day, recipe: RecipeModel): void {}
+  deleteRecipe (day: Day, recipe: RecipeModel): void {
+    this.dialogService.openConfirmDialog('Eliminar receta', 'Seguro que quieres eliminar ' + recipe.title + '?')
+    .subscribe(res => {
+      if (res) {
+        this.loaderService.isLoading.next(true);
+        this.dietsService.removeRecipe(this.diet!._id, day.day, recipe._id)
+        .pipe(finalize(() => {
+          this.loaderService.isLoading.next(false);
+        }))
+        .subscribe(
+          res => {
+            this.snackerService.showSuccessful("Receta eliminada con éxito");
+            this.diet = res;
+            this.initDays();
+          },
+          err => {
+            console.log(err);
+            this.snackerService.showError(err.error.message);
+          }
+          );
+      }
+    });
+  }
 
 }

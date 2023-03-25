@@ -65,7 +65,20 @@ export class AddRecipeForDietPageComponent implements OnInit {
           console.log(this.day);
           if (params["recipeId"]) {
             this.edit = true;
-            // ...
+            this.loaderService.isLoading.next(true);
+            this.dietsService.getRecipe(this.diet!._id, this.day!, params["recipeId"])
+            .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+            .subscribe(
+              res => {
+                this.recipe = res;
+                this.initForm();
+              },
+              err => {
+                console.log(err);
+                this.exit();
+                this.snackerService.showError("No se ha encontrado la receta");
+              }
+            );
           } else {
             this.edit = false;
             this.initForm();
@@ -73,6 +86,7 @@ export class AddRecipeForDietPageComponent implements OnInit {
         },
         err => {
           console.log(err);
+          this.exit();
           this.snackerService.showError("No se ha encontrado la dieta");
         }
       );
@@ -163,9 +177,39 @@ export class AddRecipeForDietPageComponent implements OnInit {
     }
   }
 
-  addRecipe(): void {}
+  addRecipe(): void {
+    this.loaderService.isLoading.next(true);
+    const recipe = this.getRecipeRequest(false);
+    this.dietsService.addRecipe(this.diet!._id, this.day!, recipe)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+    .subscribe(
+      res => {
+        this.exit();
+        this.snackerService.showSuccessful("Receta agregada con éxito");
+      },
+      err => {
+        console.log(err);
+        this.snackerService.showError(err.error);
+      }
+    )
+  }
 
-  editRecipe(): void {}
+  editRecipe(): void {
+    this.loaderService.isLoading.next(true);
+    const recipe = this.getRecipeRequest(true);
+    this.dietsService.updateRecipe(this.diet!._id, this.day!, this.recipe!._id, recipe)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+    .subscribe(
+      res => {
+        this.exit();
+        this.snackerService.showSuccessful("Receta editada con éxito");
+      },
+      err => {
+        console.log(err);
+        this.snackerService.showError(err.error);
+      }
+    )
+  }
 
   getRecipeRequest (edit: boolean = false): RecipeRequestModel {
     const request = {

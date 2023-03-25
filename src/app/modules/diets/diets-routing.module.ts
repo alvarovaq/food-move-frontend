@@ -10,6 +10,7 @@ const routes: Routes = [
     { path: '', component: DietsPageComponent},
     { path: 'edit-diet/:dietId', component: EditDietPageComponent},
     { path: 'edit-diet/:dietId/add-recipe/:day', component: AddRecipeForDietPageComponent},
+    { path: 'edit-diet/:dietId/edit-recipe/:day/:recipeId', component: AddRecipeForDietPageComponent},
     { path: '**', redirectTo: ''}
   ]}
 ];

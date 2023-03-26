@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DayOfWeek } from '@core/enums/day-of-week';
 import { Dish } from '@core/enums/dish';
@@ -12,6 +13,8 @@ import { DietsService } from '@core/services/diets.service';
 import { LoaderService } from '@core/services/loader.service';
 import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
+import { ImportType } from '@shared/components/import-dialog/enums/import-type';
+import { ImportDialogComponent } from '@shared/components/import-dialog/import-dialog.component';
 import { OptionalPipe } from '@shared/pipes/optional.pipe';
 import { finalize } from 'rxjs'; 
 
@@ -49,7 +52,8 @@ export class AddRecipeForDietPageComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
-    private readonly snackerService: SnackerService
+    private readonly snackerService: SnackerService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -221,6 +225,34 @@ export class AddRecipeForDietPageComponent implements OnInit {
       ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient})
     }; 
     return edit ? request : this.optionalPipe.transform(request);
+  }
+
+  importRecipe (): void {
+    const dialogRef = this.dialog.open(ImportDialogComponent, {
+      width: '800px',
+      data: ImportType.Recipe
+    });
+    dialogRef.afterClosed()
+    .subscribe(
+      res => {
+        if (res) {
+          const recipe = res as RecipeModel;
+          this.form.setValue({title: recipe.title, description: recipe.description ? recipe.description : ''});
+          this.meal = recipe.meal;
+          this.changeMeal();
+          this.dish = recipe.dish;
+          this.links = recipe.links.map((url, id) => {
+            return {id, url};
+          });
+          this.ingredients = recipe.ingredients.map((ingredient, id) => {
+            return {id, ingredient};
+          });
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 }

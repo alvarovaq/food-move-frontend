@@ -4,21 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 import { Dish } from '@core/enums/dish';
 import { Meal } from '@core/enums/meal';
 import { IngredientRequestModel } from '@core/models/ingredient-request.model';
-import { RecipeRequestModel } from '@core/models/recipe-request.model';
 import { RecipeModel } from '@core/models/recipe.model';
 import { LoaderService } from '@core/services/loader.service';
-import { RecipesService } from '@core/services/recipes.service';
 import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { OptionalPipe } from '@shared/pipes/optional.pipe';
 import { finalize } from 'rxjs';
-import { ViewPatientService } from '../../../../core/services/view-patient.service';
-import { PatientModel } from '../../../../core/models/patient.model';
-import { FoodsService } from '../../../../core/services/foods.service';
+import { ViewPatientService } from '@core/services/view-patient.service';
+import { PatientModel } from '@core/models/patient.model';
+import { FoodsService } from '@core/services/foods.service';
 import { FoodRequestModel } from '@core/models/food-request.model';
-import { FoodModel } from '../../../../core/models/food.model';
+import { FoodModel } from '@core/models/food.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ImportRecipeComponent } from '@modules/foods/components/import-recipe/import-recipe.component';
+import { ImportType } from '@shared/components/import-dialog/enums/import-type';
+import { ImportDialogComponent } from '@shared/components/import-dialog/import-dialog.component';
 
 @Component({
   selector: 'app-add-food-page',
@@ -183,8 +182,9 @@ export class AddFoodPageComponent implements OnInit {
   }
 
   importRecipe (): void {
-    const dialogRef = this.dialog.open(ImportRecipeComponent, {
-      width: '800px'
+    const dialogRef = this.dialog.open(ImportDialogComponent, {
+      width: '800px',
+      data: ImportType.Recipe
     });
     dialogRef.afterClosed()
     .subscribe(

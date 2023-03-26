@@ -10,6 +10,10 @@
             <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid" tabindex="6">Guardar</button>
         </div>
         <mat-divider></mat-divider>
+        <div class="header__date">
+            <p class="form__date"></p>
+            <button mat-stroked-button color="primary" type="button" (click)="importRecipe()">Importar Receta</button>
+        </div>
         <div class="form__main">
             <div class="form__box box__shadow">
                 <div class="main__primary">

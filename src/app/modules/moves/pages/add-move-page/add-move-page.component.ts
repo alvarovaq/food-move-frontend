@@ -8,12 +8,13 @@ import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { OptionalPipe } from '@shared/pipes/optional.pipe';
 import { finalize } from 'rxjs';
-import { MoveModel } from '../../../../core/models/move.model';
-import { PatientModel } from '../../../../core/models/patient.model';
-import { ViewPatientService } from '../../../../core/services/view-patient.service';
+import { MoveModel } from '@core/models/move.model';
+import { PatientModel } from '@core/models/patient.model';
+import { ViewPatientService } from '@core/services/view-patient.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RoutineModel } from '@core/models/routine.model';
-import { ImportRoutineComponent } from '@modules/moves/components/import-routine/import-routine.component';
+import { ImportType } from '@shared/components/import-dialog/enums/import-type';
+import { ImportDialogComponent } from '@shared/components/import-dialog/import-dialog.component';
 
 @Component({
   selector: 'app-add-move-page',
@@ -134,8 +135,9 @@ export class AddMovePageComponent implements OnInit {
   }
 
   importRoutine (): void {
-    const dialogRef = this.dialog.open(ImportRoutineComponent, {
-      width: '800px'
+    const dialogRef = this.dialog.open(ImportDialogComponent, {
+      width: '800px',
+      data: ImportType.Routine
     });
     dialogRef.afterClosed()
     .subscribe(

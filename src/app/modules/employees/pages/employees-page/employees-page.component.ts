@@ -14,7 +14,7 @@ import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { TableStructure } from '../../../../shared/components/table/interfaces/table-structure';
-import { TypeValueTable } from '@shared/components/table/enums/type-value-table';
+import { ColumnType } from '@shared/components/table/enums/column-type';
 @Component({
   selector: 'app-employees-page',
   templateUrl: './employees-page.component.html',
@@ -31,10 +31,10 @@ export class EmployeesPageComponent implements OnInit {
   indexDisplay: number = 4;
   tableStructure: TableStructure[] = [
     {index: 0, field: 'profile_image', header: '', sort: false},
-    {index: 1, field: 'name', header: 'Nombre', sort: true, type: TypeValueTable.NAME},
+    {index: 1, field: 'name', header: 'Nombre', sort: true, type: ColumnType.NAME},
     {index: 2, field: 'email', header: 'Email', sort: true},
     {index: 3, field: 'phone', header: 'Teléfono', sort: true},
-    {index: 4, field: 'admin', header: '', sort: true, type: TypeValueTable.ADMIN}
+    {index: 4, field: 'admin', header: '', sort: true, type: ColumnType.ADMIN}
   ];
 
   search: string = '';

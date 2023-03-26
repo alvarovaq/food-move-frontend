@@ -17,7 +17,7 @@ import { TableStructure } from '@shared/components/table/interfaces/table-struct
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
-import { TypeValueTable } from '@shared/components/table/enums/type-value-table';
+import { ColumnType } from '@shared/components/table/enums/column-type';
 import { ViewPatientService } from '../../../../core/services/view-patient.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class ConsultsPageComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
 
   tableStructure: TableStructure[] = [
-    {index: 1, field: 'created_at', header: 'Fecha', sort: true, type: TypeValueTable.DATE},
+    {index: 1, field: 'created_at', header: 'Fecha', sort: true, type: ColumnType.DATE},
     {index: 2, field: 'comments', header: 'Comentario', sort: false},
     {index: 3, field: 'masa', header: 'Masa [Kg]', sort: true},
     {index: 4, field: 'imc', header: 'IMC [Kg/m2]', sort: true},

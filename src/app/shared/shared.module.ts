@@ -18,6 +18,7 @@ import { InputProfileImageComponent } from './components/input-profile-image/inp
 import { EditProfileImageComponent } from './components/input-profile-image/components/edit-profile-image/edit-profile-image.component';
 import { MovePipe } from './pipes/move.pipe';
 import { WeeklyCalendarComponent } from './components/weekly-calendar/weekly-calendar.component';
+import { ImportDialogComponent } from './components/import-dialog/import-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { WeeklyCalendarComponent } from './components/weekly-calendar/weekly-cal
     InputProfileImageComponent,
     EditProfileImageComponent,
     MovePipe,
-    WeeklyCalendarComponent
+    WeeklyCalendarComponent,
+    ImportDialogComponent
   ],
   imports: [
     CommonModule,

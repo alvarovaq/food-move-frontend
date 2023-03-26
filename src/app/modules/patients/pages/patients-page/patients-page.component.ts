@@ -14,7 +14,7 @@ import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { DEFAULT_LIMIT } from 'src/app/constants/app.constants';
 import { TableStructure } from '@shared/components/table/interfaces/table-structure';
-import { TypeValueTable } from '@shared/components/table/enums/type-value-table';
+import { ColumnType } from '@shared/components/table/enums/column-type';
 import { ViewPatientService } from '../../../../core/services/view-patient.service';
 import { EmployeeModel } from '@core/models/employee.model';
 import { AuthService } from '@core/services/auth.service';
@@ -35,10 +35,10 @@ export class PatientsPageComponent implements OnInit {
 
   tableStructure: TableStructure[] = [
     {index: 0, field: 'profile_image', header: '', sort: false},
-    {index: 1, field: 'name', header: 'Nombre', sort: true, type: TypeValueTable.NAME},
+    {index: 1, field: 'name', header: 'Nombre', sort: true, type: ColumnType.NAME},
     {index: 2, field: 'phone', header: 'Teléfono', sort: true},
     {index: 3, field: 'email', header: 'Email', sort: true},
-    {index: 4, field: 'birth', header: 'Nacimiento', sort: true, type :TypeValueTable.DATE},
+    {index: 4, field: 'birth', header: 'Nacimiento', sort: true, type :ColumnType.DATE},
     {index: 5, field: 'height', header: 'Altura (cm)', sort: true}
   ];
   indexDisplay: number = 5;

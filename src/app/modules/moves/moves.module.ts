@@ -8,15 +8,13 @@ import { MatModule } from '@shared/modules/mat/mat.module';
 import { SharedModule } from '@shared/shared.module';
 import { AddMovePageComponent } from './pages/add-move-page/add-move-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ImportRoutineComponent } from './components/import-routine/import-routine.component';
 
 
 @NgModule({
   declarations: [
     MovesComponent,
     MovesPageComponent,
-    AddMovePageComponent,
-    ImportRoutineComponent
+    AddMovePageComponent
   ],
   imports: [
     CommonModule,

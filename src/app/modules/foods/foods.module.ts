@@ -8,15 +8,12 @@ import { MatModule } from '@shared/modules/mat/mat.module';
 import { SharedModule } from '@shared/shared.module';
 import { AddFoodPageComponent } from './pages/add-food-page/add-food-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ImportRecipeComponent } from './components/import-recipe/import-recipe.component';
-
 
 @NgModule({
   declarations: [
     FoodsComponent,
     FoodsPageComponent,
-    AddFoodPageComponent,
-    ImportRecipeComponent
+    AddFoodPageComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-export enum TypeValueTable {
+export enum ColumnType {
     DATE = "date",
     NAME = "name",
     ADMIN = "admin",

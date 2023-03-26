@@ -8,11 +8,11 @@
           <span class="title">Food & Move</span>
           <span class="spacer" *ngIf="!isSmall"></span>
           <div *ngIf="!isSmall">
-            <button mat-button (click)="goToPatients()" [style.background]="(page | async) == 1 ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Pacientes</button>
-            <button mat-button (click)="goToEmployees()" *ngIf="isAdmin()" [style.background]="(page | async) == 2 ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Profesionales</button>
-            <button mat-button (click)="goToRecipes()" [style.background]="(page | async) == 3 ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Recetas</button>
-            <button mat-button (click)="goToDiets()" [style.background]="(page | async) == 4 ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Dietas Semanales</button>
-            <button mat-button (click)="goToRoutines()" [style.background]="(page | async) == 5 ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Rutinas</button>
+            <button mat-button (click)="goToPatients()" [style.background]="isActive('patients') ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Pacientes</button>
+            <button mat-button (click)="goToEmployees()" *ngIf="isAdmin()" [style.background]="isActive('employees') ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Profesionales</button>
+            <button mat-button (click)="goToRecipes()" [style.background]="isActive('recipes') ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Recetas</button>
+            <button mat-button (click)="goToDiets()" [style.background]="isActive('diets') ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Dietas Semanales</button>
+            <button mat-button (click)="goToRoutines()" [style.background]="isActive('routines') ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Rutinas</button>
           </div>
           <span class="spacer" *ngIf="!isSmall"></span>
           <a class="profile pointer" (click)="showProfilePanel = !showProfilePanel" *ngIf="!isSmall">

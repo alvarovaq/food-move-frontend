@@ -1,5 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { LoaderService } from '@core/services/loader.service';
 import { RouterService } from '@core/services/router.service';
@@ -18,15 +19,14 @@ export class NavbarComponent implements OnInit {
 
   showProfilePanel: boolean = false;
 
-  page: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-
   @Output() public sidenavToggle = new EventEmitter();
 
   constructor(
     private readonly routerService: RouterService,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly authService: AuthService,
-    public readonly loaderService: LoaderService
+    public readonly loaderService: LoaderService,
+    public readonly router: Router
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
       err => {
         console.log(err);
       }
-    )
+    );
     this.breakpointObserver
       .observe(['(max-width: 959px)'])
       .subscribe(result => {
@@ -46,6 +46,10 @@ export class NavbarComponent implements OnInit {
           this.isSmall = true;
         }
     });
+  }
+
+  isActive (page: string) {
+    return this.router.url.split('/')[1] == page;
   }
 
   isAdmin (): boolean {
@@ -57,27 +61,22 @@ export class NavbarComponent implements OnInit {
   }
 
   goToPatients (): void {
-    this.page.next(1);
     this.routerService.goToPatients();
   }
 
   goToEmployees (): void {
-    this.page.next(2);
     this.routerService.goToEmployees();
   }
 
   goToRecipes (): void {
-    this.page.next(3);
     this.routerService.goToRecipes();
   }
 
   goToDiets (): void {
-    this.page.next(4);
     this.routerService.goToDiet();
   }
 
   goToRoutines (): void {
-    this.page.next(5);
     this.routerService.goToRoutines();
   }
 

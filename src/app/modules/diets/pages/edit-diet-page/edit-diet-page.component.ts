@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DayOfWeek } from '@core/enums/day-of-week';
 import { DietModel } from '@core/models/diet';
 import { RecipeModel } from '@core/models/recipe.model';
@@ -31,7 +31,8 @@ export class EditDietPageComponent implements OnInit {
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService,
     private readonly loaderService: LoaderService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {

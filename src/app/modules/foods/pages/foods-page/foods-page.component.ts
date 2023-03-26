@@ -14,6 +14,11 @@ import { FoodToolService } from '@core/services/food-tool.service';
 import { WeeklyCalendarType } from '@shared/components/weekly-calendar/enums/weekly-calendar-type';
 import { Day } from '@shared/components/weekly-calendar/interfaces/day';
 import { daysInit } from '@shared/components/weekly-calendar/constant/days-init';
+import { ImportType } from '@shared/components/import-dialog/enums/import-type';
+import { ImportDialogComponent } from '@shared/components/import-dialog/import-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DietModel } from '../../../../core/models/diet';
+import { addDay, getDateRange, getDay } from '@core/utils/date-utils';
 
 @Component({
   selector: 'app-foods-page',
@@ -26,7 +31,7 @@ export class FoodsPageComponent implements OnInit {
   weeklyCalendarType = WeeklyCalendarType;
 
   patient: PatientModel | null = null;
-  dateRange: DateRange = this.getDateRange(new Date());
+  dateRange: DateRange = getDateRange(new Date());
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -36,7 +41,8 @@ export class FoodsPageComponent implements OnInit {
     private readonly loaderService: LoaderService,
     private readonly viewPatientService: ViewPatientService,
     private readonly dialogService: DialogService,
-    public readonly foodToolService: FoodToolService
+    public readonly foodToolService: FoodToolService,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +51,7 @@ export class FoodsPageComponent implements OnInit {
       res => {
         this.patient = res;
         const params = this.activatedRoute.snapshot.params;
-        if (params["date"]) this.dateRange = this.getDateRange(new Date(params["date"]));
+        if (params["date"]) this.dateRange = getDateRange(new Date(params["date"]));
         this.loadFoods();
       },
       err => {
@@ -56,26 +62,9 @@ export class FoodsPageComponent implements OnInit {
     );
   }
 
-  addDay (date: Date, days: number): Date {
-    const cpy_date = new Date(date);
-    return new Date(cpy_date.setDate(cpy_date.getDate() + days));
-  }
-
-  getDay (date: Date): number {
-    const day = date.getDay();
-    return day == 0 ? 7 : day;
-  }
-
-  getDateRange (date: Date): DateRange {
-    return {
-      startDate: this.addDay(date, -1 * this.getDay(date) + 1),
-      endDate: this.addDay(date, 7 - this.getDay(date))
-    }
-  }
-
   changeDateRange (nWeeks: number): void {
-    const date = this.addDay(this.dateRange.startDate, 7 * nWeeks);
-    this.dateRange = this.getDateRange(date);
+    const date = addDay(this.dateRange.startDate, 7 * nWeeks);
+    this.dateRange = getDateRange(date);
     this.loadFoods();
   }
 
@@ -85,17 +74,21 @@ export class FoodsPageComponent implements OnInit {
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe(
       res => {
-        this.days.forEach((_, i) => {
-          this.days[i].items = res.filter(foodItem => {
-            return this.getDay(foodItem.date) - 1 == i;
-          }).sort((a,b) => this.foodToolService.sort(a,b));
-          this.days[i].date = this.addDay(this.dateRange.startDate, i);
-        });
+        this.setFoods(res);
       },
       err => {
         console.log(err);
       }
     );
+  }
+
+  setFoods (foods: FoodModel[]): void {
+    this.days.forEach((_, i) => {
+      this.days[i].items = foods.filter(foodItem => {
+        return getDay(foodItem.date) - 1 == i;
+      }).sort((a,b) => this.foodToolService.sort(a,b));
+      this.days[i].date = addDay(this.dateRange.startDate, i);
+    });
   }
 
   addFood (date: Date): void {
@@ -127,6 +120,37 @@ export class FoodsPageComponent implements OnInit {
         );
       }
     });
+  }
+
+  importDiet (): void {
+    const dialogRef = this.dialog.open(ImportDialogComponent, {
+      width: '800px',
+      data: ImportType.Diet
+    });
+    dialogRef.afterClosed()
+    .subscribe(
+      res => {
+        if (res) {
+          const diet = res as DietModel;
+          this.loaderService.isLoading.next(true);
+          this.foodsService.importDiet(diet._id, this.patient!._id, this.dateRange.startDate)
+          .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+          .subscribe(
+            res => {
+              this.setFoods(res);
+              this.snackerService.showSuccessful("Dieta importada con éxito.");
+            },
+            err => {
+              console.log(err);
+              this.snackerService.showError(err.error);
+            }
+          )
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
 
 }

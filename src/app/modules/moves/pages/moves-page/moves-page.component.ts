@@ -14,6 +14,7 @@ import { MovesService } from '@core/services/moves.service';
 import { Day } from '@shared/components/weekly-calendar/interfaces/day';
 import { daysInit } from '@shared/components/weekly-calendar/constant/days-init';
 import { WeeklyCalendarType } from '@shared/components/weekly-calendar/enums/weekly-calendar-type';
+import { addDay, getDateRange, getDay } from '@core/utils/date-utils';
 
 @Component({
   selector: 'app-moves-page',
@@ -26,7 +27,7 @@ export class MovesPageComponent implements OnInit {
   weeklyCalendarType = WeeklyCalendarType;
 
   patient: PatientModel | null = null;
-  dateRange: DateRange = this.getDateRange(new Date());
+  dateRange: DateRange = getDateRange(new Date());
 
   constructor(
     private readonly movesService: MovesService,
@@ -44,7 +45,7 @@ export class MovesPageComponent implements OnInit {
       res => {
         this.patient = res;
         const params = this.activatedRoute.snapshot.params;
-        if (params["date"]) this.dateRange = this.getDateRange(new Date(params["date"]));
+        if (params["date"]) this.dateRange = getDateRange(new Date(params["date"]));
         this.loadMoves();
       },
       err => {
@@ -55,26 +56,9 @@ export class MovesPageComponent implements OnInit {
     );
   }
 
-  addDay (date: Date, days: number): Date {
-    const cpy_date = new Date(date);
-    return new Date(cpy_date.setDate(cpy_date.getDate() + days));
-  }
-
-  getDay (date: Date): number {
-    const day = date.getDay();
-    return day == 0 ? 7 : day;
-  }
-
-  getDateRange (date: Date): DateRange {
-    return {
-      startDate: this.addDay(date, -1 * this.getDay(date) + 1),
-      endDate: this.addDay(date, 7 - this.getDay(date))
-    }
-  }
-
   changeDateRange (nWeeks: number): void {
-    const date = this.addDay(this.dateRange.startDate, 7 * nWeeks);
-    this.dateRange = this.getDateRange(date);
+    const date = addDay(this.dateRange.startDate, 7 * nWeeks);
+    this.dateRange = getDateRange(date);
     this.loadMoves();
   }
 
@@ -86,9 +70,9 @@ export class MovesPageComponent implements OnInit {
       res => {
         this.days.forEach((_, i) => {
           this.days[i].items = res.filter(moveItem => {
-            return this.getDay(moveItem.date) - 1 == i;
+            return getDay(moveItem.date) - 1 == i;
           });
-          this.days[i].date = this.addDay(this.dateRange.startDate, i);
+          this.days[i].date = addDay(this.dateRange.startDate, i);
         });
       },
       err => {

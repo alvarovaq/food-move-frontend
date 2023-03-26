@@ -58,4 +58,14 @@ export class FoodsService {
       })
     );
   }
+
+  importDiet (dietId: string, patientId: string, date: Date): Observable<FoodModel[]> {
+    return this.http.get<FoodModel[]>(`${environment.api}/foods/importDiet/${dietId}/${patientId}/${date}`).pipe(
+      map((data) => {
+        return data.map((food: FoodModel) => {
+          return this.foodPipe.transform(food);
+        });
+      })
+    );
+  }
 }

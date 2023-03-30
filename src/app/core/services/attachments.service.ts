@@ -14,7 +14,7 @@ export class AttachmentsService {
   ) { }
 
   getAttachment (id: string): Observable<AttachmentModel> {
-    return this.http.get<AttachmentModel>(`${environment.api}/attachments/${id}`);
+    return this.http.get<AttachmentModel>(`${environment.api}/attachments/findOne/${id}`);
   }
 
   find (): Observable<AttachmentModel[]> {

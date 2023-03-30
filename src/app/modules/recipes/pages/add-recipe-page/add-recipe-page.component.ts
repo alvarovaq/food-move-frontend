@@ -12,6 +12,8 @@ import { Dish } from '@core/enums/dish';
 import { IngredientRequestModel } from '@core/models/ingredient-request.model';
 import { RecipeRequestModel } from '@core/models/recipe-request.model';
 import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
+import { MatDialog } from '@angular/material/dialog';
+import { AttachmentsDialogComponent } from '@shared/components/attachments-dialog/attachments-dialog.component';
 
 @Component({
   selector: 'app-add-recipe-page',
@@ -44,7 +46,8 @@ export class AddRecipePageComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly routerService: RouterService,
     private readonly loaderService: LoaderService,
-    private readonly snackerService: SnackerService
+    private readonly snackerService: SnackerService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -203,6 +206,13 @@ export class AddRecipePageComponent implements OnInit {
       ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient})
     }; 
     return edit ? request : this.optionalPipe.transform(request);
+  }
+
+  importPDF (): void {
+    const dialogRef = this.dialog.open(AttachmentsDialogComponent, {
+      width: '800px'
+    });
+    dialogRef.afterClosed()
   }
 
 }

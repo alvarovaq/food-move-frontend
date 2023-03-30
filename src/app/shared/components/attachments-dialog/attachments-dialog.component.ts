@@ -27,6 +27,7 @@ export class AttachmentsDialogComponent implements OnInit {
     this.attachmentsService.find()
     .subscribe(
       res => {
+        console.log(res);
         this.items = res;
         this.dataSource = res;
       },

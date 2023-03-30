@@ -19,6 +19,7 @@ import { EditProfileImageComponent } from './components/input-profile-image/comp
 import { MovePipe } from './pipes/move.pipe';
 import { WeeklyCalendarComponent } from './components/weekly-calendar/weekly-calendar.component';
 import { ImportDialogComponent } from './components/import-dialog/import-dialog.component';
+import { AttachmentsDialogComponent } from './components/attachments-dialog/attachments-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ImportDialogComponent } from './components/import-dialog/import-dialog.
     EditProfileImageComponent,
     MovePipe,
     WeeklyCalendarComponent,
-    ImportDialogComponent
+    ImportDialogComponent,
+    AttachmentsDialogComponent
   ],
   imports: [
     CommonModule,

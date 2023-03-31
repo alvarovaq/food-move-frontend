@@ -1,11 +1,9 @@
 import { Rating } from "@core/enums/rating";
+import { RoutineRequestModel } from "./routine-request.model";
 
-export interface MoveRequestModel {
+export interface MoveRequestModel extends RoutineRequestModel {
     patient: string;
-    title: string;
-    description?: string;
     date: Date;
-    links: string[];
     comments?: string;
     done?: boolean;
     rating?: Rating;

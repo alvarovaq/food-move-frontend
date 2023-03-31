@@ -10,4 +10,5 @@ export interface RecipeModel {
     dish: Dish;
     links: string[];
     ingredients: IngredientModel[];
+    attachment?: string;
 }

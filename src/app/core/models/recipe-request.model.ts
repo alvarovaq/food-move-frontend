@@ -9,4 +9,5 @@ export interface RecipeRequestModel {
     dish: Dish;
     links: string[];
     ingredients: IngredientRequestModel[];
+    attachment?: string;
 }

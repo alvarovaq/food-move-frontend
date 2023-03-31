@@ -1,17 +1,8 @@
-import { Dish } from '@core/enums/dish';
-import { Meal } from '@core/enums/meal';
-import { IngredientModel } from './ingredient.model';
 import { Rating } from '../enums/rating';
+import { RecipeModel } from './recipe.model';
 
-export interface FoodModel {
-    _id: string;
+export interface FoodModel extends RecipeModel {
     patient: string;
-    title: string;
-    description?: string;
-    meal: Meal;
-    dish: Dish;
-    links: string[];
-    ingredients: IngredientModel[];
     comments?: string;
     date: Date;
     done?: boolean;

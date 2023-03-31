@@ -3,4 +3,5 @@ export interface RoutineModel {
     title: string;
     description?: string;
     links: string[];
+    attachment?: string;
 }

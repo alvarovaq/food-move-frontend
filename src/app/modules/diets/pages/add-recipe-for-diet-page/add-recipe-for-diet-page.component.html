@@ -64,69 +64,9 @@
                 </div>
             </div>
             <div class="main__secondary">
-                <div class="form__list-box box__shadow">
-                    <div class="header">
-                        <p class="title">Links</p>
-                        <p class="subtitle">Agregar enlaces</p>
-                        <mat-icon class="icon">link</mat-icon>
-                    </div>
-                    <form class="form__list">
-                        <mat-form-field class="input">
-                            <mat-label>URL</mat-label>
-                            <input matInput #url>
-                        </mat-form-field>
-                        <button mat-icon-button type="submit" (click)="addLink(url.value); url.value = ''">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    </form>
-                    <div class="list">
-                        <div *ngFor="let link of links">
-                            <div class="item">
-                                <a [href]="link.url">{{link.url}}</a>
-                                <button mat-icon-button type="button" (click)="removeLink(link.id)">
-                                    <mat-icon>clear</mat-icon>
-                                </button>
-                            </div>
-                            <mat-divider></mat-divider>
-                        </div>  
-                    </div>
-                </div>
-                <div class="form__list-box box__shadow">
-                    <div class="header">
-                        <p class="title">Ingredientes</p>
-                        <p class="subtitle">Agregar ingredientes</p>
-                        <mat-icon class="icon">shopping_basket</mat-icon>
-                    </div>
-                    <form class="form__list">
-                        <mat-form-field class="input">
-                            <mat-label>Ingrediente</mat-label>
-                            <input matInput #ingredient>
-                        </mat-form-field>
-                        <mat-form-field class="input">
-                            <mat-label>Cantidad</mat-label>
-                            <input matInput type="number" #quantity>
-                        </mat-form-field>
-                        <mat-form-field class="input">
-                            <mat-label>Unidad</mat-label>
-                            <input matInput #unit>
-                        </mat-form-field>
-                        <button mat-icon-button type="submit" (click)="addIngredient(ingredient.value, +quantity.value, unit.value); ingredient.value = ''; quantity.value=''; unit.value='';">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    </form>
-                    <div class="list">
-                        <div *ngFor="let ingredient of ingredients">
-                            <div class="item">
-                                <p>{{ingredient.ingredient.name}}</p>
-                                <p>{{ingredient.ingredient.quantity != 0 ? ingredient.ingredient.quantity : ''}} {{ingredient.ingredient.unit}}</p>
-                                <button mat-icon-button type="button" (click)="removeIngredient(ingredient.id)">
-                                    <mat-icon>clear</mat-icon>
-                                </button>
-                            </div>
-                            <mat-divider></mat-divider>
-                        </div>  
-                    </div>
-                </div>
+                <app-links-input [links]="links" (setLinks)="links = $event"></app-links-input>
+                <app-ingredients-input [ingredients]="ingredients" (setIngredients)="ingredients = $event"></app-ingredients-input>
+                <app-attachment-input [attachment]="attachment" (setAttachment)="attachment = $event"></app-attachment-input>
             </div>
         </div>
     </form>

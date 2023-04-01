@@ -1,4 +1,4 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RecipeModel } from '@core/models/recipe.model';
@@ -6,16 +6,13 @@ import { LoaderService } from '@core/services/loader.service';
 import { RecipesService } from '@core/services/recipes.service';
 import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
-import { finalize, max } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { Meal } from '@core/enums/meal';
 import { Dish } from '@core/enums/dish';
-import { IngredientRequestModel } from '@core/models/ingredient-request.model';
 import { RecipeRequestModel } from '@core/models/recipe-request.model';
 import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 import { MatDialog } from '@angular/material/dialog';
-import { AttachmentsDialogComponent } from '@shared/components/attachments-dialog/attachments-dialog.component';
 import { AttachmentModel } from '@core/models/attachment.model';
-import { URL_ATTACHMENTS } from 'src/app/constants/app.constants';
 import { AttachmentsService } from '@core/services/attachments.service';
 import { IngredientStructure } from '@shared/components/ingredients-input/interfaces/ingredient-structure';
 import { LinkStructure } from '@shared/components/links-input/interfaces/link-structure';
@@ -205,29 +202,6 @@ export class AddRecipePageComponent implements OnInit {
       attachment: this.attachment? this.attachment._id : null
     }; 
     return edit ? request : this.optionalPipe.transform(request);
-  }
-
-  importPDF (): void {
-    const dialogRef = this.dialog.open(AttachmentsDialogComponent, {
-      width: '800px'
-    });
-    dialogRef.afterClosed()
-    .subscribe(
-      res => {
-        this.attachment = res;
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-
-  deletePDF (): void {
-    this.attachment = null;
-  }
-
-  viewPDF (): void {
-    window.open(URL_ATTACHMENTS + this.attachment?.filename);
   }
 
 }

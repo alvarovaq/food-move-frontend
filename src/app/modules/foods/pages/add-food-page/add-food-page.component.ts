@@ -18,6 +18,10 @@ import { FoodModel } from '@core/models/food.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ImportType } from '@shared/components/import-dialog/enums/import-type';
 import { ImportDialogComponent } from '@shared/components/import-dialog/import-dialog.component';
+import { LinkStructure } from '@shared/components/links-input/interfaces/link-structure';
+import { IngredientStructure } from '@shared/components/ingredients-input/interfaces/ingredient-structure';
+import { AttachmentModel } from '@core/models/attachment.model';
+import { AttachmentsService } from '@core/services/attachments.service';
 
 @Component({
   selector: 'app-add-food-page',
@@ -34,8 +38,9 @@ export class AddFoodPageComponent implements OnInit {
   edit: boolean = false;
   food: FoodModel | null = null;
 
-  links: Array<{id: number, url: string}> = [];
-  ingredients: Array<{id: number, ingredient: IngredientRequestModel}> = [];
+  links: Array<LinkStructure> = [];
+  ingredients: Array<IngredientStructure> = [];
+  attachment: AttachmentModel | null = null;
 
   availableMeal = [Meal.Desayuno, Meal.Almuerzo, Meal.Merienda, Meal.Cena];
   availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
@@ -51,6 +56,7 @@ export class AddFoodPageComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly foodsService: FoodsService,
+    private readonly attachmentsService: AttachmentsService,
     private readonly optionalPipe: OptionalPipe,
     private readonly fb: FormBuilder,
     private readonly routerService: RouterService,
@@ -110,6 +116,21 @@ export class AddFoodPageComponent implements OnInit {
       this.ingredients = this.food!.ingredients.map((ingredient, id) => {
         return {id, ingredient};
       });
+      if (this.food?.attachment) {
+        this.loaderService.isLoading.next(true);
+        this.attachmentsService.getAttachment(this.food.attachment)
+        .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+        .subscribe(
+          res => {
+            this.attachment = res;
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      } else {
+        this.attachment = null;
+      }
     }
   }
 
@@ -132,30 +153,6 @@ export class AddFoodPageComponent implements OnInit {
 
   exit(): void {
     this.routerService.goToFoods(this.date);
-  }
-
-  addLink(url: string): void {
-    const id = this.links.length > 0 ? Math.max(...this.links.map(link => {return link.id})) + 1 : 0;
-    const link = {id, url};
-    this.links.push(link);
-  }
-
-  removeLink(id: number): void {
-    this.links = this.links.filter(link => {
-      return link.id != id;
-    });
-  }
-
-  addIngredient(name: string, quantity: number, unit: string): void {
-    const id = this.ingredients.length > 0 ? Math.max(...this.ingredients.map(ingredient => {return ingredient.id})) + 1 : 0;
-    const ingredient = {id, ingredient: {name, quantity, unit}};
-    this.ingredients.push(ingredient);
-  } 
-
-  removeIngredient(id: number): void {
-    this.ingredients = this.ingredients.filter(ingredient => {
-      return ingredient.id != id;
-    });
   }
 
   changeMeal (): void {
@@ -201,6 +198,21 @@ export class AddFoodPageComponent implements OnInit {
           this.ingredients = recipe.ingredients.map((ingredient, id) => {
             return {id, ingredient};
           });
+          if (recipe.attachment) {
+            this.loaderService.isLoading.next(true);
+            this.attachmentsService.getAttachment(recipe.attachment)
+            .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+            .subscribe(
+              res => {
+                this.attachment = res;
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          } else {
+            this.attachment = null;
+          }
         }
       },
       err => {
@@ -256,7 +268,8 @@ export class AddFoodPageComponent implements OnInit {
       meal: this.meal,
       dish: this.dish,
       links: this.links.map(link => {return link.url}),
-      ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient})
+      ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient}),
+      attachment: this.attachment ? this.attachment._id : null
     }; 
     return edit ? request : this.optionalPipe.transform(request);
   }

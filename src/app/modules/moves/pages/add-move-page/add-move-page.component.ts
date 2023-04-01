@@ -15,6 +15,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { RoutineModel } from '@core/models/routine.model';
 import { ImportType } from '@shared/components/import-dialog/enums/import-type';
 import { ImportDialogComponent } from '@shared/components/import-dialog/import-dialog.component';
+import { LinkStructure } from '@shared/components/links-input/interfaces/link-structure';
+import { AttachmentModel } from '@core/models/attachment.model';
+import { AttachmentsService } from '@core/services/attachments.service';
 
 @Component({
   selector: 'app-add-move-page',
@@ -31,7 +34,8 @@ export class AddMovePageComponent implements OnInit {
   edit: boolean = false;
   move: MoveModel | null = null;
 
-  links: Array<{id: number, url: string}> = [];
+  links: Array<LinkStructure> = [];
+  attachment: AttachmentModel | null = null;
 
   buttonClear = {
     title: false,
@@ -43,6 +47,7 @@ export class AddMovePageComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly fb: FormBuilder,
     private readonly movesService: MovesService,
+    private readonly attachmentsService: AttachmentsService,
     private readonly optionalPipe: OptionalPipe,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService,
@@ -98,6 +103,21 @@ export class AddMovePageComponent implements OnInit {
       this.links = this.move!.links.map((url, id) => {
         return {id, url};
       });
+      if (this.move?.attachment) {
+        this.loaderService.isLoading.next(true);
+        this.attachmentsService.getAttachment(this.move!.attachment)
+        .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+        .subscribe(
+          res => {
+            this.attachment = res;
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      } else {
+        this.attachment = null;
+      }
     }
   }
 
@@ -122,18 +142,6 @@ export class AddMovePageComponent implements OnInit {
     this.routerService.goToMoves(this.date);
   }
 
-  addLink(url: string): void {
-    const id = this.links.length > 0 ? Math.max(...this.links.map(link => {return link.id})) + 1 : 0;
-    const link = {id, url};
-    this.links.push(link);
-  }
-
-  removeLink(id: number): void {
-    this.links = this.links.filter(link => {
-      return link.id != id;
-    });
-  }
-
   importRoutine (): void {
     const dialogRef = this.dialog.open(ImportDialogComponent, {
       width: '800px',
@@ -148,6 +156,21 @@ export class AddMovePageComponent implements OnInit {
           this.links = routine.links.map((url, id) => {
             return {id, url};
           });
+          if (routine.attachment) {
+            this.loaderService.isLoading.next(true);
+            this.attachmentsService.getAttachment(routine.attachment)
+            .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+            .subscribe(
+              res => {
+                this.attachment = res;
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          } else {
+            this.attachment = null;
+          }
         }
       },
       err => {
@@ -201,7 +224,8 @@ export class AddMovePageComponent implements OnInit {
       title: this.title,
       description: this.description,
       comments: this.comments,
-      links: this.links.map(link => {return link.url})
+      links: this.links.map(link => {return link.url}),
+      attachment: this.attachment ? this.attachment._id : null
     };
     return edit ? request : this.optionalPipe.transform(request);
   }

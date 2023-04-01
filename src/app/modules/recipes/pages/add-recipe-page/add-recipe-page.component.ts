@@ -14,6 +14,9 @@ import { RecipeRequestModel } from '@core/models/recipe-request.model';
 import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 import { MatDialog } from '@angular/material/dialog';
 import { AttachmentsDialogComponent } from '@shared/components/attachments-dialog/attachments-dialog.component';
+import { AttachmentModel } from '@core/models/attachment.model';
+import { URL_ATTACHMENTS } from 'src/app/constants/app.constants';
+import { AttachmentsService } from '@core/services/attachments.service';
 
 @Component({
   selector: 'app-add-recipe-page',
@@ -28,6 +31,7 @@ export class AddRecipePageComponent implements OnInit {
 
   links: Array<{id: number, url: string}> = [];
   ingredients: Array<{id: number, ingredient: IngredientRequestModel}> = [];
+  attachment: AttachmentModel | null = null;
 
   availableMeal = [Meal.Desayuno, Meal.Almuerzo, Meal.Merienda, Meal.Cena];
   availableDish = [Dish.Primero, Dish.Segundo, Dish.Postre];
@@ -42,6 +46,7 @@ export class AddRecipePageComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly recipesService: RecipesService,
+    private readonly attachmentsService: AttachmentsService,
     private readonly optionalPipe: OptionalPipe,
     private readonly fb: FormBuilder,
     private readonly routerService: RouterService,
@@ -90,6 +95,21 @@ export class AddRecipePageComponent implements OnInit {
       this.ingredients = this.recipe!.ingredients.map((ingredient, id) => {
         return {id, ingredient};
       });
+      if (this.recipe?.attachment) {
+        this.loaderService.isLoading.next(true);
+        this.attachmentsService.getAttachment(this.recipe.attachment)
+        .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+        .subscribe(
+          res => {
+            this.attachment = res;
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      } else {
+        this.attachment = null;
+      }
     }
   }
 
@@ -203,7 +223,8 @@ export class AddRecipePageComponent implements OnInit {
       meal: this.meal,
       dish: this.dish,
       links: this.links.map(link => {return link.url}),
-      ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient})
+      ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient}),
+      attachment: this.attachment? this.attachment._id : null
     }; 
     return edit ? request : this.optionalPipe.transform(request);
   }
@@ -213,6 +234,22 @@ export class AddRecipePageComponent implements OnInit {
       width: '800px'
     });
     dialogRef.afterClosed()
+    .subscribe(
+      res => {
+        this.attachment = res;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  deletePDF (): void {
+    this.attachment = null;
+  }
+
+  viewPDF (): void {
+    window.open(URL_ATTACHMENTS + this.attachment?.filename);
   }
 
 }

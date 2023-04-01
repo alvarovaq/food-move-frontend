@@ -112,6 +112,7 @@ export class AddMovePageComponent implements OnInit {
             this.attachment = res;
           },
           err => {
+            this.attachment = null;
             console.log(err);
           }
         );
@@ -165,6 +166,7 @@ export class AddMovePageComponent implements OnInit {
                 this.attachment = res;
               },
               err => {
+                this.attachment = null;
                 console.log(err);
               }
             );

@@ -125,6 +125,7 @@ export class AddFoodPageComponent implements OnInit {
             this.attachment = res;
           },
           err => {
+            this.attachment = null;
             console.log(err);
           }
         );
@@ -207,6 +208,7 @@ export class AddFoodPageComponent implements OnInit {
                 this.attachment = res;
               },
               err => {
+                this.attachment = null;
                 console.log(err);
               }
             );

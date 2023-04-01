@@ -86,6 +86,7 @@ export class AddRoutinePageComponent implements OnInit {
             this.attachment = res;
           },
           err => {
+            this.attachment = null;
             console.log(err);
           }
         );

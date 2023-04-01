@@ -46,7 +46,11 @@ export class AttachmentsDialogComponent implements OnInit {
   }
 
   selectItem (item: AttachmentModel): void {
-    this.selected = item;
+    if (item._id == this.selected?._id) {
+      this.selected = null;
+    } else {
+      this.selected = item;
+    }
   }
 
   applyFilter(event: Event) {
@@ -66,7 +70,7 @@ export class AttachmentsDialogComponent implements OnInit {
 
   deletePDF (event: MouseEvent, attachment: AttachmentModel): void {
     event.stopPropagation();
-    this.dialogService.openConfirmDialog('Eliminar pdf', 'Seguro que quieres eliminar a el pdf?')
+    this.dialogService.openConfirmDialog('Eliminar pdf', 'Seguro que quieres eliminar el pdf?')
     .subscribe(
       res => {
         if (res) {

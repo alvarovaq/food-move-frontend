@@ -21,6 +21,8 @@ import { WeeklyCalendarComponent } from './components/weekly-calendar/weekly-cal
 import { ImportDialogComponent } from './components/import-dialog/import-dialog.component';
 import { AttachmentsDialogComponent } from './components/attachments-dialog/attachments-dialog.component';
 import { AttachmentInputComponent } from './components/attachment-input/attachment-input.component';
+import { IngredientsInputComponent } from './components/ingredients-input/ingredients-input.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { AttachmentInputComponent } from './components/attachment-input/attachme
     WeeklyCalendarComponent,
     ImportDialogComponent,
     AttachmentsDialogComponent,
-    AttachmentInputComponent
+    AttachmentInputComponent,
+    IngredientsInputComponent
   ],
   imports: [
     CommonModule,
@@ -56,6 +59,7 @@ import { AttachmentInputComponent } from './components/attachment-input/attachme
     TableComponent,
     WeeklyCalendarComponent,
     AttachmentInputComponent,
+    IngredientsInputComponent,
     NamePipe,
     OptionalPipe,
     PhotoPipe

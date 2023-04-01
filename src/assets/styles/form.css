@@ -146,9 +146,6 @@
     font-size: 15px;
 }
 
-.form__list-box .header .title {
-}
-
 .form__list-box .header .subtitle {
     color: var(--gray-text);
 }

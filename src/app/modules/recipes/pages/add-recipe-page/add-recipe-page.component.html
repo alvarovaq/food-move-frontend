@@ -87,7 +87,7 @@
                         </div>  
                     </div>
                 </div>
-                <div class="form__list-box box__shadow">
+                <!--<div class="form__list-box box__shadow">
                     <div class="header">
                         <p class="title">Ingredientes</p>
                         <p class="subtitle">Agregar ingredientes</p>
@@ -122,7 +122,8 @@
                             <mat-divider></mat-divider>
                         </div>  
                     </div>
-                </div>
+                </div>-->
+                <app-ingredients-input [ingredients]="ingredients" (setIngredients)="ingredients = $event"></app-ingredients-input>
                 <app-attachment-input [attachment]="attachment" (setAttachment)="attachment = $event"></app-attachment-input>
             </div>
         </div>

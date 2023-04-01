@@ -17,6 +17,7 @@ import { AttachmentsDialogComponent } from '@shared/components/attachments-dialo
 import { AttachmentModel } from '@core/models/attachment.model';
 import { URL_ATTACHMENTS } from 'src/app/constants/app.constants';
 import { AttachmentsService } from '@core/services/attachments.service';
+import { IngredientStructure } from '@shared/components/ingredients-input/interfaces/ingredient-structure';
 
 @Component({
   selector: 'app-add-recipe-page',
@@ -30,7 +31,7 @@ export class AddRecipePageComponent implements OnInit {
   recipe: RecipeModel | null = null;
 
   links: Array<{id: number, url: string}> = [];
-  ingredients: Array<{id: number, ingredient: IngredientRequestModel}> = [];
+  ingredients: Array<IngredientStructure> = [];
   attachment: AttachmentModel | null = null;
 
   availableMeal = [Meal.Desayuno, Meal.Almuerzo, Meal.Merienda, Meal.Cena];
@@ -152,6 +153,14 @@ export class AddRecipePageComponent implements OnInit {
     this.ingredients = this.ingredients.filter(ingredient => {
       return ingredient.id != id;
     });
+  }
+
+  setIngredients (ingredients: Array<IngredientStructure>): void {
+    this.ingredients = [...ingredients];
+  }
+
+  pushIngredient (ingredient: IngredientStructure): void {
+    this.ingredients.push(ingredient);
   }
 
   changeMeal (): void {

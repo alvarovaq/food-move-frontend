@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AttachmentModel } from '@core/models/attachment.model';
 import { AttachmentsService } from '@core/services/attachments.service';
+import { DialogService } from '@core/services/dialog.service';
+import { LoaderService } from '@core/services/loader.service';
+import { SnackerService } from '@core/services/snacker.service';
+import { finalize } from 'rxjs';
+import { URL_ATTACHMENTS } from 'src/app/constants/app.constants';
 
 @Component({
   selector: 'app-attachments-dialog',
@@ -16,7 +21,10 @@ export class AttachmentsDialogComponent implements OnInit {
 
   constructor(
     private readonly attachmentsService: AttachmentsService,
-    private readonly dialogRef: MatDialogRef<AttachmentsDialogComponent>
+    private readonly dialogRef: MatDialogRef<AttachmentsDialogComponent>,
+    private readonly loaderService: LoaderService,
+    private readonly snackerService: SnackerService,
+    private readonly dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +57,38 @@ export class AttachmentsDialogComponent implements OnInit {
 
   exit (): void {
     this.dialogRef.close();
+  }
+
+  showPDF (event: MouseEvent, attachment: AttachmentModel): void {
+    event.stopPropagation();
+    window.open(URL_ATTACHMENTS + attachment.filename);
+  }
+
+  deletePDF (event: MouseEvent, attachment: AttachmentModel): void {
+    event.stopPropagation();
+    this.dialogService.openConfirmDialog('Eliminar pdf', 'Seguro que quieres eliminar a el pdf?')
+    .subscribe(
+      res => {
+        if (res) {
+          if (attachment._id == this.selected?._id) this.selected = null;
+          this.loaderService.isLoading.next(true);
+          this.attachmentsService.remove(attachment._id)
+          .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+          .subscribe(
+            res => {
+              this.loadItems();
+            },
+            err => {
+              this.snackerService.showError(err.error);
+              console.log(err);
+            }
+          );
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 }

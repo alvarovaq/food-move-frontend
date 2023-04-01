@@ -20,6 +20,14 @@
                         <mat-icon class="item__icon">insert_drive_file</mat-icon>
                         <div class="item__title">{{item.title}}</div>
                     </div>
+                    <div class="item__edit">
+                        <button type="button" mat-icon-button aria-label="Example icon button with a vertical three dot icon" style="color: grey;" matTooltip="Ver PDF" (click)="showPDF($event, item)">
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </button>
+                        <button type="button" mat-icon-button aria-label="Example icon button with a vertical three dot icon" matTooltip="Eliminar PDF" style="color: red;" (click)="deletePDF($event, item)">
+                            <mat-icon>delete</mat-icon>
+                        </button>  
+                    </div>
                 </a>
             </div>
         </div>

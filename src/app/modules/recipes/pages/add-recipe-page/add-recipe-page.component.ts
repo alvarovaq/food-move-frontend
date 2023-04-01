@@ -18,6 +18,7 @@ import { AttachmentModel } from '@core/models/attachment.model';
 import { URL_ATTACHMENTS } from 'src/app/constants/app.constants';
 import { AttachmentsService } from '@core/services/attachments.service';
 import { IngredientStructure } from '@shared/components/ingredients-input/interfaces/ingredient-structure';
+import { LinkStructure } from '@shared/components/links-input/interfaces/link-structure';
 
 @Component({
   selector: 'app-add-recipe-page',
@@ -30,7 +31,7 @@ export class AddRecipePageComponent implements OnInit {
   edit: boolean = false;
   recipe: RecipeModel | null = null;
 
-  links: Array<{id: number, url: string}> = [];
+  links: Array<LinkStructure> = [];
   ingredients: Array<IngredientStructure> = [];
   attachment: AttachmentModel | null = null;
 
@@ -129,38 +130,6 @@ export class AddRecipePageComponent implements OnInit {
 
   exit(): void {
     this.routerService.goToRecipes();
-  }
-
-  addLink(url: string): void {
-    const id = this.links.length > 0 ? Math.max(...this.links.map(link => {return link.id})) + 1 : 0;
-    const link = {id, url};
-    this.links.push(link);
-  }
-
-  removeLink(id: number): void {
-    this.links = this.links.filter(link => {
-      return link.id != id;
-    });
-  }
-
-  addIngredient(name: string, quantity: number, unit: string): void {
-    const id = this.ingredients.length > 0 ? Math.max(...this.ingredients.map(ingredient => {return ingredient.id})) + 1 : 0;
-    const ingredient = {id, ingredient: {name, quantity, unit}};
-    this.ingredients.push(ingredient);
-  } 
-
-  removeIngredient(id: number): void {
-    this.ingredients = this.ingredients.filter(ingredient => {
-      return ingredient.id != id;
-    });
-  }
-
-  setIngredients (ingredients: Array<IngredientStructure>): void {
-    this.ingredients = [...ingredients];
-  }
-
-  pushIngredient (ingredient: IngredientStructure): void {
-    this.ingredients.push(ingredient);
   }
 
   changeMeal (): void {

@@ -23,6 +23,7 @@ import { AttachmentsDialogComponent } from './components/attachments-dialog/atta
 import { AttachmentInputComponent } from './components/attachment-input/attachment-input.component';
 import { IngredientsInputComponent } from './components/ingredients-input/ingredients-input.component';
 import { FormsModule } from '@angular/forms';
+import { LinksInputComponent } from './components/links-input/links-input.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { FormsModule } from '@angular/forms';
     ImportDialogComponent,
     AttachmentsDialogComponent,
     AttachmentInputComponent,
-    IngredientsInputComponent
+    IngredientsInputComponent,
+    LinksInputComponent
   ],
   imports: [
     CommonModule,
@@ -60,6 +62,7 @@ import { FormsModule } from '@angular/forms';
     WeeklyCalendarComponent,
     AttachmentInputComponent,
     IngredientsInputComponent,
+    LinksInputComponent,
     NamePipe,
     OptionalPipe,
     PhotoPipe

@@ -126,8 +126,6 @@
     font-size: 18px;
 }
 
-/* Form List Box */
-
 .form__list-box {
     display: flex;
     flex-direction: column;

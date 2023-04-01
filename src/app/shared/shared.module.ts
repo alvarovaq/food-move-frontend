@@ -20,6 +20,7 @@ import { MovePipe } from './pipes/move.pipe';
 import { WeeklyCalendarComponent } from './components/weekly-calendar/weekly-calendar.component';
 import { ImportDialogComponent } from './components/import-dialog/import-dialog.component';
 import { AttachmentsDialogComponent } from './components/attachments-dialog/attachments-dialog.component';
+import { AttachmentInputComponent } from './components/attachment-input/attachment-input.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AttachmentsDialogComponent } from './components/attachments-dialog/atta
     MovePipe,
     WeeklyCalendarComponent,
     ImportDialogComponent,
-    AttachmentsDialogComponent
+    AttachmentsDialogComponent,
+    AttachmentInputComponent
   ],
   imports: [
     CommonModule,
@@ -53,6 +55,7 @@ import { AttachmentsDialogComponent } from './components/attachments-dialog/atta
     InputProfileImageComponent,
     TableComponent,
     WeeklyCalendarComponent,
+    AttachmentInputComponent,
     NamePipe,
     OptionalPipe,
     PhotoPipe

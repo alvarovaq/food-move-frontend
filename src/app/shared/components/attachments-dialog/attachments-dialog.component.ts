@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AttachmentModel } from '@core/models/attachment.model';
 import { AttachmentsService } from '@core/services/attachments.service';
 import { DialogService } from '@core/services/dialog.service';
@@ -7,6 +7,7 @@ import { LoaderService } from '@core/services/loader.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { finalize } from 'rxjs';
 import { URL_ATTACHMENTS } from 'src/app/constants/app.constants';
+import { AddAttachmentComponent } from '../add-attachment/add-attachment.component';
 
 @Component({
   selector: 'app-attachments-dialog',
@@ -24,7 +25,8 @@ export class AttachmentsDialogComponent implements OnInit {
     private readonly dialogRef: MatDialogRef<AttachmentsDialogComponent>,
     private readonly loaderService: LoaderService,
     private readonly snackerService: SnackerService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +63,21 @@ export class AttachmentsDialogComponent implements OnInit {
 
   exit (): void {
     this.dialogRef.close();
+  }
+
+  addPDF (): void {
+    const dialogRef = this.dialog.open(AddAttachmentComponent, {
+      width: '350px'
+    });
+    dialogRef.afterClosed()
+    .subscribe(
+      res => {
+        if (res) this.loadItems();
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   showPDF (event: MouseEvent, attachment: AttachmentModel): void {

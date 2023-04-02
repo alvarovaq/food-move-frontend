@@ -22,8 +22,9 @@ import { ImportDialogComponent } from './components/import-dialog/import-dialog.
 import { AttachmentsDialogComponent } from './components/attachments-dialog/attachments-dialog.component';
 import { AttachmentInputComponent } from './components/attachment-input/attachment-input.component';
 import { IngredientsInputComponent } from './components/ingredients-input/ingredients-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LinksInputComponent } from './components/links-input/links-input.component';
+import { AddAttachmentComponent } from './components/add-attachment/add-attachment.component';
 
 @NgModule({
   declarations: [
@@ -45,11 +46,14 @@ import { LinksInputComponent } from './components/links-input/links-input.compon
     AttachmentsDialogComponent,
     AttachmentInputComponent,
     IngredientsInputComponent,
-    LinksInputComponent
+    LinksInputComponent,
+    AddAttachmentComponent
   ],
   imports: [
     CommonModule,
-    MatModule
+    MatModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     ConfirmDialogComponent,

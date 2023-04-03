@@ -8,20 +8,20 @@
             </button>
         </div>
         <div class="day__main" *ngIf="type == weeklyCalendarType.Food">
-            <div class="day__item" *ngFor="let food of day.items" [style.background]="foodToolService.getBackground(food.meal)">
+            <div class="day__item" *ngFor="let food of day.items" [style.background]="foodToolService.getBackground(food.meal)" (click)="editItem(day, food)">
                 <mat-icon class="item__icon">{{foodToolService.getIcon(food.meal)}}</mat-icon>
-                <a class="item__title" (click)="editItem(day, food)">{{food.title}}</a>
-                <a class="item__delete" (click)="deleteItem(day, food)"><mat-icon>close</mat-icon></a>
+                <p class="item__title">{{food.title}}</p>
+                <a class="item__delete" (click)="$event.stopPropagation(); deleteItem(day, food)"><mat-icon>close</mat-icon></a>
             </div> 
             <div class="add__day" *ngIf="day.items.length == 0">
                 <button mat-stroked-button color="primary" (click)="addItem(day)">Agregar Comida</button>
             </div>
         </div>
         <div class="day__main" *ngIf="type == weeklyCalendarType.Move">
-            <div class="day__item" *ngFor="let move of day.items">
+            <div class="day__item" *ngFor="let move of day.items" (click)="editItem(day, move)">
                 <mat-icon class="item__icon">fitness_center</mat-icon>
-                <a class="item__title" (click)="editItem(day, move)">{{move.title}}</a>
-                <a class="item__delete" (click)="deleteItem(day, move)"><mat-icon>close</mat-icon></a>
+                <p class="item__title">{{move.title}}</p>
+                <a class="item__delete" (click)="$event.stopPropagation(); deleteItem(day, move)"><mat-icon>close</mat-icon></a>
             </div> 
             <div class="add__day" *ngIf="day.items.length == 0">
                 <button mat-stroked-button color="primary" (click)="addItem(day)">Agregar Ejercicio</button>

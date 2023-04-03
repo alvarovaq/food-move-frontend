@@ -58,4 +58,19 @@
             </div>
         </div>
     </div>
+    <div class="header">
+        <p class="subtitle">PDF</p>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="section" [ngSwitch]="recipe.attachment">
+        <div class="list__not-exist" *ngSwitchCase="null">
+            <p class="text">No existe ningún PDF</p>
+        </div>
+        <div class="list" *ngSwitchDefault>
+            <a [href]="getAttachmentUrl()" class="list__item list__item-normal">
+                <mat-icon class="icon">video_library</mat-icon>
+                <p class="url text">{{attachment?.title || 'archivo'}}</p> 
+            </a>
+        </div>
+    </div>
 </div>

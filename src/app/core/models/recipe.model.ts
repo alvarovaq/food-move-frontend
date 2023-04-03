@@ -9,6 +9,7 @@ export interface RecipeModel {
     meal: Meal;
     dish: Dish;
     links: string[];
+    videos: string[];
     ingredients: IngredientModel[];
     attachment?: string;
 }

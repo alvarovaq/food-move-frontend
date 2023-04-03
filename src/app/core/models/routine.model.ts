@@ -3,5 +3,6 @@ export interface RoutineModel {
     title: string;
     description?: string;
     links: string[];
+    videos: string[];
     attachment?: string;
 }

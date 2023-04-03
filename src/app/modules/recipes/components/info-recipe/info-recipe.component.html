@@ -29,6 +29,21 @@
         </div>
     </div>
     <div class="header">
+        <p class="subtitle">Vídeos</p>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="section" [ngSwitch]="recipe.videos.length">
+        <div class="list__not-exist" *ngSwitchCase="0">
+            <p class="text">No existe ningún vídeo</p>
+        </div>
+        <div class="list" *ngSwitchDefault>
+            <a [href]="video" *ngFor="let video of recipe.videos" class="list__item list__item-normal">
+                <mat-icon class="icon">video_library</mat-icon>
+                <p class="url text">{{video}}</p> 
+            </a>
+        </div>
+    </div>
+    <div class="header">
         <p class="subtitle">Ingredientes</p>
         <mat-divider></mat-divider>
     </div>

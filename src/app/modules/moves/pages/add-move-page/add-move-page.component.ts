@@ -18,6 +18,7 @@ import { ImportDialogComponent } from '@shared/components/import-dialog/import-d
 import { LinkStructure } from '@shared/components/links-input/interfaces/link-structure';
 import { AttachmentModel } from '@core/models/attachment.model';
 import { AttachmentsService } from '@core/services/attachments.service';
+import { VideoStructure } from '@shared/components/videos-input/interfaces/video-structure';
 
 @Component({
   selector: 'app-add-move-page',
@@ -35,6 +36,7 @@ export class AddMovePageComponent implements OnInit {
   move: MoveModel | null = null;
 
   links: Array<LinkStructure> = [];
+  videos: Array<VideoStructure> = [];
   attachment: AttachmentModel | null = null;
 
   buttonClear = {
@@ -102,7 +104,10 @@ export class AddMovePageComponent implements OnInit {
     if (this.edit) {
       this.links = this.move!.links.map((url, id) => {
         return {id, url};
-      });
+      }) || [];
+      this.videos = this.move!.videos.map((url, id) => {
+        return {id, url};
+      }) || [];
       if (this.move?.attachment) {
         this.loaderService.isLoading.next(true);
         this.attachmentsService.getAttachment(this.move!.attachment)
@@ -156,7 +161,10 @@ export class AddMovePageComponent implements OnInit {
           this.form.setValue({title: routine.title, description: routine.description ? routine.description : '', comments: this.comments});
           this.links = routine.links.map((url, id) => {
             return {id, url};
-          });
+          }) || [];
+          this.videos = routine.videos.map((url, id) => {
+            return {id, url};
+          }) || [];
           if (routine.attachment) {
             this.loaderService.isLoading.next(true);
             this.attachmentsService.getAttachment(routine.attachment)
@@ -226,7 +234,8 @@ export class AddMovePageComponent implements OnInit {
       title: this.title,
       description: this.description,
       comments: this.comments,
-      links: this.links.map(link => {return link.url}),
+      links: this.links.map(link => link.url),
+      videos: this.videos.map(video => video.url),
       attachment: this.attachment ? this.attachment._id : null
     };
     return edit ? request : this.optionalPipe.transform(request);

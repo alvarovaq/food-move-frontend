@@ -8,10 +8,11 @@ import { RouterService } from '@core/services/router.service';
 import { finalize } from 'rxjs/operators';
 import { SnackerService } from '@core/services/snacker.service';
 import { RoutineRequestModel } from '@core/models/routine-request.model';
-import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
+import { OptionalPipe } from '@shared/pipes/optional.pipe';
 import { LinkStructure } from '@shared/components/links-input/interfaces/link-structure';
 import { AttachmentModel } from '@core/models/attachment.model';
 import { AttachmentsService } from '@core/services/attachments.service';
+import { VideoStructure } from '@shared/components/videos-input/interfaces/video-structure';
 
 @Component({
   selector: 'app-add-routine-page',
@@ -25,6 +26,7 @@ export class AddRoutinePageComponent implements OnInit {
   routine: RoutineModel | null = null;
 
   links: Array<LinkStructure> = [];
+  videos: Array<VideoStructure> = [];
   attachment: AttachmentModel | null = null;
 
   buttonClear = {
@@ -76,7 +78,10 @@ export class AddRoutinePageComponent implements OnInit {
     if (this.edit) {
       this.links = this.routine!.links.map((url, id) => {
         return {id, url};
-      });
+      }) || [];
+      this.videos = this.routine!.videos.map((url, id) => {
+        return {id, url};
+      }) || [];
       if (this.routine?.attachment) {
         this.loaderService.isLoading.next(true);
         this.attachmentsService.getAttachment(this.routine!.attachment)
@@ -155,7 +160,8 @@ export class AddRoutinePageComponent implements OnInit {
     const request = {
       title: this.title,
       description: this.description,
-      links: this.links.map(link => {return link.url}),
+      links: this.links.map(link => link.url),
+      videos: this.videos.map(video => video.url),
       attachment: this.attachment ? this.attachment._id : null
     };
     return edit ? request : this.optionalPipe.transform(request);

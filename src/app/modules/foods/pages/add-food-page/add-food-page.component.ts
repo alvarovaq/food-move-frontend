@@ -22,6 +22,7 @@ import { LinkStructure } from '@shared/components/links-input/interfaces/link-st
 import { IngredientStructure } from '@shared/components/ingredients-input/interfaces/ingredient-structure';
 import { AttachmentModel } from '@core/models/attachment.model';
 import { AttachmentsService } from '@core/services/attachments.service';
+import { VideoStructure } from '@shared/components/videos-input/interfaces/video-structure';
 
 @Component({
   selector: 'app-add-food-page',
@@ -39,6 +40,7 @@ export class AddFoodPageComponent implements OnInit {
   food: FoodModel | null = null;
 
   links: Array<LinkStructure> = [];
+  videos: Array<VideoStructure> = [];
   ingredients: Array<IngredientStructure> = [];
   attachment: AttachmentModel | null = null;
 
@@ -112,10 +114,13 @@ export class AddFoodPageComponent implements OnInit {
       this.dish = this.food!.dish;
       this.links = this.food!.links.map((url, id) => {
         return {id, url};
-      });
+      }) || [];
+      this.videos = this.food!.videos.map((url, id) => {
+        return {id, url};
+      }) || [];
       this.ingredients = this.food!.ingredients.map((ingredient, id) => {
         return {id, ingredient};
-      });
+      }) || [];
       if (this.food?.attachment) {
         this.loaderService.isLoading.next(true);
         this.attachmentsService.getAttachment(this.food.attachment)
@@ -195,10 +200,13 @@ export class AddFoodPageComponent implements OnInit {
           this.dish = recipe.dish;
           this.links = recipe.links.map((url, id) => {
             return {id, url};
-          });
+          }) || [];
+          this.videos = recipe.videos.map((url, id) => {
+            return {id, url};
+          }) || [];
           this.ingredients = recipe.ingredients.map((ingredient, id) => {
             return {id, ingredient};
-          });
+          }) || [];
           if (recipe.attachment) {
             this.loaderService.isLoading.next(true);
             this.attachmentsService.getAttachment(recipe.attachment)
@@ -269,8 +277,9 @@ export class AddFoodPageComponent implements OnInit {
       comments: this.comments,
       meal: this.meal,
       dish: this.dish,
-      links: this.links.map(link => {return link.url}),
-      ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient}),
+      links: this.links.map(link => link.url),
+      videos: this.videos.map(video => video.url),
+      ingredients: this.ingredients.map(ingredient => ingredient.ingredient),
       attachment: this.attachment ? this.attachment._id : null
     }; 
     return edit ? request : this.optionalPipe.transform(request);

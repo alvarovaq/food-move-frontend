@@ -19,6 +19,7 @@ import { ImportType } from '@shared/components/import-dialog/enums/import-type';
 import { ImportDialogComponent } from '@shared/components/import-dialog/import-dialog.component';
 import { IngredientStructure } from '@shared/components/ingredients-input/interfaces/ingredient-structure';
 import { LinkStructure } from '@shared/components/links-input/interfaces/link-structure';
+import { VideoStructure } from '@shared/components/videos-input/interfaces/video-structure';
 import { OptionalPipe } from '@shared/pipes/optional.pipe';
 import { finalize } from 'rxjs'; 
 
@@ -37,6 +38,7 @@ export class AddRecipeForDietPageComponent implements OnInit {
   recipe: RecipeModel | null = null;
 
   links: Array<LinkStructure> = [];
+  videos: Array<VideoStructure> = [];
   ingredients: Array<IngredientStructure> = [];
   attachment: AttachmentModel | null = null;
 
@@ -116,10 +118,13 @@ export class AddRecipeForDietPageComponent implements OnInit {
       this.dish = this.recipe!.dish;
       this.links = this.recipe!.links.map((url, id) => {
         return {id, url};
-      });
+      }) || [];
+      this.videos = this.recipe!.videos.map((url, id) => {
+        return {id, url};
+      }) || [];
       this.ingredients = this.recipe!.ingredients.map((ingredient, id) => {
         return {id, ingredient};
-      });
+      }) || [];
       if (this.recipe?.attachment) {
         this.loaderService.isLoading.next(true);
         this.attachmentsService.getAttachment(this.recipe.attachment)
@@ -219,8 +224,9 @@ export class AddRecipeForDietPageComponent implements OnInit {
       description: this.description,
       meal: this.meal,
       dish: this.dish,
-      links: this.links.map(link => {return link.url}),
-      ingredients: this.ingredients.map(ingredient => {return ingredient.ingredient}),
+      links: this.links.map(link => link.url),
+      videos: this.videos.map(video => video.url),
+      ingredients: this.ingredients.map(ingredient => ingredient.ingredient),
       attachment: this.attachment ? this.attachment._id : null
     }; 
     return edit ? request : this.optionalPipe.transform(request);
@@ -242,10 +248,13 @@ export class AddRecipeForDietPageComponent implements OnInit {
           this.dish = recipe.dish;
           this.links = recipe.links.map((url, id) => {
             return {id, url};
-          });
+          }) || [];
+          this.videos = recipe.videos.map((url, id) => {
+            return {id, url};
+          }) || [];
           this.ingredients = recipe.ingredients.map((ingredient, id) => {
             return {id, ingredient};
-          });
+          }) || [];
           if (recipe.attachment) {
             this.loaderService.isLoading.next(true);
             this.attachmentsService.getAttachment(recipe.attachment)

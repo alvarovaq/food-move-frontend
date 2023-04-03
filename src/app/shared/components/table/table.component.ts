@@ -30,6 +30,7 @@ export class TableComponent implements OnInit {
   @Input() viewEdit: boolean = true;
   @Input() viewDelete: boolean = true;
 
+  @Output() onClick = new EventEmitter<any>();
   @Output() reset = new EventEmitter<boolean>();
   @Output() changePage = new EventEmitter<PageEvent>();
   @Output() changeSort = new EventEmitter<Sort>();
@@ -47,31 +48,35 @@ export class TableComponent implements OnInit {
     return [...this.tableStructure.filter((element) => {return element.index <= this.indexDisplay}).map((element) => {return element.field}), 'actions'];
   }
 
-  resetTable () {
+  clickItem (element: any): void {
+    this.onClick.emit(element);
+  }
+
+  resetTable (): void {
     this.reset.emit(true);
   }
 
-  changePageTable (value: PageEvent) {
+  changePageTable (value: PageEvent): void {
     this.changePage.emit(value);
   }
 
-  changeSortTable (value: Sort) {
+  changeSortTable (value: Sort): void {
     this.changeSort.emit(value);
   }
 
-  viewElement (element: any) {
+  viewElement (element: any): void {
     this.view.emit(element);
   }
 
-  infoElement (element: any) {
+  infoElement (element: any): void {
     this.info.emit(element);
   }
 
-  editElement (element: any) {
+  editElement (element: any): void {
     this.edit.emit(element);
   }
 
-  deleteElement (element: any) {
+  deleteElement (element: any): void {
     this.delete.emit(element);
   }
 

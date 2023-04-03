@@ -25,6 +25,7 @@ import { IngredientsInputComponent } from './components/ingredients-input/ingred
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LinksInputComponent } from './components/links-input/links-input.component';
 import { AddAttachmentComponent } from './components/add-attachment/add-attachment.component';
+import { VideosInputComponent } from './components/videos-input/videos-input.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AddAttachmentComponent } from './components/add-attachment/add-attachme
     AttachmentInputComponent,
     IngredientsInputComponent,
     LinksInputComponent,
-    AddAttachmentComponent
+    AddAttachmentComponent,
+    VideosInputComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +69,7 @@ import { AddAttachmentComponent } from './components/add-attachment/add-attachme
     AttachmentInputComponent,
     IngredientsInputComponent,
     LinksInputComponent,
+    VideosInputComponent,
     NamePipe,
     OptionalPipe,
     PhotoPipe

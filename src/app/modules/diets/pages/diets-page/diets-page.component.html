@@ -24,6 +24,7 @@
             [total]="total"
             [sortActive]="'title'"
             [viewInfo]="false"
+            (onClick)="editDiet($event)"
             (reset)="resetTable()"
             (changePage)="changePage($event)"
             (changeSort)="changeSort($event)"

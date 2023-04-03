@@ -23,6 +23,7 @@
             [page]="page"
             [total]="total"
             [sortActive]="'title'"
+            (onClick)="openInfoRoutine($event)"
             (reset)="resetTable()"
             (changePage)="changePage($event)"
             (changeSort)="changeSort($event)"

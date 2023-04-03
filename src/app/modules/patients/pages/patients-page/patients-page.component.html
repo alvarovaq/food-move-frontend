@@ -27,6 +27,7 @@
             [offItem]="true"
             [keyOffItem]="'employee'"
             [valueOffItem]="user?._id"
+            (onClick)="viewPatient($event)"
             (reset)="resetTable()"
             (changePage)="changePage($event)"
             (changeSort)="changeSort($event)"

@@ -18,6 +18,7 @@
             [page]="page"
             [total]="total"
             [sortActive]="'created_at'"
+            (onClick)="openInfoConsult($event)"
             (reset)="resetTable()"
             (changePage)="changePage($event)"
             (changeSort)="changeSort($event)"

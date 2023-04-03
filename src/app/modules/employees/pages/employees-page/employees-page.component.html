@@ -23,6 +23,7 @@
             [page]="page"
             [total]="total"
             [sortActive]="'name'"
+            (onClick)="openInfoEmployee($event)"
             (reset)="resetTable()"
             (changePage)="changePage($event)"
             (changeSort)="changeSort($event)"

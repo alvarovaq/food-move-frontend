@@ -25,7 +25,7 @@
 <div class="click__out" *ngIf="showProfilePanel && !isSmall" (click)="showProfilePanel = false"></div>
 <div class="profile__panel" *ngIf="showProfilePanel">
   <div class="profile__buttons">
-    <button mat-icon-button>
+    <button mat-icon-button (click)="goToConfiguration()">
       <mat-icon>settings</mat-icon>
     </button>
     <button mat-icon-button (click)="logout()">

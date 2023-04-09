@@ -68,5 +68,9 @@ export class SidenavComponent implements OnInit {
     this.routerService.goToRoutines();
     this.onSidenavClose();
   }
-
+  
+  goToConfiguration (): void {
+    this.routerService.goToConfiguration();
+    this.onSidenavClose();
+  }
 }

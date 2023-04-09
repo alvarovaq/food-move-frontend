@@ -80,6 +80,11 @@ export class NavbarComponent implements OnInit {
     this.routerService.goToRoutines();
   }
 
+  goToConfiguration (): void {
+    this.showProfilePanel = false;
+    this.routerService.goToConfiguration();
+  }
+
   onToggleSidenav () {
     this.sidenavToggle.emit();
   }

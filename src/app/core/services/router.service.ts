@@ -19,6 +19,12 @@ export class RouterService {
     await this.goToPatients();
   }
 
+  // Configuration
+
+  async goToConfiguration(): Promise<void> {
+    await this.router.navigate(['configuration']);
+  }
+
   // Patients
 
   async goToPatients(): Promise<void> {

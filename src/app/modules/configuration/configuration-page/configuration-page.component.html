@@ -4,7 +4,7 @@
 </div>
 <div class="main">
     <div class="edit__profile">
-        <form [formGroup]="form">
+        <form [formGroup]="form" (ngSubmit)="editProfile()">
             <div class="form__main">
                 <div class="form__box box__shadow">
                     <div class="form__profile-image">
@@ -64,6 +64,10 @@
                             <button type="button" mat-icon-button *ngIf="buttonClear.phone" (click)="clearField('phone')" class="btn__clear">
                                 <mat-icon mat-list-icon>clear</mat-icon>
                             </button>
+                        </div>
+                        <div class="buttons">
+                            <button mat-raised-button type="button" (click)="resetProfile()">Cancelar</button>
+                            <button mat-raised-button color="primary" type="submit">Guardar</button>
                         </div>
                     </div>
                 </div>

@@ -42,6 +42,24 @@ export class AuthService {
         }
     }
 
+    refreshUser (): void {
+        this.employeesService.getEmployeeByEmail(this.email!)
+        .subscribe(
+            res => {
+                this.employeesService.getEmployeeByEmail(this.email!)
+                .subscribe(
+                    res => {
+                        this.userLogged.next(res);
+                    },
+                    err => {
+                        console.log(err);
+                        this.logout();
+                    }
+                );
+            }
+        )
+    }
+
     login (authResponse: AuthResponseModel): void {
         this.setToken(authResponse.token);
         this.setEmail(authResponse.user.email);

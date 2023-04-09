@@ -1,0 +1,10 @@
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+.buttons button {
+    width: 30%;
+}

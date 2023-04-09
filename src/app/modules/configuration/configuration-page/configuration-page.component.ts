@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmployeeRequestModel } from '@core/models/employee-request.model';
 import { EmployeeModel } from '@core/models/employee.model';
 import { AuthService } from '@core/services/auth.service';
+import { EmployeesService } from '@core/services/employees.service';
 import { LoaderService } from '@core/services/loader.service';
+import { SnackerService } from '@core/services/snacker.service';
+import { OptionalPipe } from '@shared/pipes/optional.pipe';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-configuration-page',
@@ -27,8 +32,11 @@ export class ConfigurationPageComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
+    private readonly employeesService: EmployeesService,
     private readonly fb: FormBuilder,
-    private readonly loaderService: LoaderService
+    private readonly loaderService: LoaderService,
+    private readonly snackerService: SnackerService,
+    private readonly optionalPipe: OptionalPipe
   ) { }
 
   ngOnInit(): void {
@@ -91,6 +99,69 @@ export class ConfigurationPageComponent implements OnInit {
     this.removeProfileImage = false;
     this.selectedFile = undefined;
     this.imageFile = "";
+  }
+
+  resetProfile (): void {
+    this.initForm();
+  }
+
+  editProfile (): void {
+    this.loaderService.isLoading.next(true);
+    const employee = this.getEmployeeRequest(true);
+    this.employeesService.updateEmployee(this.employee!._id, employee)
+    .pipe(finalize(() => {
+      this.loaderService.isLoading.next(false);
+    }))
+    .subscribe(
+      res => {
+        this.employee = res;
+        if (this.selectedFile) {
+          const fd = new FormData();
+          fd.append('file', this.selectedFile!, this.selectedFile?.name);
+          this.employeesService.uploadProfileImage(res._id, fd)
+          .subscribe(
+            res => {
+              this.snackerService.showSuccessful("Perfil editado con éxito");
+              this.authService.refreshUser();
+            },
+            err => {
+              console.log(err);
+              this.snackerService.showError("Error al subir la foto la foto de perfil")
+            }
+          )
+        } else if (this.removeProfileImage) {
+          this.employeesService.removeProfileImage(res._id)
+          .subscribe(
+            res => {
+              this.snackerService.showSuccessful("Perfil editado con éxito");
+              this.authService.refreshUser();
+            },
+            err => {
+              console.log(err);
+              this.snackerService.showError("Error al eliminar la foto de perfil");
+            }
+          )
+        } else {
+          this.snackerService.showSuccessful("Perfil editado con éxito");
+          this.authService.refreshUser();
+        }
+      },
+      err => {
+        console.log(err);
+        this.snackerService.showError(err.error.message);
+      }
+    );
+  }
+
+  private getEmployeeRequest (edit: boolean = false): EmployeeRequestModel {
+    const request = {
+      name: this.name,
+      surname: this.surname,
+      email: this.email,
+      password: '123456789',
+      phone: this.phone
+    };
+    return edit ? request : this.optionalPipe.transform(request);
   }
 
 }

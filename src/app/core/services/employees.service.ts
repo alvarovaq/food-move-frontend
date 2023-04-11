@@ -6,6 +6,7 @@ import { EmployeeRequestModel } from '../models/employee-request.model';
 import { environment } from 'src/environments/environment';
 import { CustomResponse } from '../interfaces/custom-response';
 import { CustomQuery } from '@core/interfaces/custom-query';
+import { ChangePassword } from '@core/models/change-password';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,10 @@ export class EmployeesService {
 
   removeProfileImage (id: string): Observable<EmployeeModel> {
     return this.http.delete<EmployeeModel>(`${environment.api}/employees/remove-profile-image/${id}`);
+  }
+
+  changePassword (id: string, changePassword: ChangePassword): Observable<EmployeeModel> {
+    return this.http.post<EmployeeModel>(`${environment.api}/employees/change-password/${id}`, changePassword);
   }
 
 }

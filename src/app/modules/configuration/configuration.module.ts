@@ -8,13 +8,15 @@ import { MatModule } from '@shared/modules/mat/mat.module';
 import { SharedModule } from '@shared/shared.module';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
+import { ChangePasswordSettingsComponent } from './components/change-password-settings/change-password-settings.component';
 
 
 @NgModule({
   declarations: [
     ConfigurationComponent,
     ConfigurationPageComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
+    ChangePasswordSettingsComponent
   ],
   imports: [
     CommonModule,

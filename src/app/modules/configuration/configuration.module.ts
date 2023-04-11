@@ -7,12 +7,14 @@ import { ConfigurationPageComponent } from './configuration-page/configuration-p
 import { MatModule } from '@shared/modules/mat/mat.module';
 import { SharedModule } from '@shared/shared.module';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
 
 
 @NgModule({
   declarations: [
     ConfigurationComponent,
-    ConfigurationPageComponent
+    ConfigurationPageComponent,
+    ProfileSettingsComponent
   ],
   imports: [
     CommonModule,

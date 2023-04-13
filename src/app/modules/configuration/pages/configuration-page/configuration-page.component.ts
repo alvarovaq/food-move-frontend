@@ -12,7 +12,7 @@ import { finalize } from 'rxjs';
 @Component({
   selector: 'app-configuration-page',
   templateUrl: './configuration-page.component.html',
-  styleUrls: ['./configuration-page.component.css', '../../../../assets/styles/form.css']
+  styleUrls: ['./configuration-page.component.css', '../../../../../assets/styles/form.css']
 })
 export class ConfigurationPageComponent implements OnInit {
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConfigurationComponent } from './configuration.component';
-import { ConfigurationPageComponent } from './configuration-page/configuration-page.component';
+import { ConfigurationPageComponent } from './pages/configuration-page/configuration-page.component';
 
 const routes: Routes = [
   { path: '', component: ConfigurationComponent, children: [

@@ -22,15 +22,10 @@ export class ChangePasswordSettingsComponent implements OnInit {
   form!: FormGroup;
 
   buttonClear = {
-    name: false,
-    surname: false,
-    email: false,
-    phone: false
+    password: false,
+    newPassword: false,
+    confirmation: false
   }
-
-  imageFile?: string = "";
-  selectedFile?: File;
-  removeProfileImage: boolean = false;
 
   constructor(
     private readonly employeesService: EmployeesService,
@@ -47,27 +42,22 @@ export class ChangePasswordSettingsComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      name: [this.employee!.name, [Validators.required]],
-      surname: [this.employee!.surname],
-      email: [this.employee!.email, [Validators.required, Validators.email]],
-      phone: [this.employee!.phone],
+      password: [null],
+      newPassword: [null],
+      confirmation: [null]
     });
   }
 
-  get name (): string | null {
-    return this.form.value.name;
+  get password (): string | null {
+    return this.form.value.password;
   }
 
-  get surname (): string | null {
-    return this.form.value.surname;
+  get newPassword (): string | null {
+    return this.form.value.newPassword;
   }
 
-  get email (): string | null {
-    return this.form.value.email;
-  }
-
-  get phone (): string | null {
-    return this.form.value.phone;
+  get confirmation (): string | null {
+    return this.form.value.confirmation;
   }
 
   clearField (field: string): void {
@@ -75,88 +65,26 @@ export class ChangePasswordSettingsComponent implements OnInit {
     this.form.reset(this.form.value);
   }
 
-  onSelectFile (event: any): void {
-    this.selectedFile = <File>event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = e => this.imageFile = reader.result as string;
-    reader.readAsDataURL(this.selectedFile);
-  }
-
-  onRemoveProfileImage (): void {
-    this.removeProfileImage = true;
-    this.selectedFile = undefined;
-    this.imageFile = "";
-  }
-
-  onRecoverProfileImage (): void {
-    this.removeProfileImage = false;
-    this.selectedFile = undefined;
-    this.imageFile = "";
-  }
-
-  resetProfile (): void {
+  reset (): void {
     this.initForm();
-    this.onRecoverProfileImage();
   }
 
-  editProfile (): void {
-    this.loaderService.isLoading.next(true);
-    const employee = this.getEmployeeRequest(true);
-    this.employeesService.updateEmployee(this.employee!._id, employee)
-    .pipe(finalize(() => {
-      this.loaderService.isLoading.next(false);
-    }))
-    .subscribe(
-      res => {
-        this.employee = res;
-        this.setEmployee.emit(res);
-        if (this.selectedFile) {
-          const fd = new FormData();
-          fd.append('file', this.selectedFile!, this.selectedFile?.name);
-          this.employeesService.uploadProfileImage(res._id, fd)
-          .subscribe(
-            res => {
-              this.snackerService.showSuccessful("Perfil editado con éxito");
-              this.authService.refreshUser();
-            },
-            err => {
-              console.log(err);
-              this.snackerService.showError("Error al subir la foto la foto de perfil")
-            }
-          )
-        } else if (this.removeProfileImage) {
-          this.employeesService.removeProfileImage(res._id)
-          .subscribe(
-            res => {
-              this.snackerService.showSuccessful("Perfil editado con éxito");
-              this.authService.refreshUser();
-            },
-            err => {
-              console.log(err);
-              this.snackerService.showError("Error al eliminar la foto de perfil");
-            }
-          )
-        } else {
-          this.snackerService.showSuccessful("Perfil editado con éxito");
-          this.authService.refreshUser();
+  changePassword (): void {
+    if (this.newPassword == this.confirmation) {
+      this.employeesService.changePassword(this.employee!._id, {password: this.password || '', newPassword: this.newPassword || ''})
+      .subscribe(
+        res => {
+          this.authService.logout();
+          this.snackerService.showSuccessful("Contraseña cambiada correctamente");
+        },
+        err => {
+          console.log(err);
+          this.snackerService.showError(err.error.message);
         }
-      },
-      err => {
-        console.log(err);
-        this.snackerService.showError(err.error.message);
-      }
-    );
-  }
-
-  private getEmployeeRequest (edit: boolean = false): EmployeeRequestModel {
-    const request = {
-      name: this.name,
-      surname: this.surname,
-      email: this.email,
-      password: '123456789',
-      phone: this.phone
-    };
-    return edit ? request : this.optionalPipe.transform(request);
+      );
+    } else {
+      this.snackerService.showError("Las contraseñas no coinciden");
+    }
   }
 
 }

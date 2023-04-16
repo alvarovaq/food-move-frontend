@@ -6,6 +6,7 @@ import { GraphicsComponent } from './graphics.component';
 import { GraphicsPageComponent } from './pages/graphics-page/graphics-page.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MatModule } from '../../shared/modules/mat/mat.module';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MatModule } from '../../shared/modules/mat/mat.module';
     CommonModule,
     GraphicsRoutingModule,
     MatModule,
-    SharedModule
+    SharedModule,
+    NgChartsModule
   ]
 })
 export class GraphicsModule { }

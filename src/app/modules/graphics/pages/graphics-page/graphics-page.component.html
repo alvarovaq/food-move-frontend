@@ -1,7 +1,11 @@
 <app-header-patient [patient]="patient" title="Gráficas"></app-header-patient>
-<canvas baseChart class="chart"
-        [data]="lineChartData"
-        [options]="lineChartOptions"
-        [type]="lineChartType"
-        (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)"></canvas>
+<div class="main">
+        <div class="box__shadow box__graphic">
+                <canvas baseChart class="chart"
+                [data]="lineChartData"
+                [options]="lineChartOptions"
+                [type]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+        </div>
+</div>

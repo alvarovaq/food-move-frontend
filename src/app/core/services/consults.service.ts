@@ -6,6 +6,8 @@ import { ConsultModel } from '../models/consult.model';
 import { ConsultRequestModel } from '../models/consult-request.model';
 import { CustomQuery } from '@core/interfaces/custom-query';
 import { CustomResponse } from '@core/interfaces/custom-response';
+import { DateRange } from '@core/interfaces/date-range';
+import { Measure } from '@core/interfaces/measure';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +36,10 @@ export class ConsultsService {
 
   removeConsult (id: string): Observable<ConsultModel> {
     return this.http.delete<ConsultModel>(`${environment.api}/consults/remove/${id}`);
+  }
+
+  getValues (id: string, key: string, dateRange: DateRange): Observable<Measure[]> {
+    return this.http.post<Measure[]>(`${environment.api}/consults/getValues/${id}/${key}`, dateRange);
   }
 
 }

@@ -10,6 +10,8 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import 'chartjs-adapter-luxon';
 import { DateTime } from 'luxon';
+import { Measure } from '@core/interfaces/measure';
+import { ConsultsService } from '@core/services/consults.service';
 
 @Component({
   selector: 'app-graphics-page',
@@ -20,7 +22,10 @@ export class GraphicsPageComponent implements OnInit {
 
   patient: PatientModel | null = null;
 
+  measures: Array<Measure> = [];
+
   constructor(
+    private readonly consultsService: ConsultsService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly patientsService: PatientsService,
     private readonly routerService: RouterService,
@@ -34,6 +39,33 @@ export class GraphicsPageComponent implements OnInit {
     .subscribe(
       res => {
         this.patient = res;
+        this.consultsService.getValues(res!._id, 'masa', {startDate: new Date(2023,1,1), endDate: new Date(2024,1,1)})
+        .subscribe(
+          res => {
+            this.measures = res;
+            console.log(res);
+            this.lineChartData = {
+              datasets: [
+                {
+                  data: this.measures.map((measure) => {return {x: this.newDateString(new Date(measure.date)), y: measure.value}}),
+                  label: 'Series A',
+                  backgroundColor: 'rgba(148,159,177,0.2)',
+                  borderColor: 'rgba(148,159,177,1)',
+                  pointBackgroundColor: 'rgba(148,159,177,1)',
+                  pointBorderColor: '#fff',
+                  pointHoverBackgroundColor: '#fff',
+                  pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+                  fill: 'origin',
+                }
+              ]
+            };
+            this.chart?.update();
+            console.log(this.lineChartData);
+          },
+          err => {
+            console.log(err);
+          }
+        );
       },
       err => {
         console.log(err);
@@ -47,14 +79,14 @@ export class GraphicsPageComponent implements OnInit {
     return DateTime.now().plus({days}).toJSDate();
   }
 
-  newDateString (days: number): string | null {
-    return DateTime.now().plus({days}).toISO();
+  newDateString (date: Date): string | null {
+    return DateTime.fromJSDate(date).toISO();
   }
 
-  public lineChartData = {
+  lineChartData = {
     datasets: [
       {
-        data: [ {x: this.newDateString(1), y: 120}, {x: this.newDateString(3), y: 100}, {x: this.newDateString(6), y: 115}, {x: this.newDateString(7), y: 119}],
+        data: this.measures.map((measure) => {return {x: this.newDateString(measure.date), y: measure.value}}),
         label: 'Series A',
         backgroundColor: 'rgba(148,159,177,0.2)',
         borderColor: 'rgba(148,159,177,1)',
@@ -67,7 +99,7 @@ export class GraphicsPageComponent implements OnInit {
     ]
   };
 
-  public lineChartOptions: ChartConfiguration['options'] = {
+  lineChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
         tension: 0.5
@@ -82,7 +114,7 @@ export class GraphicsPageComponent implements OnInit {
         }
       },
       y: {
-        position: 'left',
+        position: 'left'
       },
     },
 
@@ -111,17 +143,17 @@ export class GraphicsPageComponent implements OnInit {
     }
   };
 
-  public lineChartType: ChartType = 'line';
+  lineChartType: ChartType = 'line';
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
   public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
 }

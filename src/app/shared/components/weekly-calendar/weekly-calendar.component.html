@@ -8,7 +8,7 @@
             </button>
         </div>
         <div class="day__main" *ngIf="type == weeklyCalendarType.Food">
-            <div class="day__item" *ngFor="let food of day.items" [style.background]="foodToolService.getBackground(food.meal)" (click)="editItem(day, food)">
+            <div class="day__item" *ngFor="let food of day.items" [style.background]="(food.meal | foodBackground)" (click)="editItem(day, food)">
                 <mat-icon class="item__icon">{{foodToolService.getIcon(food.meal)}}</mat-icon>
                 <p class="item__title">{{food.title}}</p>
                 <img [src]="(food.rating | ratingScr)" class="item__rating" *ngIf="showRating && food.rating">

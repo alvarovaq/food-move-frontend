@@ -2,6 +2,12 @@ mat-toolbar {
     border-radius: 0 0 3px 3px;
 }
 
+.logo {
+    margin-left: 10px;
+    width: 160px;
+    cursor: pointer;
+}
+
 .navbar {
     position: fixed;
     width: 100%;

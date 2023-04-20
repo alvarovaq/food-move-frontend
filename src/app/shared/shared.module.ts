@@ -28,6 +28,7 @@ import { AddAttachmentComponent } from './components/add-attachment/add-attachme
 import { VideosInputComponent } from './components/videos-input/videos-input.component';
 import { RatingScrPipe } from './pipes/rating-scr.pipe';
 import { FoodBackgroundPipe } from './pipes/food-background.pipe';
+import { FoodIconPipe } from './pipes/food-icon.pipe';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { FoodBackgroundPipe } from './pipes/food-background.pipe';
     AddAttachmentComponent,
     VideosInputComponent,
     RatingScrPipe,
-    FoodBackgroundPipe
+    FoodBackgroundPipe,
+    FoodIconPipe
   ],
   imports: [
     CommonModule,
@@ -78,7 +80,8 @@ import { FoodBackgroundPipe } from './pipes/food-background.pipe';
     OptionalPipe,
     PhotoPipe,
     RatingScrPipe,
-    FoodBackgroundPipe
+    FoodBackgroundPipe,
+    FoodIconPipe
   ],
   providers: [
     SnackerService,

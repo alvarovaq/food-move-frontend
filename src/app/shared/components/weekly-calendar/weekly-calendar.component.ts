@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FoodToolService } from '@core/services/food-tool.service';
 import { WeeklyCalendarType } from './enums/weekly-calendar-type';
 import { Day } from './interfaces/day';
 
@@ -21,9 +20,7 @@ export class WeeklyCalendarComponent implements OnInit {
   
   weeklyCalendarType = WeeklyCalendarType;
 
-  constructor(
-    public readonly foodToolService: FoodToolService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

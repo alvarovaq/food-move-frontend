@@ -10,7 +10,6 @@ import { FoodsService } from '@core/services/foods.service';
 import { ViewPatientService } from '@core/services/view-patient.service';
 import { DateRange } from '@core/interfaces/date-range';
 import { DialogService } from '@core/services/dialog.service';
-import { FoodToolService } from '@core/services/food-tool.service';
 import { WeeklyCalendarType } from '@shared/components/weekly-calendar/enums/weekly-calendar-type';
 import { Day } from '@shared/components/weekly-calendar/interfaces/day';
 import { daysInit } from '@shared/components/weekly-calendar/constant/days-init';
@@ -41,7 +40,6 @@ export class FoodsPageComponent implements OnInit {
     private readonly loaderService: LoaderService,
     private readonly viewPatientService: ViewPatientService,
     private readonly dialogService: DialogService,
-    public readonly foodToolService: FoodToolService,
     private readonly dialog: MatDialog
   ) { }
 
@@ -86,7 +84,7 @@ export class FoodsPageComponent implements OnInit {
     this.days.forEach((_, i) => {
       this.days[i].items = foods.filter(foodItem => {
         return getDay(foodItem.date) - 1 == i;
-      }).sort((a,b) => this.foodToolService.sort(a,b));
+      });
       this.days[i].date = addDay(this.dateRange.startDate, i);
     });
   }

@@ -1,7 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DietsService } from '@core/services/diets.service';
-import { FoodToolService } from '@core/services/food-tool.service';
 import { RecipesService } from '@core/services/recipes.service';
 import { RoutinesService } from '@core/services/routines.service';
 import { ImportType } from './enums/import-type';
@@ -24,7 +23,6 @@ export class ImportDialogComponent implements OnInit {
     private readonly recipesService: RecipesService,
     private readonly routinesService: RoutinesService,
     private readonly dietsService: DietsService,
-    public foodToolService: FoodToolService,
     private readonly dialogRef: MatDialogRef<ImportDialogComponent>
   ) { }
 
@@ -38,7 +36,7 @@ export class ImportDialogComponent implements OnInit {
         this.recipesService.filter({})
         .subscribe(
           res => {
-            this.items = res.items.sort((a,b) => this.foodToolService.sort(a,b));
+            this.items = res.items;
             this.dataSource = [...this.items];
           },
           err => {

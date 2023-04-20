@@ -5,7 +5,6 @@ import { DietModel } from '@core/models/diet';
 import { RecipeModel } from '@core/models/recipe.model';
 import { DialogService } from '@core/services/dialog.service';
 import { DietsService } from '@core/services/diets.service';
-import { FoodToolService } from '@core/services/food-tool.service';
 import { LoaderService } from '@core/services/loader.service';
 import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
@@ -33,7 +32,6 @@ export class EditDietPageComponent implements OnInit {
     private readonly snackerService: SnackerService,
     private readonly loaderService: LoaderService,
     private readonly dialogService: DialogService,
-    private readonly foodToolService: FoodToolService,
     private readonly router: Router
   ) { }
 
@@ -64,37 +62,37 @@ export class EditDietPageComponent implements OnInit {
     this.days = [
       {
         day: DayOfWeek.Lunes,
-        items: this.diet!.monday.sort((a,b) => this.foodToolService.sort(a,b)),
+        items: this.diet!.monday,
         date: new Date()
       },
       {
         day: DayOfWeek.Martes,
-        items: this.diet!.tuesday.sort((a,b) => this.foodToolService.sort(a,b)),
+        items: this.diet!.tuesday,
         date: new Date()
       },
       {
         day: DayOfWeek.Miercoles,
-        items: this.diet!.wednesday.sort((a,b) => this.foodToolService.sort(a,b)),
+        items: this.diet!.wednesday,
         date: new Date()
       },
       {
         day: DayOfWeek.Jueves,
-        items: this.diet!.thursday.sort((a,b) => this.foodToolService.sort(a,b)),
+        items: this.diet!.thursday,
         date: new Date()
       },
       {
         day: DayOfWeek.Viernes,
-        items: this.diet!.friday.sort((a,b) => this.foodToolService.sort(a,b)),
+        items: this.diet!.friday,
         date: new Date()
       },
       {
         day: DayOfWeek.Sabado,
-        items: this.diet!.saturday.sort((a,b) => this.foodToolService.sort(a,b)),
+        items: this.diet!.saturday,
         date: new Date()
       },
       {
         day: DayOfWeek.Domingo,
-        items: this.diet!.sunday.sort((a,b) => this.foodToolService.sort(a,b)),
+        items: this.diet!.sunday,
         date: new Date()
       }
     ];

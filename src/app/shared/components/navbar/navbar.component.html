@@ -5,7 +5,8 @@
           <button mat-icon-button (click)="onToggleSidenav()" *ngIf="isSmall">
             <mat-icon>menu</mat-icon>
           </button>
-          <span class="title">Food & Move</span>
+          <!--<span class="title">Food & Move</span>-->
+          <img src="assets/images/logo.png" class="logo" (click)="goToPatients()">
           <span class="spacer" *ngIf="!isSmall"></span>
           <div *ngIf="!isSmall">
             <button mat-button (click)="goToPatients()" [style.background]="isActive('patients') ? 'rgba(0,0,0,0.1)' : ''" style="transition: all .3s;">Pacientes</button>

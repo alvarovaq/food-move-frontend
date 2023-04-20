@@ -26,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LinksInputComponent } from './components/links-input/links-input.component';
 import { AddAttachmentComponent } from './components/add-attachment/add-attachment.component';
 import { VideosInputComponent } from './components/videos-input/videos-input.component';
+import { RatingScrPipe } from './pipes/rating-scr.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { VideosInputComponent } from './components/videos-input/videos-input.com
     IngredientsInputComponent,
     LinksInputComponent,
     AddAttachmentComponent,
-    VideosInputComponent
+    VideosInputComponent,
+    RatingScrPipe
   ],
   imports: [
     CommonModule,
@@ -72,7 +74,8 @@ import { VideosInputComponent } from './components/videos-input/videos-input.com
     VideosInputComponent,
     NamePipe,
     OptionalPipe,
-    PhotoPipe
+    PhotoPipe,
+    RatingScrPipe
   ],
   providers: [
     SnackerService,

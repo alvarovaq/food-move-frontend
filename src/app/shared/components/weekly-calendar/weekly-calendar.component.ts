@@ -13,6 +13,7 @@ export class WeeklyCalendarComponent implements OnInit {
   @Input() days: Day[] = [];
   @Input() type: WeeklyCalendarType = WeeklyCalendarType.Food;
   @Input() showDate: boolean = true;
+  @Input() showRating: boolean = true;
 
   @Output() add = new EventEmitter<Day>();
   @Output() edit = new EventEmitter<{day: Day, item: any}>();

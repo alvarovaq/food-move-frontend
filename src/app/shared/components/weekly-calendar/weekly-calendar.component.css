@@ -74,6 +74,11 @@
     margin-left: 20px;
 }
 
+.day__item .item__rating {
+    width: 25px;
+    margin-right: 5px;
+}
+
 .day__item .item__delete {
     display: flex;
     align-items: center;

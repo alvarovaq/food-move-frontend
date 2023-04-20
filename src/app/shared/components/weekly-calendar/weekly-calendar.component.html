@@ -11,6 +11,7 @@
             <div class="day__item" *ngFor="let food of day.items" [style.background]="foodToolService.getBackground(food.meal)" (click)="editItem(day, food)">
                 <mat-icon class="item__icon">{{foodToolService.getIcon(food.meal)}}</mat-icon>
                 <p class="item__title">{{food.title}}</p>
+                <img src="assets/images/sad.png" class="item__rating" *ngIf="showRating && food.rating">
                 <a class="item__delete" (click)="$event.stopPropagation(); deleteItem(day, food)"><mat-icon>close</mat-icon></a>
             </div> 
             <div class="add__day" *ngIf="day.items.length == 0">

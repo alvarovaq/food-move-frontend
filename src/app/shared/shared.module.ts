@@ -29,6 +29,7 @@ import { VideosInputComponent } from './components/videos-input/videos-input.com
 import { RatingScrPipe } from './pipes/rating-scr.pipe';
 import { FoodBackgroundPipe } from './pipes/food-background.pipe';
 import { FoodIconPipe } from './pipes/food-icon.pipe';
+import { FoodSortPipe } from './pipes/food-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { FoodIconPipe } from './pipes/food-icon.pipe';
     VideosInputComponent,
     RatingScrPipe,
     FoodBackgroundPipe,
-    FoodIconPipe
+    FoodIconPipe,
+    FoodSortPipe
   ],
   imports: [
     CommonModule,
@@ -81,7 +83,8 @@ import { FoodIconPipe } from './pipes/food-icon.pipe';
     PhotoPipe,
     RatingScrPipe,
     FoodBackgroundPipe,
-    FoodIconPipe
+    FoodIconPipe,
+    FoodSortPipe
   ],
   providers: [
     SnackerService,

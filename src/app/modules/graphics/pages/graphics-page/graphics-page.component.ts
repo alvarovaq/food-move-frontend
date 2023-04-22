@@ -6,12 +6,12 @@ import { LoaderService } from '../../../../core/services/loader.service';
 import { RouterService } from '../../../../core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { ViewPatientService } from '../../../../core/services/view-patient.service';
-import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartType } from 'chart.js';
 import 'chartjs-adapter-luxon';
 import { DateTime } from 'luxon';
 import { Measure } from '@core/interfaces/measure';
 import { ConsultsService } from '@core/services/consults.service';
+import { measures2PointsData, newTimeData } from '@shared/components/graphic/utils/graphic-utils';
 
 @Component({
   selector: 'app-graphics-page',
@@ -23,6 +23,7 @@ export class GraphicsPageComponent implements OnInit {
   patient: PatientModel | null = null;
 
   measures: Array<Measure> = [];
+  timeData = newTimeData('prueba', []);
 
   constructor(
     private readonly consultsService: ConsultsService,
@@ -43,7 +44,7 @@ export class GraphicsPageComponent implements OnInit {
         .subscribe(
           res => {
             this.measures = res;
-            console.log(res);
+            this.timeData.data = measures2PointsData(this.measures);
             this.lineChartData = {
               datasets: [
                 {
@@ -59,8 +60,6 @@ export class GraphicsPageComponent implements OnInit {
                 }
               ]
             };
-            this.chart?.update();
-            console.log(this.lineChartData);
           },
           err => {
             console.log(err);
@@ -73,6 +72,25 @@ export class GraphicsPageComponent implements OnInit {
         this.snackerService.showError("No se ha encontrado al paciente");
       }
     );
+  }
+
+  test () {
+    this.timeData.data = [];
+    /*this.lineChartData = {
+      datasets: [
+        {
+          data: [],
+          label: 'Series A',
+          backgroundColor: 'rgba(148,159,177,0.2)',
+          borderColor: 'rgba(148,159,177,1)',
+          pointBackgroundColor: 'rgba(148,159,177,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+          fill: 'origin',
+        }
+      ]
+    };*/
   }
 
   newDate (days: number): Date {
@@ -113,47 +131,13 @@ export class GraphicsPageComponent implements OnInit {
           unit: 'day'
         }
       },
-      y: {
-        position: 'left'
-      },
     },
 
     plugins: {
-      legend: { display: true },
-      /*annotation: {
-        annotations: [
-          {
-            type: 'line',
-            scaleID: 'x',
-            value: 'March',
-            borderColor: 'orange',
-            borderWidth: 2,
-            label: {
-              display: true,
-              position: 'center',
-              color: 'orange',
-              content: 'LineAnno',
-              font: {
-                weight: 'bold'
-              }
-            }
-          },
-        ],
-      }*/
+      legend: { display: true }
     }
   };
 
   lineChartType: ChartType = 'line';
-
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
-  // events
-  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    //console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    //console.log(event, active);
-  }
 
 }

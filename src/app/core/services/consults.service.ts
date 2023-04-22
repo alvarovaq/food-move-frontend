@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ConsultModel } from '../models/consult.model';
 import { ConsultRequestModel } from '../models/consult-request.model';
@@ -39,7 +39,13 @@ export class ConsultsService {
   }
 
   getValues (id: string, key: string, dateRange: DateRange): Observable<Measure[]> {
-    return this.http.post<Measure[]>(`${environment.api}/consults/getValues/${id}/${key}`, dateRange);
+    return this.http.post<Measure[]>(`${environment.api}/consults/getValues/${id}/${key}`, dateRange).pipe(
+      map((data) => {
+        return data.map((measure) => {
+          return {...measure, date: new Date(measure.date)}
+        });
+      })
+    );
   }
 
 }

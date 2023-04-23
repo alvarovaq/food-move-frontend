@@ -33,42 +33,42 @@ export class GraphicsPageComponent implements OnInit {
     },
     {
       key: 'imc',
-      color: [148,159,177],
+      color: [255,110,110],
       timeData: newTimeData('Índece de Masa Corporal (IMC) [Kg/m2]', [])
     },
     {
       key: 'per_abdominal',
-      color: [148,159,177],
+      color: [255,251,110],
       timeData: newTimeData('Perímetro Abdominal [cm]', [])
     },
     {
       key: 'tension',
-      color: [148,159,177],
+      color: [100,255,0],
       timeData: newTimeData('Tensión Arterial [mmHg]', [])
     },
     {
       key: 'trigliceridos',
-      color: [148,159,177],
+      color: [0,209,255],
       timeData: newTimeData('Triglicéridos Séricos', [])
     },
     {
       key: 'hdl',
-      color: [148,159,177],
+      color: [208,0,255],
       timeData: newTimeData('HDL - Colesterol', [])
     },
     {
       key: 'ldl',
-      color: [148,159,177],
+      color: [255,174,0],
       timeData: newTimeData('LDL - Colesterol', [])
     },
     {
       key: 'hemoglobina',
-      color: [148,159,177],
+      color: [0,255,205],
       timeData: newTimeData('Hemoglobina Glicosilada (hba1c)', [])
     },
     {
       key: 'glucosa',
-      color: [148,159,177],
+      color: [50,50,50],
       timeData: newTimeData('Glucosa en Plasma', [])
     }
   ];

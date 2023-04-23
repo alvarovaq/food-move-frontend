@@ -1,4 +1,6 @@
 <app-header-patient [patient]="patient" title="Gráficas"></app-header-patient>
 <div class="main">
-        <app-graphic [timeData]="graphic.timeData" [color]="graphic.color" class="graphic" *ngFor="let graphic of graphics"></app-graphic>
+        <div class="graphics">
+                <app-graphic [timeData]="graphic.timeData" [color]="graphic.color" class="graphic" *ngFor="let graphic of graphics"></app-graphic>
+        </div>
 </div>

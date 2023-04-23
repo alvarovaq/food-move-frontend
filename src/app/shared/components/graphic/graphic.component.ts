@@ -3,6 +3,7 @@ import { Measure } from '@core/interfaces/measure';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { DateTime } from 'luxon';
 import { TimeData } from './interfaces/time-data.interface';
+import { GraphicColor } from './types/types';
 
 @Component({
   selector: 'app-graphic',
@@ -12,10 +13,23 @@ import { TimeData } from './interfaces/time-data.interface';
 export class GraphicComponent implements OnInit {
 
   @Input() timeData?: TimeData;
+  @Input() color: GraphicColor = [0,0,0];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  backgroundColor (): string {
+    return 'rgba(' + this.color[0] + ',' + this.color[1] + ',' + this.color[2] + ',0.2)';
+  }
+
+  borderColor (): string {
+    return 'rgba(' + this.color[0] + ',' + this.color[1] + ',' + this.color[2] + ')';
+  }
+
+  pointHoverBorderColor (): string {
+    return 'rgba(' + this.color[0] + ',' + this.color[1] + ',' + this.color[2] + ',0.8)';
   }
 
   get lineChartData () {
@@ -23,12 +37,12 @@ export class GraphicComponent implements OnInit {
       datasets: [{
         data: this.timeData?.data,
         label: this.timeData?.label,
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
+        backgroundColor: this.backgroundColor(),
+        borderColor: this.borderColor(),
+        pointBackgroundColor: this.backgroundColor(),
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+        pointHoverBorderColor: this.pointHoverBorderColor(),
         fill: 'origin',
       }]
     };

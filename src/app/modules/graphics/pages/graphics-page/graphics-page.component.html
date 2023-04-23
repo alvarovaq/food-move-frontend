@@ -1,11 +1,4 @@
 <app-header-patient [patient]="patient" title="Gráficas"></app-header-patient>
 <div class="main">
-        <div class="box__shadow box__graphic">
-                <canvas baseChart class="chart"
-                [data]="lineChartData"
-                [options]="lineChartOptions"
-                [type]="lineChartType"></canvas>
-        </div>
-        <button (click)="test()">lkajsldfañ</button>
-        <app-graphic [timeData]="timeData" [color]="[148,159,177]" class="graphic"></app-graphic>
+        <app-graphic [timeData]="graphic.timeData" [color]="graphic.color" class="graphic" *ngFor="let graphic of graphics"></app-graphic>
 </div>

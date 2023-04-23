@@ -12,6 +12,7 @@ import { DateTime } from 'luxon';
 import { Measure } from '@core/interfaces/measure';
 import { ConsultsService } from '@core/services/consults.service';
 import { measures2PointsData, newTimeData } from '@shared/components/graphic/utils/graphic-utils';
+import { GraphicStructure } from '@modules/graphics/interfaces/graphic-structure.interface';
 
 @Component({
   selector: 'app-graphics-page',
@@ -22,8 +23,55 @@ export class GraphicsPageComponent implements OnInit {
 
   patient: PatientModel | null = null;
 
-  measures: Array<Measure> = [];
   timeData = newTimeData('prueba', []);
+
+  graphics: Array<GraphicStructure> = [
+    {
+      key: 'masa',
+      color: [148,159,177],
+      timeData: newTimeData('Masa [Kg]', [])
+    },
+    {
+      key: 'imc',
+      color: [148,159,177],
+      timeData: newTimeData('Índece de Masa Corporal (IMC) [Kg/m2]', [])
+    },
+    {
+      key: 'per_abdominal',
+      color: [148,159,177],
+      timeData: newTimeData('Perímetro Abdominal [cm]', [])
+    },
+    {
+      key: 'tension',
+      color: [148,159,177],
+      timeData: newTimeData('Tensión Arterial [mmHg]', [])
+    },
+    {
+      key: 'trigliceridos',
+      color: [148,159,177],
+      timeData: newTimeData('Triglicéridos Séricos', [])
+    },
+    {
+      key: 'hdl',
+      color: [148,159,177],
+      timeData: newTimeData('HDL - Colesterol', [])
+    },
+    {
+      key: 'ldl',
+      color: [148,159,177],
+      timeData: newTimeData('LDL - Colesterol', [])
+    },
+    {
+      key: 'hemoglobina',
+      color: [148,159,177],
+      timeData: newTimeData('Hemoglobina Glicosilada (hba1c)', [])
+    },
+    {
+      key: 'glucosa',
+      color: [148,159,177],
+      timeData: newTimeData('Glucosa en Plasma', [])
+    }
+  ];
 
   constructor(
     private readonly consultsService: ConsultsService,
@@ -40,31 +88,7 @@ export class GraphicsPageComponent implements OnInit {
     .subscribe(
       res => {
         this.patient = res;
-        this.consultsService.getValues(res!._id, 'masa', {startDate: new Date(2023,1,1), endDate: new Date(2024,1,1)})
-        .subscribe(
-          res => {
-            this.measures = res;
-            this.timeData.data = measures2PointsData(this.measures);
-            this.lineChartData = {
-              datasets: [
-                {
-                  data: this.measures.map((measure) => {return {x: this.newDateString(new Date(measure.date)), y: measure.value}}),
-                  label: 'Series A',
-                  backgroundColor: 'rgba(148,159,177,0.2)',
-                  borderColor: 'rgba(148,159,177,1)',
-                  pointBackgroundColor: 'rgba(148,159,177,1)',
-                  pointBorderColor: '#fff',
-                  pointHoverBackgroundColor: '#fff',
-                  pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-                  fill: 'origin',
-                }
-              ]
-            };
-          },
-          err => {
-            console.log(err);
-          }
-        );
+        this.loadGraphics();
       },
       err => {
         console.log(err);
@@ -74,70 +98,16 @@ export class GraphicsPageComponent implements OnInit {
     );
   }
 
-  test () {
-    this.timeData.data = [];
-    /*this.lineChartData = {
-      datasets: [
-        {
-          data: [],
-          label: 'Series A',
-          backgroundColor: 'rgba(148,159,177,0.2)',
-          borderColor: 'rgba(148,159,177,1)',
-          pointBackgroundColor: 'rgba(148,159,177,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-          fill: 'origin',
+  loadGraphics (): void {
+    const graphicsCpy = [...this.graphics];
+    graphicsCpy.forEach((graphic, i) => {
+      this.consultsService.getValues(this.patient!._id, graphic.key, {startDate: new Date(2023,1,1), endDate: new Date(2024,1,1)})
+      .subscribe(
+        res => {
+          this.graphics[i].timeData.data = measures2PointsData(res);
         }
-      ]
-    };*/
+      );
+    });
   }
-
-  newDate (days: number): Date {
-    return DateTime.now().plus({days}).toJSDate();
-  }
-
-  newDateString (date: Date): string | null {
-    return DateTime.fromJSDate(date).toISO();
-  }
-
-  lineChartData = {
-    datasets: [
-      {
-        data: this.measures.map((measure) => {return {x: this.newDateString(measure.date), y: measure.value}}),
-        label: 'Series A',
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
-      }
-    ]
-  };
-
-  lineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.5
-      }
-    },
-    scales: {
-      x: {
-        type: 'time',
-        time: {
-          tooltipFormat: 'DD T',
-          unit: 'day'
-        }
-      },
-    },
-
-    plugins: {
-      legend: { display: true }
-    }
-  };
-
-  lineChartType: ChartType = 'line';
 
 }

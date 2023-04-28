@@ -6,12 +6,14 @@ import { LoaderService } from '../../../../core/services/loader.service';
 import { RouterService } from '../../../../core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
 import { ViewPatientService } from '../../../../core/services/view-patient.service';
-import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartType } from 'chart.js';
 import 'chartjs-adapter-luxon';
 import { DateTime } from 'luxon';
 import { Measure } from '@core/interfaces/measure';
 import { ConsultsService } from '@core/services/consults.service';
+import { measures2PointsData, newTimeData } from '@shared/components/graphic/utils/graphic-utils';
+import { GraphicStructure } from '@modules/graphics/interfaces/graphic-structure.interface';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-graphics-page',
@@ -22,7 +24,59 @@ export class GraphicsPageComponent implements OnInit {
 
   patient: PatientModel | null = null;
 
-  measures: Array<Measure> = [];
+  timeData = newTimeData('prueba', []);
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
+
+  graphics: Array<GraphicStructure> = [
+    {
+      key: 'masa',
+      color: [148,159,177],
+      timeData: newTimeData('Masa [Kg]', [])
+    },
+    {
+      key: 'imc',
+      color: [255,110,110],
+      timeData: newTimeData('Índece de Masa Corporal (IMC) [Kg/m2]', [])
+    },
+    {
+      key: 'per_abdominal',
+      color: [255,251,110],
+      timeData: newTimeData('Perímetro Abdominal [cm]', [])
+    },
+    {
+      key: 'tension',
+      color: [100,255,0],
+      timeData: newTimeData('Tensión Arterial [mmHg]', [])
+    },
+    {
+      key: 'trigliceridos',
+      color: [0,209,255],
+      timeData: newTimeData('Triglicéridos Séricos', [])
+    },
+    {
+      key: 'hdl',
+      color: [208,0,255],
+      timeData: newTimeData('HDL - Colesterol', [])
+    },
+    {
+      key: 'ldl',
+      color: [255,174,0],
+      timeData: newTimeData('LDL - Colesterol', [])
+    },
+    {
+      key: 'hemoglobina',
+      color: [0,255,205],
+      timeData: newTimeData('Hemoglobina Glicosilada (hba1c)', [])
+    },
+    {
+      key: 'glucosa',
+      color: [50,50,50],
+      timeData: newTimeData('Glucosa en Plasma', [])
+    }
+  ];
 
   constructor(
     private readonly consultsService: ConsultsService,
@@ -39,33 +93,7 @@ export class GraphicsPageComponent implements OnInit {
     .subscribe(
       res => {
         this.patient = res;
-        this.consultsService.getValues(res!._id, 'masa', {startDate: new Date(2023,1,1), endDate: new Date(2024,1,1)})
-        .subscribe(
-          res => {
-            this.measures = res;
-            console.log(res);
-            this.lineChartData = {
-              datasets: [
-                {
-                  data: this.measures.map((measure) => {return {x: this.newDateString(new Date(measure.date)), y: measure.value}}),
-                  label: 'Series A',
-                  backgroundColor: 'rgba(148,159,177,0.2)',
-                  borderColor: 'rgba(148,159,177,1)',
-                  pointBackgroundColor: 'rgba(148,159,177,1)',
-                  pointBorderColor: '#fff',
-                  pointHoverBackgroundColor: '#fff',
-                  pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-                  fill: 'origin',
-                }
-              ]
-            };
-            this.chart?.update();
-            console.log(this.lineChartData);
-          },
-          err => {
-            console.log(err);
-          }
-        );
+        this.loadGraphics();
       },
       err => {
         console.log(err);
@@ -75,85 +103,16 @@ export class GraphicsPageComponent implements OnInit {
     );
   }
 
-  newDate (days: number): Date {
-    return DateTime.now().plus({days}).toJSDate();
-  }
-
-  newDateString (date: Date): string | null {
-    return DateTime.fromJSDate(date).toISO();
-  }
-
-  lineChartData = {
-    datasets: [
-      {
-        data: this.measures.map((measure) => {return {x: this.newDateString(measure.date), y: measure.value}}),
-        label: 'Series A',
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
-      }
-    ]
-  };
-
-  lineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.5
-      }
-    },
-    scales: {
-      x: {
-        type: 'time',
-        time: {
-          tooltipFormat: 'DD T',
-          unit: 'day'
+  loadGraphics (): void {
+    const graphicsCpy = [...this.graphics];
+    graphicsCpy.forEach((graphic, i) => {
+      this.consultsService.getValues(this.patient!._id, graphic.key, {startDate: new Date(2023,1,1), endDate: new Date(2024,1,1)})
+      .subscribe(
+        res => {
+          this.graphics[i].timeData.data = measures2PointsData(res);
         }
-      },
-      y: {
-        position: 'left'
-      },
-    },
-
-    plugins: {
-      legend: { display: true },
-      /*annotation: {
-        annotations: [
-          {
-            type: 'line',
-            scaleID: 'x',
-            value: 'March',
-            borderColor: 'orange',
-            borderWidth: 2,
-            label: {
-              display: true,
-              position: 'center',
-              color: 'orange',
-              content: 'LineAnno',
-              font: {
-                weight: 'bold'
-              }
-            }
-          },
-        ],
-      }*/
-    }
-  };
-
-  lineChartType: ChartType = 'line';
-
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
-  // events
-  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    //console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    //console.log(event, active);
+      );
+    });
   }
 
 }

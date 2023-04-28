@@ -30,6 +30,8 @@ import { RatingScrPipe } from './pipes/rating-scr.pipe';
 import { FoodBackgroundPipe } from './pipes/food-background.pipe';
 import { FoodIconPipe } from './pipes/food-icon.pipe';
 import { FoodSortPipe } from './pipes/food-sort.pipe';
+import { GraphicComponent } from './components/graphic/graphic.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -57,13 +59,15 @@ import { FoodSortPipe } from './pipes/food-sort.pipe';
     RatingScrPipe,
     FoodBackgroundPipe,
     FoodIconPipe,
-    FoodSortPipe
+    FoodSortPipe,
+    GraphicComponent
   ],
   imports: [
     CommonModule,
     MatModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
   ],
   exports: [
     ConfirmDialogComponent,
@@ -84,7 +88,8 @@ import { FoodSortPipe } from './pipes/food-sort.pipe';
     RatingScrPipe,
     FoodBackgroundPipe,
     FoodIconPipe,
-    FoodSortPipe
+    FoodSortPipe,
+    GraphicComponent
   ],
   providers: [
     SnackerService,

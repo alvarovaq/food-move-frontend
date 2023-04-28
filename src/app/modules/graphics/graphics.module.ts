@@ -7,6 +7,7 @@ import { GraphicsPageComponent } from './pages/graphics-page/graphics-page.compo
 import { SharedModule } from '../../shared/shared.module';
 import { MatModule } from '../../shared/modules/mat/mat.module';
 import { NgChartsModule } from 'ng2-charts';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,8 @@ import { NgChartsModule } from 'ng2-charts';
     CommonModule,
     GraphicsRoutingModule,
     MatModule,
+    FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     NgChartsModule
   ]

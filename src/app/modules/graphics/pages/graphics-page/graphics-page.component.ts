@@ -13,6 +13,7 @@ import { Measure } from '@core/interfaces/measure';
 import { ConsultsService } from '@core/services/consults.service';
 import { measures2PointsData, newTimeData } from '@shared/components/graphic/utils/graphic-utils';
 import { GraphicStructure } from '@modules/graphics/interfaces/graphic-structure.interface';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-graphics-page',
@@ -24,6 +25,10 @@ export class GraphicsPageComponent implements OnInit {
   patient: PatientModel | null = null;
 
   timeData = newTimeData('prueba', []);
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
   graphics: Array<GraphicStructure> = [
     {

@@ -196,7 +196,6 @@ export class AddEmployeePageComponent implements OnInit {
       name: this.name,
       surname: this.surname,
       email: this.email,
-      password: '123456789',
       phone: this.phone,
       admin: this.admin
     };

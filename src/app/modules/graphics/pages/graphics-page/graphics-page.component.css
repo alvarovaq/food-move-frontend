@@ -7,8 +7,28 @@
     margin-top: 20px;
 }
 
-.header__graphic {
+.box__dates {
+    background-color: white;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+.box__dates .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.box__dates .buttons button {
+    min-width: 120px;
 }
 
 .date__range {

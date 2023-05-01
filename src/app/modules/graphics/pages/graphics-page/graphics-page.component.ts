@@ -16,6 +16,7 @@ import { GraphicStructure } from '@modules/graphics/interfaces/graphic-structure
 import { FormControl, FormGroup } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { DateRange } from '@core/interfaces/date-range';
+import { OptionalPipe } from '@shared/pipes/optional.pipe';
 
 @Component({
   selector: 'app-graphics-page',
@@ -87,7 +88,8 @@ export class GraphicsPageComponent implements OnInit {
     private readonly routerService: RouterService,
     private readonly snackerService: SnackerService,
     private readonly loaderService: LoaderService,
-    private readonly viewPatientService: ViewPatientService
+    private readonly viewPatientService: ViewPatientService,
+    private readonly optionalPipe: OptionalPipe
   ) { }
 
   ngOnInit(): void {
@@ -107,21 +109,38 @@ export class GraphicsPageComponent implements OnInit {
 
   loadGraphics (): void {
     const graphicsCpy = [...this.graphics];
+    const dateRange = this.getDateRange();
     graphicsCpy.forEach((graphic, i) => {
-      this.consultsService.getValues(this.patient!._id, graphic.key, {startDate: new Date(2023,1,1), endDate: new Date(2024,1,1)})
+      this.consultsService.getValues(this.patient!._id, graphic.key, dateRange)
       .subscribe(
         res => {
           this.graphics[i].timeData.data = measures2PointsData(res);
+        },
+        err => {
+          console.log(err);
         }
       );
     });
   }
 
   getDateRange (): DateRange {
-    return {
+    const object = {
       startDate: this.range.value.start,
       endDate: this.range.value.end
-    }
+    };
+    return this.optionalPipe.transform(object);
+  }
+
+  setDateRange (): void {
+    this.loadGraphics();
+  }
+
+  resetDateRange (): void {
+    this.range = new FormGroup({
+      start: new FormControl<Date | null>(null),
+      end: new FormControl<Date | null>(null),
+    });
+    this.loadGraphics();
   }
 
 }

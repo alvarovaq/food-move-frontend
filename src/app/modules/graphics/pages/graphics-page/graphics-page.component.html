@@ -15,11 +15,10 @@
                         <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
                 </mat-form-field>
                 <div class="buttons">
-                        <button mat-flat-button color="primary">Establecer</button>
-                        <button mat-stroked-button color="primary">Resetear</button>
+                        <button mat-flat-button color="primary" (click)="setDateRange()">Establecer</button>
+                        <button mat-stroked-button color="primary" (click)="resetDateRange()">Resetear</button>
                 </div>
         </div>
-        <p>{{(range.value | json)}}</p>
         <div class="graphics">
                 <app-graphic [timeData]="graphic.timeData" [color]="graphic.color" class="graphic" *ngFor="let graphic of graphics"></app-graphic>
         </div>

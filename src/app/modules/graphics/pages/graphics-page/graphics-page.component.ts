@@ -121,6 +121,8 @@ export class GraphicsPageComponent implements OnInit {
     const dateRange = this.getDateRange();
     graphicsCpy.forEach((graphic, i) => {
       this.graphics[i].loading = true;
+    });
+    graphicsCpy.forEach((graphic, i) => {
       this.consultsService.getValues(this.patient!._id, graphic.key, dateRange)
       .pipe(finalize(() => this.graphics[i].loading = false))
       .subscribe(

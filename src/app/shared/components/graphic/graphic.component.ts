@@ -63,7 +63,7 @@ export class GraphicComponent implements OnInit {
         }
       },
     },
-
+    animation: false,
     plugins: {
       legend: { display: true }
     }

@@ -113,7 +113,7 @@
                         <div class="fake__icon"></div>
                         <mat-form-field class="input__field">
                             <mat-label>Glucosa en Plasma</mat-label>
-                            <input type="number" matInput autocomplete="off" formControlName="trigliceridos" tabindex="9">
+                            <input type="number" matInput autocomplete="off" formControlName="glucosa" tabindex="9">
                             <mat-error *ngIf="form.controls['glucosa'].hasError('min')">El valor no puede ser negativo</mat-error>
                         </mat-form-field>
                         <div class="fake__clear" *ngIf="!buttonClear.glucosa"></div>

@@ -37,16 +37,20 @@ export class ConsultsPageComponent implements OnInit {
 
   tableStructure: TableStructure[] = [
     {index: 1, field: 'created_at', header: 'Fecha', sort: true, type: ColumnType.DATE},
-    {index: 2, field: 'comments', header: 'Comentario', sort: false},
-    {index: 3, field: 'masa', header: 'Masa [Kg]', sort: true},
-    {index: 4, field: 'imc', header: 'IMC [Kg/m2]', sort: true},
-    {index: 5, field: 'per_abdominal', header: 'Perímetro abdominal [cm]', sort: true},
-    {index: 6, field: 'tension', header: 'Tensión Arterial [mmHg]', sort: true}
+    {index: 2, field: 'masa', header: 'Masa [Kg]', sort: true},
+    {index: 3, field: 'imc', header: 'IMC [Kg/m2]', sort: true},
+    {index: 4, field: 'per_abdominal', header: 'Perímetro abdominal [cm]', sort: true},
+    {index: 5, field: 'tension', header: 'Tensión Arterial [mmHg]', sort: true},
+    {index: 6, field: 'trigliceridos', header: 'Triglicéridos Séricos', sort: true},
+    {index: 7, field: 'hdl', header: 'HDL', sort: true},
+    {index: 8, field: 'ldl', header: 'LDL', sort: true},
+    {index: 9, field: 'hemoglobina', header: 'Hemoglobina', sort: true},
+    {index: 10, field: 'glucosa', header: 'Glucosa', sort: true}
   ];
-  indexDisplay: number = 6;
+  indexDisplay: number = 10;
 
   sortField: string = 'created_at';
-  sortDirection: string = 'asc';
+  sortDirection: string = 'desc';
 
   limit: number = DEFAULT_LIMIT;
   page: number = 0;
@@ -150,7 +154,7 @@ export class ConsultsPageComponent implements OnInit {
       .observe(['(min-width: 1101px)'])
       .subscribe(result => {
         if (result.matches) {
-          this.indexDisplay = 6;
+          this.indexDisplay = 10;
         }
       });
   }

@@ -27,6 +27,7 @@ export class ConsultsService {
   }
 
   createConsult (consult: ConsultRequestModel): Observable<ConsultModel> {
+    console.log(consult);
     return this.http.post<ConsultModel>(`${environment.api}/consults/create`, consult);
   }
 

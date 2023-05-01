@@ -14,6 +14,7 @@ import { ConsultsService } from '@core/services/consults.service';
 import { measures2PointsData, newTimeData } from '@shared/components/graphic/utils/graphic-utils';
 import { GraphicStructure } from '@modules/graphics/interfaces/graphic-structure.interface';
 import { FormControl, FormGroup } from '@angular/forms';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-graphics-page',

@@ -7,10 +7,19 @@
     margin-top: 20px;
 }
 
-.box__graphic {
-    padding: 10px;
-    max-width: 1300px;
-    width: 100%;
+.header__graphic {
+    margin-bottom: 20px;
+}
+
+.date__range {
+    width: 300px;
+}
+
+.date__range mat-datepicker-toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-75%);
 }
 
 .graphics {
@@ -21,4 +30,22 @@
     row-gap: 20px;
     justify-content: center;
     align-items: center;
+}
+
+.graphic {
+    min-width: 450px;
+}
+
+@media (max-width: 800px) {
+    .graphics {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .graphic {
+        width: 100%;
+        min-width: none;
+    }
 }

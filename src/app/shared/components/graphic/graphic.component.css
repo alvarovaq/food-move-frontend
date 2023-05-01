@@ -10,3 +10,13 @@
 .chart {
     width: 100%;
 }
+
+.notdata {
+    position: absolute;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}

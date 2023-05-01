@@ -7,13 +7,15 @@ import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from '../../shared/modules/mat/mat.module';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { RecoverPasswordComponent } from './pages/recover-password/recover-password.component';
 
 
 @NgModule({
   declarations: [
     AuthComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    RecoverPasswordComponent
   ],
   imports: [
     CommonModule,

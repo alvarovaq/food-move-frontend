@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import { RouterService } from '@core/services/router.service';
 import { SnackerService } from '@core/services/snacker.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
@@ -34,6 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPassword (): void {
     this.loading = true;
     this.authService.forgotPassword(this.email)
+    .pipe(finalize(() => this.loading = false))
     .subscribe(
       res => {
         this.snackerService.showSuccessful('Email enviado');

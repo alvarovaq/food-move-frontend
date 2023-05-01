@@ -100,8 +100,12 @@ export class AuthService {
         localStorage.setItem('email', email);
     }
 
-    forgotPassword (email: string): Observable<any> {
-        return this.http.get<any>(`${environment.api}/employees/forgotPassword/${email}`);
+    forgotPassword (email: string): Observable<boolean> {
+        return this.http.get<boolean>(`${environment.api}/employees/forgotPassword/${email}`);
+    }
+
+    recoverPassword (token: string, password: string): Observable<EmployeeModel> {
+        return this.http.post<EmployeeModel>(`${environment.api}/employees/recoverPassword`, {token, password});
     }
 
 }

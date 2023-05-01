@@ -61,7 +61,7 @@ export class FoodsPageComponent implements OnInit {
   }
 
   changeDateRange (nWeeks: number): void {
-    const date = addDay(this.dateRange.startDate, 7 * nWeeks);
+    const date = addDay(this.dateRange.startDate!, 7 * nWeeks);
     this.dateRange = getDateRange(date);
     this.loadFoods();
   }
@@ -85,7 +85,7 @@ export class FoodsPageComponent implements OnInit {
       this.days[i].items = foods.filter(foodItem => {
         return getDay(foodItem.date) - 1 == i;
       });
-      this.days[i].date = addDay(this.dateRange.startDate, i);
+      this.days[i].date = addDay(this.dateRange.startDate!, i);
     });
   }
 
@@ -131,7 +131,7 @@ export class FoodsPageComponent implements OnInit {
         if (res) {
           const diet = res as DietModel;
           this.loaderService.isLoading.next(true);
-          this.foodsService.importDiet(diet._id, this.patient!._id, this.dateRange.startDate)
+          this.foodsService.importDiet(diet._id, this.patient!._id, this.dateRange.startDate!)
           .pipe(finalize(() => this.loaderService.isLoading.next(false)))
           .subscribe(
             res => {

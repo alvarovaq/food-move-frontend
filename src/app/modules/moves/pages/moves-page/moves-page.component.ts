@@ -57,7 +57,7 @@ export class MovesPageComponent implements OnInit {
   }
 
   changeDateRange (nWeeks: number): void {
-    const date = addDay(this.dateRange.startDate, 7 * nWeeks);
+    const date = addDay(this.dateRange.startDate!, 7 * nWeeks);
     this.dateRange = getDateRange(date);
     this.loadMoves();
   }
@@ -72,7 +72,7 @@ export class MovesPageComponent implements OnInit {
           this.days[i].items = res.filter(moveItem => {
             return getDay(moveItem.date) - 1 == i;
           });
-          this.days[i].date = addDay(this.dateRange.startDate, i);
+          this.days[i].date = addDay(this.dateRange.startDate!, i);
         });
       },
       err => {

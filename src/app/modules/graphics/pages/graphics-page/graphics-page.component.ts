@@ -15,6 +15,7 @@ import { measures2PointsData, newTimeData } from '@shared/components/graphic/uti
 import { GraphicStructure } from '@modules/graphics/interfaces/graphic-structure.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { finalize } from 'rxjs';
+import { DateRange } from '@core/interfaces/date-range';
 
 @Component({
   selector: 'app-graphics-page',
@@ -114,6 +115,13 @@ export class GraphicsPageComponent implements OnInit {
         }
       );
     });
+  }
+
+  getDateRange (): DateRange {
+    return {
+      startDate: this.range.value.start,
+      endDate: this.range.value.end
+    }
   }
 
 }

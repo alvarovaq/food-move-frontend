@@ -19,6 +19,7 @@
                         <button mat-stroked-button color="primary">Resetear</button>
                 </div>
         </div>
+        <p>{{(range.value | json)}}</p>
         <div class="graphics">
                 <app-graphic [timeData]="graphic.timeData" [color]="graphic.color" class="graphic" *ngFor="let graphic of graphics"></app-graphic>
         </div>

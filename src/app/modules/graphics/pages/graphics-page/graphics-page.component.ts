@@ -37,47 +37,56 @@ export class GraphicsPageComponent implements OnInit {
     {
       key: 'masa',
       color: [148,159,177],
-      timeData: newTimeData('Masa [Kg]', [])
+      timeData: newTimeData('Masa [Kg]', []),
+      loading: false
     },
     {
       key: 'imc',
       color: [255,110,110],
-      timeData: newTimeData('Índece de Masa Corporal (IMC) [Kg/m2]', [])
+      timeData: newTimeData('Índece de Masa Corporal (IMC) [Kg/m2]', []),
+      loading: false
     },
     {
       key: 'per_abdominal',
       color: [255,251,110],
-      timeData: newTimeData('Perímetro Abdominal [cm]', [])
+      timeData: newTimeData('Perímetro Abdominal [cm]', []),
+      loading: false
     },
     {
       key: 'tension',
       color: [100,255,0],
-      timeData: newTimeData('Tensión Arterial [mmHg]', [])
+      timeData: newTimeData('Tensión Arterial [mmHg]', []),
+      loading: false
     },
     {
       key: 'trigliceridos',
       color: [0,209,255],
-      timeData: newTimeData('Triglicéridos Séricos', [])
+      timeData: newTimeData('Triglicéridos Séricos', []),
+      loading: false
     },
     {
       key: 'hdl',
       color: [208,0,255],
-      timeData: newTimeData('HDL - Colesterol', [])
+      timeData: newTimeData('HDL - Colesterol', []),
+      loading: false
     },
     {
       key: 'ldl',
       color: [255,174,0],
-      timeData: newTimeData('LDL - Colesterol', [])
+      timeData: newTimeData('LDL - Colesterol', []),
+      loading: false
     },
     {
       key: 'hemoglobina',
       color: [0,255,205],
-      timeData: newTimeData('Hemoglobina Glicosilada (hba1c)', [])
+      timeData: newTimeData('Hemoglobina Glicosilada (hba1c)', []),
+      loading: false
     },
     {
       key: 'glucosa',
       color: [50,50,50],
-      timeData: newTimeData('Glucosa en Plasma', [])
+      timeData: newTimeData('Glucosa en Plasma', []),
+      loading: false
     }
   ];
 
@@ -111,7 +120,9 @@ export class GraphicsPageComponent implements OnInit {
     const graphicsCpy = [...this.graphics];
     const dateRange = this.getDateRange();
     graphicsCpy.forEach((graphic, i) => {
+      this.graphics[i].loading = true;
       this.consultsService.getValues(this.patient!._id, graphic.key, dateRange)
+      .pipe(finalize(() => this.graphics[i].loading = false))
       .subscribe(
         res => {
           this.graphics[i].timeData.data = measures2PointsData(res);

@@ -5,4 +5,5 @@ export interface GraphicStructure {
     key: string;
     color: GraphicColor;
     timeData: TimeData;
+    loading: boolean;
 }

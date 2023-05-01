@@ -100,4 +100,8 @@ export class AuthService {
         localStorage.setItem('email', email);
     }
 
+    forgotPassword (email: string): Observable<any> {
+        return this.http.get<any>(`${environment.api}/employees/forgotPassword/${email}`);
+    }
+
 }

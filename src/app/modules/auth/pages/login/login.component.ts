@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
-    private readonly snacker: SnackerService,
+    private readonly snackerService: SnackerService,
     private readonly routerService: RouterService,
     private readonly employeesService: EmployeesService
   ) {}
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         console.log(err);
-        this.snacker.showError(err.error.message);
+        this.snackerService.showError(err.error.message);
       }
     );
   }
@@ -62,6 +62,10 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password
     };
+  }
+
+  forgotPassword (): void {
+    this.routerService.goToForgotPassword();
   }
 
 }

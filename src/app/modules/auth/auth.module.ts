@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthComponent } from './auth.component';
 import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '@core/services/auth.service';
-import { SnackerService } from '@core/services/snacker.service';
 import { MatModule } from '../../shared/modules/mat/mat.module';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 
 @NgModule({
   declarations: [
     AuthComponent,
     LoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,

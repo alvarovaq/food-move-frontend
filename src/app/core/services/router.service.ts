@@ -15,6 +15,10 @@ export class RouterService {
     await this.router.navigate(['auth']);
   }
 
+  async goToForgotPassword (): Promise<void> {
+    await this.router.navigate(['auth/forgotPassword']);
+  }
+
   async goToHome(): Promise<void> {
     await this.goToPatients();
   }

@@ -82,4 +82,8 @@ export class PatientsService {
     return this.http.delete<PatientModel>(`${environment.api}/patients/remove-profile-image/${id}`);
   }
 
+  generateRandomPassword (): Observable<{password: string}> {
+    return this.http.get<{password: string}>(`${environment.api}/patients/randomPassword`);
+  }
+
 }

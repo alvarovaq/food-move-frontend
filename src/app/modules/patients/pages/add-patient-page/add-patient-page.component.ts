@@ -32,7 +32,8 @@ export class AddPatientPageComponent implements OnInit {
     email: false,
     phone: false,
     birth: false,
-    height: false
+    height: false,
+    password: false
   }
 
   imageFile?: string = "";
@@ -95,7 +96,8 @@ export class AddPatientPageComponent implements OnInit {
       phone: [this.edit ? this.patient!.phone : null, [Validators.required]],
       birth: [this.edit ? this.patient!.birth ? this.datePipe.transform(this.patient!.birth, 'dd/MM/YYYY') : null : null, birthDateValidator()],
       height: [this.edit ? this.patient!.height : null],
-      employee: [this.edit ? this.patient!.employee : this.user?._id]
+      employee: [this.edit ? this.patient!.employee : this.user?._id],
+      password: [this.edit ? this.patient!.password : null]
     });
   }
 
@@ -127,6 +129,10 @@ export class AddPatientPageComponent implements OnInit {
     return this.form.value.height;
   }
 
+  get password (): string | null {
+    return this.form.value.password;
+  }
+
   get employee (): string {
     return this.form.value.employee;
   }
@@ -134,6 +140,20 @@ export class AddPatientPageComponent implements OnInit {
   clearField (field: string): void {
     this.form.value[field] = null;
     this.form.reset(this.form.value);
+  }
+
+  addRandomPassword (): void {
+    this.patientsService.generateRandomPassword()
+    .subscribe(
+      res => {
+        console.log(res);
+        this.form.value.password = res.password;
+        this.form.reset(this.form.value);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   exit(): void {
@@ -230,7 +250,7 @@ export class AddPatientPageComponent implements OnInit {
       name: this.name,
       surname: this.surname,
       email: this.email,
-      password: '123456789',
+      password: this.password,
       phone: this.phone,
       birth: this.birth,
       height: this.height,

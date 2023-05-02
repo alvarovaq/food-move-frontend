@@ -68,7 +68,7 @@
                         <mat-icon mat-list-icon class="input__icon">straighten</mat-icon>
                         <mat-form-field class="input__field">
                             <mat-label>Altura (cm)</mat-label>
-                            <input type="number" matInput autocomplete="off" formControlName="height" tabindex="4">
+                            <input type="number" matInput autocomplete="off" formControlName="height" tabindex="5">
                         </mat-form-field>
                         <div class="fake__clear" *ngIf="!buttonClear.height"></div>
                         <button type="button" mat-icon-button *ngIf="buttonClear.height" (click)="clearField('height')" class="btn__clear">
@@ -79,13 +79,24 @@
                         <mat-icon mat-list-icon class="input__icon">cake</mat-icon>
                         <mat-form-field hintLabel="dd/mm/yyyy" class="input__field">
                             <mat-label>Fecha de nacimiento</mat-label>
-                            <input type="text" matInput autocomplete="off" formControlName="birth" tabindex="5">
+                            <input type="text" matInput autocomplete="off" formControlName="birth" tabindex="6">
                             <mat-error *ngIf="form.controls['birth'].hasError('dateInvalid')">La fecha no es válida</mat-error>
                         </mat-form-field>
                         <div class="fake__clear" *ngIf="!buttonClear.birth"></div>
                         <button type="button" mat-icon-button *ngIf="buttonClear.birth" (click)="clearField('birth')" class="btn__clear">
                             <mat-icon mat-list-icon>clear</mat-icon>
                         </button>
+                    </div>
+                    <div class="form__input" (mouseenter)="buttonClear.password = true" (mouseleave)="buttonClear.password = false">
+                        <mat-icon mat-list-icon class="input__icon">password</mat-icon>
+                        <mat-form-field class="input__field">
+                            <mat-label>Contraseña</mat-label>
+                            <input type="text" matInput autocomplete="off" formControlName="password" tabindex="7">
+                        </mat-form-field>
+                        <button type="button" mat-icon-button matTooltip="Generar contraseña aleatoria" class="btn__clear" (click)="addRandomPassword()">
+                            <mat-icon mat-list-icon>shuffle</mat-icon>
+                        </button>
+                        
                     </div>
                 </div>
             </div>

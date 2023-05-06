@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'https://109.234.71.9/api'
+  api: 'https://foodandmove.app.bluece.eu/api'
 };

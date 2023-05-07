@@ -23,6 +23,7 @@ import { IngredientStructure } from '@shared/components/ingredients-input/interf
 import { AttachmentModel } from '@core/models/attachment.model';
 import { AttachmentsService } from '@core/services/attachments.service';
 import { VideoStructure } from '@shared/components/videos-input/interfaces/video-structure';
+import { getDateUTC } from '@core/utils/date-utils';
 
 @Component({
   selector: 'app-add-food-page',
@@ -74,7 +75,7 @@ export class AddFoodPageComponent implements OnInit {
       res => {
         this.patient = res;
         const params = this.activatedRoute.snapshot.params;
-        if (params["date"]) this.date = new Date(params["date"]);
+        if (params["date"]) this.date = getDateUTC(new Date(params["date"]));
         if (params["id"]) {
           this.edit = true;
           this.loaderService.isLoading.next(true);

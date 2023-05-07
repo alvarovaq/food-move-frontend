@@ -13,6 +13,7 @@ import { PatientModel } from '@core/models/patient.model';
 import { ConsultRequestModel } from '../../../../core/models/consult-request.model';
 import { OptionalPipe } from '../../../../shared/pipes/optional.pipe';
 import { ViewPatientService } from '../../../../core/services/view-patient.service';
+import { getDateUTC } from '@core/utils/date-utils';
 
 @Component({
   selector: 'app-add-consult-page',
@@ -26,7 +27,7 @@ export class AddConsultPageComponent implements OnInit {
   patient: PatientModel | null = null;
   consult: ConsultModel | null = null;
 
-  created_at: Date = new Date();
+  created_at: Date = getDateUTC(new Date());
   
   buttonClear = {
     masa: false,

@@ -1,18 +1,23 @@
 import { DateRange } from "@core/interfaces/date-range";
 
 export function addDay (date: Date, days: number): Date {
-    const cpy_date = new Date(date);
-    return new Date(cpy_date.setDate(cpy_date.getDate() + days));
+    const dateUTC = getDateUTC(date);
+    return new Date(dateUTC.setDate(dateUTC.getDate() + days));
 }
 
 export function getDay (date: Date): number {
-    const day = date.getDay();
+    const day = getDateUTC(date).getDay();
     return day == 0 ? 7 : day;
 }
 
 export function getDateRange (date: Date): DateRange {
+    const dateUTC = getDateUTC(date);
     return {
-      startDate: addDay(date, -1 * getDay(date) + 1),
-      endDate: addDay(date, 7 - getDay(date))
+      startDate: addDay(dateUTC, -1 * getDay(dateUTC) + 1),
+      endDate: addDay(dateUTC, 7 - getDay(dateUTC))
     }
+}
+
+export function getDateUTC (date: Date): Date {
+    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
 }

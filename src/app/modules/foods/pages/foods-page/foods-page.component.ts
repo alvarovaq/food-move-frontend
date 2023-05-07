@@ -17,7 +17,7 @@ import { ImportType } from '@shared/components/import-dialog/enums/import-type';
 import { ImportDialogComponent } from '@shared/components/import-dialog/import-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DietModel } from '../../../../core/models/diet';
-import { addDay, getDateRange, getDay } from '@core/utils/date-utils';
+import { addDay, getDateRange, getDateUTC, getDay } from '@core/utils/date-utils';
 
 @Component({
   selector: 'app-foods-page',
@@ -131,8 +131,7 @@ export class FoodsPageComponent implements OnInit {
         if (res) {
           const diet = res as DietModel;
           this.loaderService.isLoading.next(true);
-          const startDate = this.dateRange.startDate!;
-          this.foodsService.importDiet(diet._id, this.patient!._id, new Date(Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())))
+          this.foodsService.importDiet(diet._id, this.patient!._id, getDateUTC(this.dateRange.startDate!))
           .pipe(finalize(() => this.loaderService.isLoading.next(false)))
           .subscribe(
             res => {

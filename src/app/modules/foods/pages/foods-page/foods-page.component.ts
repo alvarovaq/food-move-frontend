@@ -131,7 +131,8 @@ export class FoodsPageComponent implements OnInit {
         if (res) {
           const diet = res as DietModel;
           this.loaderService.isLoading.next(true);
-          this.foodsService.importDiet(diet._id, this.patient!._id, this.dateRange.startDate!)
+          const startDate = this.dateRange.startDate!;
+          this.foodsService.importDiet(diet._id, this.patient!._id, new Date(Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())))
           .pipe(finalize(() => this.loaderService.isLoading.next(false)))
           .subscribe(
             res => {

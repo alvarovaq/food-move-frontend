@@ -19,8 +19,7 @@ export class AuthService {
     constructor (
         private readonly http: HttpClient,
         private readonly routerService: RouterService,
-        private readonly employeesService: EmployeesService,
-        private readonly location: Location
+        private readonly employeesService: EmployeesService
     ) {}
 
     getNewToken (user: AuthRequestModel): Observable<AuthResponseModel> {
@@ -102,8 +101,8 @@ export class AuthService {
     }
 
     forgotPassword (email: string): Observable<boolean> {
-        const urlbase: string = this.location.protocol + "//" + this.location.hostname + "/";
-        return this.http.get<boolean>(`${environment.api}/employees/forgotPassword/${email}/${urlbase}`);
+        const url: string = window.location.origin + "/";
+        return this.http.post<boolean>(`${environment.api}/employees/forgotPassword/${email}`, {url});
     }
 
     recoverPassword (token: string, password: string): Observable<EmployeeModel> {
